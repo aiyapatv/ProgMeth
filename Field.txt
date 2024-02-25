@@ -1,0 +1,66 @@
+Player Field:
+Level
+Exp
+Hp
+Resistance
+MagicResistance
+AttackPower
+MagicPower
+int[] posXYZ
+moveRange
+int[] MAX_HP
+MAX_LEVEL
+helmetSlot
+suitSlot
+bootsSlot
+accessorySlot
+weaponSlot
+Array_List Inventory
+
+Monster Field:
+Level
+Hp
+Resistance
+MagicResistance
+AttackPower
+MagicPower
+int[] MAX_HP
+int[] posXYZ
+
+MonsterType :
+Boss
+isAngry(condition HP)
+turnBeforeSpecialAttack
+
+Item :
+
+Name
+
+	Consumable:
+		StrengthPotion
+		HealingPotion
+		MagicPotion
+		ResistancePotion
+		MagicResistancePotion
+		GodPotion
+	
+Consumable Field:
+[]attbuff
+[]magicbuff
+[]resisbuff
+[]magicresisbuff
+[]hpbuff
+
+abstract status(
+Hp
+Resistance
+MagicResistance
+AttackPower
+MagicPower
+)
+
+
+
+	
+
+
