@@ -1,7 +1,6 @@
 package Scenes;
 
-import Board.HexagonTile;
-import Utils.DownloadImage;
+import Utils.Download;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -12,8 +11,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 //import main.MusicController;
 
@@ -30,7 +27,7 @@ public class StartScene extends Scene {
         root.setHgap(50);
 
         //Background
-        BackgroundImage setBackground = new BackgroundImage(DownloadImage.loadImage("background/Map.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800, 600,false,false, false,false));
+        BackgroundImage setBackground = new BackgroundImage(Download.loadImage("background/Map.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800, 600,false,false, false,false));
         Background startSceneBackground = new Background(setBackground);
         root.setBackground(startSceneBackground);
 
@@ -58,7 +55,7 @@ public class StartScene extends Scene {
         });
 
         //logo
-        ImageView logoImageView = new ImageView(DownloadImage.loadImage("element/characterB.png"));
+        ImageView logoImageView = new ImageView(Download.loadImage("element/characterB.png"));
         logoImageView.setFitHeight(150);
         logoImageView.setFitWidth(300);
 
@@ -72,8 +69,7 @@ public class StartScene extends Scene {
     }
     private static Button createButton(String string, String imagePath, int FontSize) {
         Button button = new Button(string);
-        InputStream is = StartScene.class.getResourceAsStream("/font/Pixeboy-z8XGD.ttf");
-        Font buttonFont = Font.loadFont(is, FontSize);
+        Font buttonFont = Download.loadFont("font/Pixeboy-z8XGD.ttf", FontSize);
         button.setFont(buttonFont);
         button.setOnMouseEntered(event -> {
             button.setCursor(Cursor.HAND);

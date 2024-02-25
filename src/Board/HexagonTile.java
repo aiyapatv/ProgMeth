@@ -1,18 +1,10 @@
 package Board;
 
-import Utils.DownloadImage;
-import javafx.application.Platform;
-import javafx.scene.Node;
+import Utils.Download;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 
 public class HexagonTile extends StackPane {
     private int number;
@@ -25,7 +17,7 @@ public class HexagonTile extends StackPane {
     }
 
     public void createHexagon(String image){
-        ImageView hexagonImage = new ImageView(DownloadImage.loadImage(image));
+        ImageView hexagonImage = new ImageView(Download.loadImage(image));
         hexagonImage.setFitWidth(50);
         hexagonImage.setFitHeight(50);
         getChildren().add(hexagonImage);

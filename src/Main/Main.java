@@ -13,6 +13,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setResizable(false);
         stage.setTitle("Game");
         Scene sceneStart = new StartScene(stage);
         stage.setScene(sceneStart);

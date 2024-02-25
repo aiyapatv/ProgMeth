@@ -1,9 +1,6 @@
 package Board;
 
-import Utils.DownloadImage;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 public class HexagonBoard extends AnchorPane {
     private static HexagonBoard instance;
