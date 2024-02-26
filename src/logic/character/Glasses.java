@@ -1,6 +1,6 @@
 package logic.character;
 
-import utils.Config;
+import Utils.Config;
 
 public class Glasses extends BaseCharacter{
     public Glasses() {

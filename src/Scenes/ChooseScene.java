@@ -7,10 +7,9 @@ import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.Glow;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -37,7 +36,7 @@ public class ChooseScene extends Scene {
 
     private static GridPane createChooseScene(Stage stage){
         root = new GridPane(10,10);
-        root.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, null, null)));
+        root.setBackground(new Background(new BackgroundFill(Color.DARKSLATEBLUE, null, null)));
         root.setPadding(new Insets(10));
         root.setGridLinesVisible(true);
         ColumnConstraints c1 = new ColumnConstraints();
@@ -50,6 +49,10 @@ public class ChooseScene extends Scene {
         initializeHeader();
         initializePreviewChar();
         initializeCharTable();
+
+        Button btnPlayGame = createButton("PLAY>>>", "element/shortBox.png",25);
+        root.add(btnPlayGame,1,5);
+
         return root;
     }
     private static void initializeCharTable(){
@@ -58,7 +61,7 @@ public class ChooseScene extends Scene {
         for(int i = 0;i < 9; i++){
             final int num = i + 1;
             StackPane stack = new StackPane();
-            Rectangle block = new Rectangle(100,100,Color.LIGHTBLUE);
+            Rectangle block = new Rectangle(100,100,Color.LIGHTYELLOW);
             ImageView imageView = Images.setImageViewSize(Download.loadImage("character/c"+ num +".png"), 100, 100);
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
@@ -89,6 +92,7 @@ public class ChooseScene extends Scene {
 
     private static void initializeHeader(){
         Text header = new Text("Select Character");
+        header.setFill(Color.WHITESMOKE);
         header.setFont(Download.loadFont("font/pixeboyFont.ttf", 50));
         root.add(header, 0, 0, 2, 1);
     }
@@ -123,5 +127,22 @@ public class ChooseScene extends Scene {
             }
         });
         charMoving.start();
+    }
+
+    private static Button createButton(String string, String imagePath, int FontSize) {
+        Button button = new Button(string);
+        Font buttonFont = Download.loadFont("font/pixeboyFont.ttf", FontSize);
+        button.setFont(buttonFont);
+        button.setOnMouseEntered(event -> {
+            button.setCursor(Cursor.HAND);
+        });
+        button.setOnMouseExited(event -> {
+            button.setCursor(Cursor.DEFAULT);
+        });
+        button.setAlignment(Pos.CENTER);
+        button.setPrefWidth(180);
+        button.setPrefHeight(35);
+        button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: cover;");
+        return button;
     }
 }

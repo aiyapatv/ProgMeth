@@ -1,6 +1,6 @@
 package logic.character;
 
-import utils.Config;
+import Utils.Config;
 
 public class Detective extends BaseCharacter{
     public Detective() {
