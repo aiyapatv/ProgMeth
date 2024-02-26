@@ -2,6 +2,7 @@ package Scenes;
 
 import Utils.Download;
 import Utils.FrameRate;
+import Utils.Images;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,13 +26,9 @@ public class LoadingScene extends Scene {
         root.setSpacing(10);
         new Thread(() -> {
             FrameRate frameRate = new FrameRate(500);
+            ImageView image1 = Images.setImageViewSize(Download.loadImage("element/813.png"),50,50);
+            ImageView image2 = Images.setImageViewSize(Download.loadImage("element/913.png"),50,50);
             while (!isStart) {
-                ImageView image1 = new ImageView(Download.loadImage("element/813.png"));
-                ImageView image2 = new ImageView(Download.loadImage("element/913.png"));
-                image1.setFitHeight(50);
-                image1.setFitWidth(50);
-                image2.setFitHeight(50);
-                image2.setFitWidth(50);
                 Platform.runLater(() -> {
                     root.getChildren().clear();
                     int frame = frameRate.getFrame();
@@ -48,7 +45,7 @@ public class LoadingScene extends Scene {
     private static Text createLoadingText(int dotNum){
         Text text = new Text();
         text.setText("Loading" + ".".repeat(dotNum));
-        text.setFont(Download.loadFont("font/Pixeboy-z8XGD.ttf", 30));
+        text.setFont(Download.loadFont("font/pixeboyFont.ttf", 30));
         return text;
     }
 
@@ -60,5 +57,16 @@ public class LoadingScene extends Scene {
                 isStart = true;
             });
         }).start();
+    }
+    public static void setRoot(VBox root) {
+        LoadingScene.root = root;
+    }
+
+    public static boolean isIsStart() {
+        return isStart;
+    }
+
+    public static void setIsStart(boolean isStart) {
+        LoadingScene.isStart = isStart;
     }
 }

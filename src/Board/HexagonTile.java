@@ -1,6 +1,8 @@
 package Board;
 
 import Utils.Download;
+import Utils.Images;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
@@ -10,20 +12,18 @@ public class HexagonTile extends StackPane {
     private int number;
     private boolean isWalked;
 
-    public HexagonTile(int number, boolean isWalked, String image){
+    public HexagonTile(int number, boolean isWalked, String image, int size){
         setNumber(number);
         setIsWalked(false);
-        createHexagon(image);
+        createHexagon(image, size);
     }
 
-    public void createHexagon(String image){
-        ImageView hexagonImage = new ImageView(Download.loadImage(image));
-        hexagonImage.setFitWidth(50);
-        hexagonImage.setFitHeight(50);
+    public void createHexagon(String image, int size){
+        ImageView hexagonImage = Images.setImageViewSize(Download.loadImage(image), size, size);
         getChildren().add(hexagonImage);
         getChildren().add(new Label(Integer.toString(number)));
         setOnMouseEntered(mouseEvent -> {
-            hexagonImage.setEffect(new Glow(500));
+            hexagonImage.setEffect(new Glow(0.5));
         });
         setOnMouseExited(mouseEvent -> {
             hexagonImage.setEffect(null);

@@ -10,5 +10,4 @@ public class Base_Monster extends Monster {
    public void attack(Monster m) {
        //to do//
     }
-
 }

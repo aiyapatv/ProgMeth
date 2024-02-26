@@ -10,8 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
-
-import java.io.InputStream;
 //import main.MusicController;
 
 public class StartScene extends Scene {
@@ -34,7 +32,8 @@ public class StartScene extends Scene {
         //Start new game
         Button btnNewGame = createButton("New Game", "element/shortBox.png",25);
         btnNewGame.setOnMouseClicked(event -> {
-            stage.setScene(new LoadingScene(stage));
+            stage.setScene(new ChooseScene(stage));
+//            stage.setScene(new LoadingScene(stage));
         });
 
         //Start save game
@@ -67,9 +66,13 @@ public class StartScene extends Scene {
         root.setAlignment(Pos.BASELINE_LEFT);
         return root;
     }
+
+    private static Background createBackground(){
+        return new Background((BackgroundFill) null);
+    }
     private static Button createButton(String string, String imagePath, int FontSize) {
         Button button = new Button(string);
-        Font buttonFont = Download.loadFont("font/Pixeboy-z8XGD.ttf", FontSize);
+        Font buttonFont = Download.loadFont("font/pixeboyFont.ttf", FontSize);
         button.setFont(buttonFont);
         button.setOnMouseEntered(event -> {
             button.setCursor(Cursor.HAND);
