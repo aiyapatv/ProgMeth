@@ -1,25 +1,29 @@
 package Board;
 
+import javafx.application.Platform;
+import javafx.scene.CacheHint;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class HexagonBoard extends AnchorPane {
     private static HexagonBoard instance;
+    private static final int HEXAGONSIZE = 94;
 
     public HexagonBoard(){
 
-        for(int i = 22;i >= 0;i--) {
-            if(i%2 == 1) {
-                for (int l = 0; l <= 10; l++) {
-                    HexagonTile tile = new HexagonTile((int) ((i-1)*10.5)+10+l,false, "element/test3.png");
-                    AnchorPane.setTopAnchor(tile, i * 25.0);
-                    AnchorPane.setLeftAnchor(tile, l * 37.5 * 2);
+        for(int i = 13;i >= -1;i--) {
+            if(i%2 == 1 || i == -1) {
+                for (int l = -1; l <= 6; l++) {
+                    HexagonTile tile = new HexagonTile((i * 6) + l,false, "element/test3.png", HEXAGONSIZE);
+                    AnchorPane.setTopAnchor(tile, i * HEXAGONSIZE / 2.0);
+                    AnchorPane.setLeftAnchor(tile, l * HEXAGONSIZE * 3 / 2.0);
                     getChildren().add(tile);
                 }
             }else{
-                for (int l = 0; l < 10; l++) {
-                    HexagonTile tile = new HexagonTile((int) (i*10.5)+l, false, "element/test3.png");
-                    AnchorPane.setTopAnchor(tile, i * 25.0);
-                    AnchorPane.setLeftAnchor(tile, 37.5 + l * 37.5 * 2);
+                for (int l = -1; l < 6; l++) {
+                    HexagonTile tile = new HexagonTile((i * 5) + l, false, "element/test3.png", HEXAGONSIZE);
+                    AnchorPane.setTopAnchor(tile, i * HEXAGONSIZE / 2.0);
+                    AnchorPane.setLeftAnchor(tile, HEXAGONSIZE * 3 / 4 + l * HEXAGONSIZE * 3 / 2.0);
                     getChildren().add(tile);
                 }
             }

@@ -3,6 +3,7 @@ package Main;
 import Utils.FrameRate;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
 import Scenes.StartScene;
 
