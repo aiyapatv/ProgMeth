@@ -1,8 +1,7 @@
 package Board;
 
-import Utils.Download;
+import Utils.ToolKit;
 import Utils.Images;
-import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
@@ -19,7 +18,7 @@ public class HexagonTile extends StackPane {
     }
 
     public void createHexagon(String image, int size){
-        ImageView hexagonImage = Images.setImageViewSize(Download.loadImage(image), size, size);
+        ImageView hexagonImage = Images.setImageViewSize(ToolKit.loadImage(image), size, size);
         getChildren().add(hexagonImage);
         getChildren().add(new Label(Integer.toString(number)));
         setOnMouseEntered(mouseEvent -> {

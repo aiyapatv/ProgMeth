@@ -1,6 +1,6 @@
 package Scenes;
 
-import Utils.Download;
+import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
 import javafx.application.Platform;
@@ -26,8 +26,8 @@ public class LoadingScene extends Scene {
         root.setSpacing(10);
         new Thread(() -> {
             FrameRate frameRate = new FrameRate(500);
-            ImageView image1 = Images.setImageViewSize(Download.loadImage("element/813.png"),50,50);
-            ImageView image2 = Images.setImageViewSize(Download.loadImage("element/913.png"),50,50);
+            ImageView image1 = Images.setImageViewSize(ToolKit.loadImage("character/c1_3.png"),50,50);
+            ImageView image2 = Images.setImageViewSize(ToolKit.loadImage("character/c1_4.png"),50,50);
             while (!isStart) {
                 Platform.runLater(() -> {
                     root.getChildren().clear();
@@ -38,6 +38,11 @@ public class LoadingScene extends Scene {
                         root.getChildren().addAll(image2, createLoadingText(frame));
                     }
                 });
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }).start();
     }
@@ -45,7 +50,7 @@ public class LoadingScene extends Scene {
     private static Text createLoadingText(int dotNum){
         Text text = new Text();
         text.setText("Loading" + ".".repeat(dotNum));
-        text.setFont(Download.loadFont("font/pixeboyFont.ttf", 30));
+        text.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 30));
         return text;
     }
 
