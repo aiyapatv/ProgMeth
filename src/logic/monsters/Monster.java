@@ -1,4 +1,4 @@
-package Monsters;
+package logic.monsters;
 
 public abstract class Monster {
     private int maxHP;

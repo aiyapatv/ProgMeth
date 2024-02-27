@@ -1,4 +1,4 @@
-package Monsters;
+package logic.monsters;
 
 public class Boss_Monster extends Monster {
 
