@@ -10,7 +10,6 @@ public class HexagonBoard extends AnchorPane {
     private static final int HEXAGONSIZE = 94;
 
     public HexagonBoard(){
-
         for(int i = 13;i >= -1;i--) {
             if(i%2 == 1 || i == -1) {
                 for (int l = -1; l <= 6; l++) {
