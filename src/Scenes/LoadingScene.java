@@ -26,8 +26,9 @@ public class LoadingScene extends Scene {
         root.setSpacing(10);
         new Thread(() -> {
             FrameRate frameRate = new FrameRate(500);
-            ImageView image1 = Images.setImageViewSize(ToolKit.loadImage("character/c1_3.png"),50,50);
-            ImageView image2 = Images.setImageViewSize(ToolKit.loadImage("character/c1_4.png"),50,50);
+            int num = ChooseScene.getNumber();
+            ImageView image1 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_3.png"),50,50);
+            ImageView image2 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_4.png"),50,50);
             while (!isStart) {
                 Platform.runLater(() -> {
                     root.getChildren().clear();
