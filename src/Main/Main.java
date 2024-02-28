@@ -1,6 +1,7 @@
 package Main;
 
 import Utils.FrameRate;
+import Utils.ToolKit;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -14,6 +15,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.getIcons().add(ToolKit.loadImage("element/Logo.jpg"));
         stage.setResizable(false);
         stage.setTitle("Game");
         Scene sceneStart = new StartScene(stage);

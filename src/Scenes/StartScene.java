@@ -28,7 +28,7 @@ public class StartScene extends Scene {
     }
     private static GridPane createIntroScene(Stage stage){
         root = new GridPane();
-        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/Map.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800, 600,false,false, false,false))));
+        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/backg5.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800, 600,false,false, false,false))));
         root.setPadding(new Insets(100, 20, 20, 70));
         root.setVgap(10);
         root.setHgap(50);
@@ -39,9 +39,9 @@ public class StartScene extends Scene {
         return root;
     }
     private static ImageView initializeLogo(){
-        logoImageView = new ImageView(ToolKit.loadImage("element/characterB.png"));
-        logoImageView.setFitHeight(150);
-        logoImageView.setFitWidth(300);
+        logoImageView = new ImageView(ToolKit.loadImage("element/Logo.jpg"));
+        logoImageView.setFitHeight(200);
+        logoImageView.setFitWidth(200);
 
         return logoImageView;
     }
@@ -82,7 +82,9 @@ public class StartScene extends Scene {
         centerBox = new VBox(10);
         centerBox.setSpacing(15);
         centerBox.setAlignment(Pos.CENTER);
-        centerBox.getChildren().addAll(initializeLogo(), initializeNewGameButton(stage), initializeLoadGameButton(),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
+        centerBox.getChildren().addAll(
+                initializeLogo(),
+                initializeNewGameButton(stage), initializeLoadGameButton(),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
         root.add(centerBox, 0, 1);
     }
 

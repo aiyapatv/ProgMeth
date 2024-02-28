@@ -32,13 +32,15 @@ public class ChooseScene extends Scene {
     private static Button backButton;
     private static Button playButton;
     private static Thread charMoving;
+    public static int number;
     public ChooseScene(Stage stage) {
         super(createChooseScene(stage), 800, 600);
     }
 
     private static GridPane createChooseScene(Stage stage){
         root = new GridPane(10,10);
-        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/Background1.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/backg10.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+//        root.setBackground(Background.fill(Color.WHITESMOKE));
         root.setPadding(new Insets(10));
         root.setGridLinesVisible(true);
 
@@ -53,12 +55,13 @@ public class ChooseScene extends Scene {
     }
 
     private static void initializeCharTable(){
+        selectBlock = null;
         charTable = new GridPane(2,2);
         charTable.setAlignment(Pos.CENTER);
         for(int i = 0;i < 9; i++){
             final int num = i + 1;
             StackPane stack = new StackPane();
-            Rectangle block = new Rectangle(100,100,Color.LIGHTBLUE);
+            Rectangle block = new Rectangle(100,100,Color.BEIGE);
             ImageView imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ num +".png"), 100, 100);
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
@@ -89,7 +92,7 @@ public class ChooseScene extends Scene {
 
     private static void initializeHeader(){
         Text header = new Text("Select Character");
-        header.setFill(Color.BLACK);
+        header.setFill(Color.WHITESMOKE);
         header.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
         root.add(header, 0, 0, 2, 1);
     }
@@ -106,6 +109,7 @@ public class ChooseScene extends Scene {
     private static void showCharModel(int num){
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 1 +".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 2 +".png"));
+        setNumber(num);
         selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
         selectedName.setText("Test");
         charMoving = new Thread(() -> {
@@ -132,7 +136,9 @@ public class ChooseScene extends Scene {
         playButton = ToolKit.createButton("PLAY>>>", "element/shortBox.png",25);
         root.add(playButton,1,3);
         playButton.setOnMouseClicked( event -> {
-            stage.setScene(new LoadingScene(stage));
+            if(selectBlock != null) {
+                stage.setScene(new LoadingScene(stage));
+            }
         });
     }
 
@@ -155,5 +161,11 @@ public class ChooseScene extends Scene {
         root.getColumnConstraints().addAll(c1, c2);
     }
 
+    public static int getNumber() {
+        return number;
+    }
 
+    public static void setNumber(int number) {
+        ChooseScene.number = number;
+    }
 }
