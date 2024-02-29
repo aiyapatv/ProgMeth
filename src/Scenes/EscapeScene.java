@@ -66,6 +66,7 @@ public class EscapeScene extends Scene {
         return text;
     }
 
+
     private void prepareGameScene(Stage stage) {
         new Thread(() -> {
             GameScene gameScene = new GameScene(stage);
