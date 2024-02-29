@@ -54,8 +54,11 @@ public class StartScene extends Scene {
         return btnNewGame;
     }
 
-    private static Button initializeLoadGameButton(){
+    private static Button initializeLoadGameButton(Stage stage){
         btnLoadGame = ToolKit.createButton("Load Game", "element/shortBox.png",25);
+        btnLoadGame.setOnMouseClicked(event -> {
+            stage.setScene(new BattleScene(stage));
+        });
         return btnLoadGame;
     }
 
@@ -84,7 +87,7 @@ public class StartScene extends Scene {
         centerBox.setAlignment(Pos.CENTER);
         centerBox.getChildren().addAll(
                 initializeLogo(),
-                initializeNewGameButton(stage), initializeLoadGameButton(),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
+                initializeNewGameButton(stage), initializeLoadGameButton(stage),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
         root.add(centerBox, 0, 1);
     }
 
