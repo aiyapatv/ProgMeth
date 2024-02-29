@@ -39,7 +39,7 @@ public class ChooseScene extends Scene {
 
     private static GridPane createChooseScene(Stage stage){
         root = new GridPane(10,10);
-        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/backg1.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/Background3.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
 //        root.setBackground(Background.fill(Color.WHITESMOKE));
         root.setPadding(new Insets(10));
         root.setGridLinesVisible(true);
@@ -66,7 +66,7 @@ public class ChooseScene extends Scene {
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
                 selectChar(stack, block);
-                showCharModel(num);
+//                showCharModel(num);
             });
             charTable.add(stack, i % 3, i / 3);
         }
