@@ -2,11 +2,13 @@ package Utils;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
 public class ToolKit {
@@ -35,5 +37,22 @@ public class ToolKit {
         button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: cover;");
         return button;
     }
+
+    public static ColumnConstraints setColumnCon(int num , HPos hPos ){
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setPercentWidth(num);
+        columnConstraints.setHalignment(hPos);
+        return columnConstraints;
+    }
+    public static RowConstraints setRowCon(int num , VPos vPos){
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setPercentHeight(num);
+        rowConstraints.setValignment(vPos);
+        return rowConstraints;
+    }
+
+
+
+
 
 }

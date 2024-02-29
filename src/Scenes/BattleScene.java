@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -16,11 +17,19 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+
+
 public class BattleScene extends Scene {
     private static GridPane root;
     private static boolean isEnd = true;
     private static Rectangle blockPlayer;
     private static GridPane fightPane;
+    private static Button attackButton;
+    private static Button inventoryButton;
+    private static Button escapeButton;
+    private static HBox actionBox;
+    private static HBox inventoryBox;
+    private static Button backtoactionButton;
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
@@ -36,6 +45,7 @@ public class BattleScene extends Scene {
         initializeStatusBar();
         initializeTurnBased();
         initializeFightPane();
+        initializeActionBar(stage);
 
         return root;
     }
@@ -72,7 +82,7 @@ public class BattleScene extends Scene {
     }
 
     private static void initializePlayerSide(){
-        blockPlayer = new Rectangle(90,90);
+        blockPlayer = new Rectangle(80,80);
         ImagePattern player = new ImagePattern(ToolKit.loadImage("character/c"+ 1 +"_3.png"));
         blockPlayer.setFill(player);
         showModelPlayer();
@@ -86,9 +96,9 @@ public class BattleScene extends Scene {
         Rectangle rectangle1 = new Rectangle(60,60);
         Rectangle rectangle2 = new Rectangle(60,60);
         Rectangle rectangle3 = new Rectangle(60,60);
-        ImagePattern monster1 = new ImagePattern(ToolKit.loadImage("monster/m1_i_0.png"));
-        ImagePattern monster2 = new ImagePattern(ToolKit.loadImage("monster/m8_i_0.png"));
-        ImagePattern monster3 = new ImagePattern(ToolKit.loadImage("monster/m6_i_0.png"));
+        ImagePattern monster1 = new ImagePattern(ToolKit.loadImage("monster/m1_i_1.png"));
+        ImagePattern monster2 = new ImagePattern(ToolKit.loadImage("monster/m8_i_1.png"));
+        ImagePattern monster3 = new ImagePattern(ToolKit.loadImage("monster/m6_i_1.png"));
         rectangle1.setFill(monster1);
         rectangle2.setFill(monster2);
         rectangle3.setFill(monster3);
@@ -105,32 +115,21 @@ public class BattleScene extends Scene {
 
         fightPane.add(monster , 1,0);
     }
+
     private static void initializeFightPane(){
         fightPane = new GridPane();
         fightPane.setGridLinesVisible(true);
         initializePlayerSide();
         initializeMonsterSide();
 
-        ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(50);
-        ColumnConstraints c2 = new ColumnConstraints();
-        c2.setPercentWidth(50);
-
-        RowConstraints r1 = new RowConstraints();
-        r1.setPercentHeight(69);
-        r1.setValignment(VPos.CENTER);
-        RowConstraints r3 = new RowConstraints();
-        r3.setPercentHeight(31);
-
-        fightPane.getRowConstraints().addAll(r1,r3);
-        fightPane.getColumnConstraints().addAll(c1,c2);
+        fightPane.getRowConstraints().addAll(ToolKit.setRowCon(75,VPos.CENTER),ToolKit.setRowCon(25,null));
+        fightPane.getColumnConstraints().addAll(ToolKit.setColumnCon(50,null) , ToolKit.setColumnCon(50,null));
 
         root.add(fightPane,1,1);
 
     }
     private static void showModelPlayer(){
-        int num = 1 ;
-//        int num = ChooseScene.getNumber();
+        int num = ChooseScene.getNumber();
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 4 +".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 3 +".png"));
 
@@ -156,7 +155,6 @@ public class BattleScene extends Scene {
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("monster/m" + num + "_i_1.png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("monster/m" + num + "_i_2.png"));
 
-
         Thread monsterMoving = new Thread(() -> {
             FrameRate frameRate = new FrameRate(500);
             while (isEnd) {
@@ -176,28 +174,52 @@ public class BattleScene extends Scene {
         monsterMoving.start();
     }
 
+    private static Button initializeAttackButton(){
+        attackButton = new Button("Attack");
+        return attackButton;
+    }
+    private static Button initializeInventoryButton(){
+        inventoryButton = new Button("Inventory");
+        inventoryButton.setOnMouseClicked(event -> {
+            initializeInventoryList();
+        });
+        return inventoryButton;
+    }
+    private static void initializeBackToActionButton(){
+        backtoactionButton = new Button("Back");
+        inventoryBox.getChildren().add(backtoactionButton);
+
+        backtoactionButton.setOnMouseClicked(event -> {
+            root.getChildren().remove(root.getChildren().size() - 1);
+        });
+    }
+    private static void initializeInventoryList(){
+        inventoryBox = new HBox();
+        inventoryBox.setBackground(Background.fill(Color.WHITESMOKE));
+        root.add(inventoryBox,1,2);
+        initializeBackToActionButton();
+    }
+    private static Button initializeEscapeButton(Stage stage){
+        escapeButton = new Button("Escape");
+        escapeButton.setOnMouseClicked(event -> {
+            stage.setScene(new EscapeScene(stage));
+        });
+        return escapeButton;
+    }
+
+    private static void initializeActionBar(Stage stage){
+        actionBox = new HBox();
+        actionBox.getChildren().addAll(initializeAttackButton(),initializeInventoryButton(), initializeEscapeButton(stage));
+
+        root.add(actionBox,1,2);
+    }
+
+
     private static void setConstraint(){
-        ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(30);
-        c1.setHalignment(HPos.CENTER);
-        ColumnConstraints c2 = new ColumnConstraints();
-        c2.setPercentWidth(50);
-        c2.setHalignment(HPos.CENTER);
-        ColumnConstraints c3 = new ColumnConstraints();
-        c3.setPercentWidth(20);
-        c3.setHalignment(HPos.CENTER);
+        root.getColumnConstraints().addAll(ToolKit.setColumnCon(30,HPos.CENTER),
+                ToolKit.setColumnCon(50,HPos.CENTER) , ToolKit.setColumnCon(20,HPos.CENTER));
 
-        RowConstraints r1 = new RowConstraints();
-        r1.setPercentHeight(20);
-        RowConstraints r2 = new RowConstraints();
-        r2.setPercentHeight(70);
-        RowConstraints r3 = new RowConstraints();
-        r3.setPercentHeight(10);
-        r1.setValignment(VPos.BOTTOM);
-        r2.setValignment(VPos.CENTER);
-        r3.setValignment(VPos.BOTTOM);
-
-        root.getColumnConstraints().addAll(c1, c2 , c3);
-        root.getRowConstraints().addAll(r1,r2,r3);
+        root.getRowConstraints().addAll(ToolKit.setRowCon(20,VPos.BOTTOM),
+                ToolKit.setRowCon(60,VPos.CENTER),ToolKit.setRowCon(20,VPos.BOTTOM));
     }
 }

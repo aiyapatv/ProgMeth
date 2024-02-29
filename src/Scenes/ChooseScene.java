@@ -66,7 +66,7 @@ public class ChooseScene extends Scene {
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
                 selectChar(stack, block);
-//                showCharModel(num);
+                showCharModel(num);
             });
             charTable.add(stack, i % 3, i / 3);
         }
@@ -152,13 +152,8 @@ public class ChooseScene extends Scene {
     }
 
     private static void setConstraint(){
-        ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(40);
-        c1.setHalignment(HPos.CENTER);
-        ColumnConstraints c2 = new ColumnConstraints();
-        c2.setPercentWidth(60);
-        c2.setHalignment(HPos.CENTER);
-        root.getColumnConstraints().addAll(c1, c2);
+        root.getColumnConstraints().addAll(ToolKit.setColumnCon(40,HPos.CENTER),
+                ToolKit.setColumnCon(60,HPos.CENTER));
     }
 
     public static int getNumber() {
