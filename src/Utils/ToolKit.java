@@ -44,15 +44,12 @@ public class ToolKit {
         columnConstraints.setHalignment(hPos);
         return columnConstraints;
     }
+
     public static RowConstraints setRowCon(int num , VPos vPos){
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight(num);
         rowConstraints.setValignment(vPos);
         return rowConstraints;
     }
-
-
-
-
-
 }
+

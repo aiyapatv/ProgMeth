@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -28,6 +29,7 @@ public class ChooseScene extends Scene {
     private static StackPane selectBlock;
     private static Rectangle selectedChar;
     private static Text selectedName;
+    private static TextField addName;
     private static boolean isSelected = false;
     private static Button backButton;
     private static Button playButton;
@@ -101,8 +103,9 @@ public class ChooseScene extends Scene {
         VBox selectBlock = new VBox(10);
         selectedChar = new Rectangle(100,100,null);
         selectedName = new Text();
+        addName = new TextField();
         selectBlock.setAlignment(Pos.CENTER);
-        selectBlock.getChildren().addAll(selectedChar,selectedName);
+        selectBlock.getChildren().addAll(selectedChar,selectedName,addName);
         root.add(selectBlock, 0, 1);
     }
 
@@ -111,9 +114,9 @@ public class ChooseScene extends Scene {
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 2 +".png"));
         setNumber(num);
         selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
-        selectedName.setText("Test");
+        selectedName.setText(addName.getText());
         charMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500);
+            FrameRate frameRate = new FrameRate(500,2);
             while (isSelected) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() == 1) currentImage = image2;

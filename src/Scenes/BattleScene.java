@@ -22,14 +22,20 @@ import javafx.stage.Stage;
 public class BattleScene extends Scene {
     private static GridPane root;
     private static boolean isEnd = true;
+    private static boolean isHit = true;
     private static Rectangle blockPlayer;
     private static GridPane fightPane;
     private static Button attackButton;
     private static Button inventoryButton;
     private static Button escapeButton;
     private static HBox actionBox;
-    private static HBox inventoryBox;
+    private static VBox inventoryBox;
+    private static VBox monsterBox;
     private static Button backtoactionButton;
+    private static Rectangle e1;
+    private static Rectangle e2;
+    private static Rectangle e3;
+    private static Rectangle heal;
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
@@ -54,8 +60,8 @@ public class BattleScene extends Scene {
         StackPane stack = new StackPane();
         Rectangle block = new Rectangle(100,100, null);
 
-//      int num = ChooseScene.getNumber();
-        ImageView imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ 1 +".png"), 50, 50);
+        int num = ChooseScene.getNumber();
+        ImageView imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ num +".png"), 50, 50);
         ImageView imageView1 = Images.setImageViewSize(ToolKit.loadImage("element/ui1.png"), 60, 60);
         ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
         stack.getChildren().addAll(block, imageView1, imageView);
@@ -83,10 +89,14 @@ public class BattleScene extends Scene {
 
     private static void initializePlayerSide(){
         blockPlayer = new Rectangle(80,80);
+        heal = new Rectangle(70,70);
+        heal.setFill(null);
+
         ImagePattern player = new ImagePattern(ToolKit.loadImage("character/c"+ 1 +"_3.png"));
         blockPlayer.setFill(player);
         showModelPlayer();
         fightPane.add(blockPlayer , 0,1);
+        fightPane.add(heal , 0 ,1 );
     }
 
     private static void initializeMonsterSide(){
@@ -94,8 +104,17 @@ public class BattleScene extends Scene {
         monster.setGridLinesVisible(true);
 
         Rectangle rectangle1 = new Rectangle(60,60);
+        e1 = new Rectangle(50,50);
+        e1.setFill(null);
+
         Rectangle rectangle2 = new Rectangle(60,60);
+        e2 = new Rectangle(50,50);
+        e2.setFill(null);
+
         Rectangle rectangle3 = new Rectangle(60,60);
+        e3 = new Rectangle(50,50);
+        e3.setFill(null);
+
         ImagePattern monster1 = new ImagePattern(ToolKit.loadImage("monster/m1_i_1.png"));
         ImagePattern monster2 = new ImagePattern(ToolKit.loadImage("monster/m8_i_1.png"));
         ImagePattern monster3 = new ImagePattern(ToolKit.loadImage("monster/m6_i_1.png"));
@@ -108,8 +127,13 @@ public class BattleScene extends Scene {
         showModelMonster(rectangle3,6);
 
         monster.add(rectangle1,0,0);
+        monster.add(e1,0,0);
+
         monster.add(rectangle2,1,1);
+        monster.add(e2,1,1);
+
         monster.add(rectangle3,2,2);
+        monster.add(e3,2,2);
 
         monster.setAlignment(Pos.BOTTOM_RIGHT);
 
@@ -134,7 +158,7 @@ public class BattleScene extends Scene {
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 3 +".png"));
 
         Thread playerMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500);
+            FrameRate frameRate = new FrameRate(500,2);
             while (isEnd) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() == 1) currentImage = image2;
@@ -156,7 +180,7 @@ public class BattleScene extends Scene {
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("monster/m" + num + "_i_2.png"));
 
         Thread monsterMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500);
+            FrameRate frameRate = new FrameRate(500,2);
             while (isEnd) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() == 1) currentImage = image2;
@@ -176,8 +200,68 @@ public class BattleScene extends Scene {
 
     private static Button initializeAttackButton(){
         attackButton = new Button("Attack");
+        attackButton.setOnMouseClicked(event -> {
+            initializeMonsterList();
+        });
         return attackButton;
     }
+    private static void initializeMonsterList(){
+        monsterBox = new VBox();
+        monsterBox.setBackground(Background.fill(Color.WHITESMOKE));
+        Button btn1 = new Button("Monster1");
+        Button btn2 = new Button("Monster2");
+        Button btn3 = new Button("Monster3");
+        monsterBox.getChildren().addAll(btn1,btn2,btn3);
+
+        btn1.setOnMouseClicked( event -> {
+           showAttackEffect(e1 , "a1" , "a2" , "a3");
+           isHit = true;
+           root.getChildren().remove(root.getChildren().size() - 1);
+        });
+        btn2.setOnMouseClicked( event -> {
+            showAttackEffect(e2, "a1" , "a2" , "a3");
+            isHit = true;
+            root.getChildren().remove(root.getChildren().size() - 1);
+        });
+        btn3.setOnMouseClicked( event -> {
+            showAttackEffect(e3, "a1" , "a2" , "a3");
+            isHit = true;
+            root.getChildren().remove(root.getChildren().size() - 1);
+        });
+        root.add(monsterBox,1,2);
+        initializeBackToActionButton(monsterBox);
+    }
+
+    private static void showAttackEffect(Rectangle rectangle , String string ,String string2 , String string3){
+        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("effect/" + string + ".png"));
+        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("effect/" + string2 + ".png"));
+        ImagePattern image4 = new ImagePattern(ToolKit.loadImage("effect/" + string3 + ".png"));
+
+        Thread monsterMoving = new Thread(() -> {
+            FrameRate frameRate = new FrameRate(100,4);
+            while (isHit) {
+                ImagePattern currentImage;
+                if(frameRate.getFrame() == 1) currentImage = image2;
+                else if(frameRate.getFrame() == 2) currentImage = image3;
+                else if(frameRate.getFrame() == 3) currentImage = image4;
+                else{
+                    currentImage = null;
+                    isHit = false;
+                }
+                Platform.runLater(() -> {
+                    rectangle.setFill(currentImage);
+                });
+
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        monsterMoving.start();
+    }
+
     private static Button initializeInventoryButton(){
         inventoryButton = new Button("Inventory");
         inventoryButton.setOnMouseClicked(event -> {
@@ -185,20 +269,32 @@ public class BattleScene extends Scene {
         });
         return inventoryButton;
     }
-    private static void initializeBackToActionButton(){
+    private static void initializeInventoryList(){
+        inventoryBox = new VBox();
+        inventoryBox.setBackground(Background.fill(Color.WHITESMOKE));
+
+        Button btn1 = new Button("Heal");
+
+        inventoryBox.getChildren().addAll(btn1);
+
+        btn1.setOnMouseClicked( event -> {
+            showAttackEffect(heal ,"h1" , "h2" , "h3");
+            isHit = true;
+            root.getChildren().remove(root.getChildren().size() - 1);
+        });
+
+        root.add(inventoryBox,1,2);
+        initializeBackToActionButton(inventoryBox);
+    }
+    private static void initializeBackToActionButton(VBox vBox){
         backtoactionButton = new Button("Back");
-        inventoryBox.getChildren().add(backtoactionButton);
+        vBox.getChildren().add(backtoactionButton);
 
         backtoactionButton.setOnMouseClicked(event -> {
             root.getChildren().remove(root.getChildren().size() - 1);
         });
     }
-    private static void initializeInventoryList(){
-        inventoryBox = new HBox();
-        inventoryBox.setBackground(Background.fill(Color.WHITESMOKE));
-        root.add(inventoryBox,1,2);
-        initializeBackToActionButton();
-    }
+
     private static Button initializeEscapeButton(Stage stage){
         escapeButton = new Button("Escape");
         escapeButton.setOnMouseClicked(event -> {
@@ -213,7 +309,6 @@ public class BattleScene extends Scene {
 
         root.add(actionBox,1,2);
     }
-
 
     private static void setConstraint(){
         root.getColumnConstraints().addAll(ToolKit.setColumnCon(30,HPos.CENTER),

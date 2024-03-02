@@ -26,7 +26,7 @@ public class EscapeScene extends Scene {
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
         new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500);
+            FrameRate frameRate = new FrameRate(500,2);
             int num = ChooseScene.getNumber();
             ImageView image1 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_5.png"),50,50);
             ImageView image2 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_6.png"),50,50);
