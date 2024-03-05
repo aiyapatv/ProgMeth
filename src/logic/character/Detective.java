@@ -4,17 +4,17 @@ import Utils.Config;
 
 public class Detective extends BaseCharacter{
     public Detective() {
-        super(Config.DetectiveHp);
+        super(Config.DETECTIVEMAXHP);
     }
 
     @Override
     public int getPower() {
-        return Config.DetectivePower;
+        return Config.DETECIVEPOWER;
     }
 
     @Override
     public int getDefense() {
-        return Config.DetectiveDefense;
+        return Config.DETECTIVEDEFENSE;
     }
 
     @Override

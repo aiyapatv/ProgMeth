@@ -4,17 +4,17 @@ import Utils.Config;
 
 public class Fighter extends BaseCharacter{
     public Fighter(){
-        super(Config.FighterHp);
+        super(Config.FIGHTERMAXHP);
     }
 
     @Override
     public int getPower() {
-        return Config.FighterPower;
+        return Config.FIGHTERPOWER;
     }
 
     @Override
     public int getDefense() {
-        return Config.FighterDefense;
+        return Config.FIGHTERDEFENSE;
     }
 
     @Override

@@ -4,17 +4,17 @@ import Utils.Config;
 
 public class Glasses extends BaseCharacter{
     public Glasses() {
-        super(Config.GlassesHp);
+        super(Config.GLASSESMAXHP);
     }
 
     @Override
     public int getPower() {
-        return Config.GlassesPower;
+        return Config.GLASSESPOWER;
     }
 
     @Override
     public int getDefense() {
-        return Config.GlassesDefense;
+        return Config.GLASSESDEFENSE;
     }
 
     @Override

@@ -4,17 +4,17 @@ import Utils.Config;
 
 public class Wizard extends BaseCharacter{
     public Wizard(){
-        super(Config.WizardHp);
+        super(Config.WIZARDMAXHP);
     }
 
     @Override
     public int getPower() {
-        return Config.WizardPower;
+        return Config.WIZARDPOWER;
     }
 
     @Override
     public int getDefense() {
-        return Config.WizardDefense;
+        return Config.WIZARDDEFENSE;
     }
 
     @Override

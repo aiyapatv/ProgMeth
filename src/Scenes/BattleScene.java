@@ -17,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class BattleScene extends Scene {
     private static ArrayList<Rectangle> allMonster;
     private static ArrayList<Rectangle> allEffect;
     private static int randomMonster;
+    private static int hp = 10 ;
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
@@ -68,6 +70,11 @@ public class BattleScene extends Scene {
         HBox boxStatus = new HBox();
         StackPane stack = new StackPane();
         Rectangle block = new Rectangle(100,100, null);
+//        VBox description = new VBox();
+
+//        Text name = new Text(ChooseScene.getName());
+//        Text maxHp = new Text("Hp " + hp + "/100");
+//        description.getChildren().addAll(name , maxHp);
 
         int num = ChooseScene.getNumber();
 
@@ -75,7 +82,7 @@ public class BattleScene extends Scene {
         ImageView imageView1 = Images.setImageViewSize(ToolKit.loadImage("element/ui1.png"), 60, 60);
         ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
         stack.getChildren().addAll(block, imageView1, character);
-        boxStatus.getChildren().addAll(stack , imageView3 );
+        boxStatus.getChildren().addAll(stack , imageView3);
         root.add(boxStatus,0,2);
     }
 
@@ -116,7 +123,7 @@ public class BattleScene extends Scene {
             monster.getColumnConstraints().add(new ColumnConstraints(60));
             monster.getRowConstraints().add(new RowConstraints(60));
         }
-        totalMonster = RandomMonster.drawMonsterNumber();
+        totalMonster = RandomMonster.randomMonsterAmount();
 
         allMonster = new ArrayList<>(totalMonster);
         allEffect = new ArrayList<>(totalMonster);
@@ -124,7 +131,7 @@ public class BattleScene extends Scene {
             monsterBlock = new Rectangle(60,60);
             effectBlock = new Rectangle(50,50);
             effectBlock.setFill(null);
-            randomMonster = RandomMonster.drawMonsterImage();
+            randomMonster = RandomMonster.randomMonsterImage();
             ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/m" + randomMonster + "_i_1.png"));
             monsterBlock.setFill(imageMonster);
 

@@ -105,11 +105,18 @@ public class ChooseScene extends Scene {
     private static void initializePreviewChar(){
         VBox selectBlock = new VBox(10);
         selectedChar = new Rectangle(100,100,null);
-        selectedName = new Text();
-        selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
+        initializeName();
         selectBlock.setAlignment(Pos.CENTER);
         selectBlock.getChildren().addAll(selectedChar,selectedName);
         root.add(selectBlock, 0, 1);
+    }
+    public static void initializeName(){
+        selectedName = new Text();
+        selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
+        selectedName.setText("Name");
+    }
+    public static String getName(){
+        return selectedName.getText();
     }
 
     private static void showCharModel(int num){
