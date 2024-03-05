@@ -2,6 +2,7 @@ package Scenes;
 
 import Utils.FrameRate;
 import Utils.Images;
+import Utils.RandomMonster;
 import Utils.ToolKit;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -10,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -17,7 +19,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-
+import java.util.ArrayList;
 
 public class BattleScene extends Scene {
     private static GridPane root;
@@ -32,14 +34,20 @@ public class BattleScene extends Scene {
     private static VBox inventoryBox;
     private static VBox monsterBox;
     private static Button backtoactionButton;
-    private static Rectangle e1;
-    private static Rectangle e2;
-    private static Rectangle e3;
+    private static Rectangle monsterBlock;
+    private static Rectangle effectBlock;
     private static Rectangle heal;
+    private static int totalMonster;
+    private static ArrayList<Rectangle> allMonster;
+    private static ArrayList<Rectangle> allEffect;
+    private static int randomMonster;
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
     }
+
+    private static BattleScene instance;
+
     private static GridPane createBattleScene(Stage stage){
         root = new GridPane(2,2);
         root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
@@ -55,16 +63,18 @@ public class BattleScene extends Scene {
 
         return root;
     }
+
     private static void initializeStatusBar(){
         HBox boxStatus = new HBox();
         StackPane stack = new StackPane();
         Rectangle block = new Rectangle(100,100, null);
 
         int num = ChooseScene.getNumber();
-        ImageView imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ num +".png"), 50, 50);
+
+        ImageView character = Images.setImageViewSize(ToolKit.loadImage("character/c"+ num +".png"), 50, 50);
         ImageView imageView1 = Images.setImageViewSize(ToolKit.loadImage("element/ui1.png"), 60, 60);
         ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
-        stack.getChildren().addAll(block, imageView1, imageView);
+        stack.getChildren().addAll(block, imageView1, character);
         boxStatus.getChildren().addAll(stack , imageView3 );
         root.add(boxStatus,0,2);
     }
@@ -75,7 +85,6 @@ public class BattleScene extends Scene {
         turnBased.setSpacing(5);
 
         for(int i = 0;i < 7; i++){
-            final int num = i + 1;
             StackPane stack = new StackPane();
             Rectangle block = new Rectangle(50,50,null);
             block.setStroke(Color.BLACK);
@@ -103,37 +112,34 @@ public class BattleScene extends Scene {
         GridPane monster = new GridPane();
         monster.setGridLinesVisible(true);
 
-        Rectangle rectangle1 = new Rectangle(60,60);
-        e1 = new Rectangle(50,50);
-        e1.setFill(null);
+        for (int i = 0; i < 3; i++) {
+            monster.getColumnConstraints().add(new ColumnConstraints(60));
+            monster.getRowConstraints().add(new RowConstraints(60));
+        }
+        totalMonster = RandomMonster.drawMonsterNumber();
 
-        Rectangle rectangle2 = new Rectangle(60,60);
-        e2 = new Rectangle(50,50);
-        e2.setFill(null);
+        allMonster = new ArrayList<>(totalMonster);
+        allEffect = new ArrayList<>(totalMonster);
+        for (int i = 1;i <= totalMonster; i++){
+            monsterBlock = new Rectangle(60,60);
+            effectBlock = new Rectangle(50,50);
+            effectBlock.setFill(null);
+            randomMonster = RandomMonster.drawMonsterImage();
+            ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/m" + randomMonster + "_i_1.png"));
+            monsterBlock.setFill(imageMonster);
 
-        Rectangle rectangle3 = new Rectangle(60,60);
-        e3 = new Rectangle(50,50);
-        e3.setFill(null);
+            allMonster.add(monsterBlock);
+            allEffect.add(effectBlock);
 
-        ImagePattern monster1 = new ImagePattern(ToolKit.loadImage("monster/m1_i_1.png"));
-        ImagePattern monster2 = new ImagePattern(ToolKit.loadImage("monster/m8_i_1.png"));
-        ImagePattern monster3 = new ImagePattern(ToolKit.loadImage("monster/m6_i_1.png"));
-        rectangle1.setFill(monster1);
-        rectangle2.setFill(monster2);
-        rectangle3.setFill(monster3);
-
-        showModelMonster(rectangle1,1);
-        showModelMonster(rectangle2,8);
-        showModelMonster(rectangle3,6);
-
-        monster.add(rectangle1,0,0);
-        monster.add(e1,0,0);
-
-        monster.add(rectangle2,1,1);
-        monster.add(e2,1,1);
-
-        monster.add(rectangle3,2,2);
-        monster.add(e3,2,2);
+            showModelMonster(monsterBlock,randomMonster);
+            if(i == 3) {
+                monster.add(monsterBlock, 0, 0);
+                monster.add(effectBlock, 0, 0);
+            }else{
+                monster.add(monsterBlock, i, i);
+                monster.add(effectBlock, i, i);
+            }
+        }
 
         monster.setAlignment(Pos.BOTTOM_RIGHT);
 
@@ -150,8 +156,8 @@ public class BattleScene extends Scene {
         fightPane.getColumnConstraints().addAll(ToolKit.setColumnCon(50,null) , ToolKit.setColumnCon(50,null));
 
         root.add(fightPane,1,1);
-
     }
+
     private static void showModelPlayer(){
         int num = ChooseScene.getNumber();
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 4 +".png"));
@@ -175,6 +181,7 @@ public class BattleScene extends Scene {
         });
         playerMoving.start();
     }
+
     private static void showModelMonster(Rectangle rectangle,int num){
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("monster/m" + num + "_i_1.png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("monster/m" + num + "_i_2.png"));
@@ -205,34 +212,26 @@ public class BattleScene extends Scene {
         });
         return attackButton;
     }
+
     private static void initializeMonsterList(){
         monsterBox = new VBox();
         monsterBox.setBackground(Background.fill(Color.WHITESMOKE));
-        Button btn1 = new Button("Monster1");
-        Button btn2 = new Button("Monster2");
-        Button btn3 = new Button("Monster3");
-        monsterBox.getChildren().addAll(btn1,btn2,btn3);
 
-        btn1.setOnMouseClicked( event -> {
-           showAttackEffect(e1 , "a1" , "a2" , "a3");
-           isHit = true;
-           root.getChildren().remove(root.getChildren().size() - 1);
-        });
-        btn2.setOnMouseClicked( event -> {
-            showAttackEffect(e2, "a1" , "a2" , "a3");
-            isHit = true;
-            root.getChildren().remove(root.getChildren().size() - 1);
-        });
-        btn3.setOnMouseClicked( event -> {
-            showAttackEffect(e3, "a1" , "a2" , "a3");
-            isHit = true;
-            root.getChildren().remove(root.getChildren().size() - 1);
-        });
+        for ( int i = 0; i < totalMonster; i++){
+            Button btn = new Button("Monster"+(i+1));
+            monsterBox.getChildren().add(btn);
+            int count = i;
+            btn.setOnMouseClicked( event -> {
+                showAttackEffect(allEffect.get(count) , allMonster.get(count),"a1" , "a2" , "a3");
+                isHit = true;
+                root.getChildren().remove(root.getChildren().size() - 1);
+            });
+        }
         root.add(monsterBox,1,2);
         initializeBackToActionButton(monsterBox);
     }
 
-    private static void showAttackEffect(Rectangle rectangle , String string ,String string2 , String string3){
+    private static void showAttackEffect(Rectangle rectangle ,Rectangle rectangle2, String string ,String string2 , String string3){
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("effect/" + string + ".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("effect/" + string2 + ".png"));
         ImagePattern image4 = new ImagePattern(ToolKit.loadImage("effect/" + string3 + ".png"));
@@ -241,6 +240,8 @@ public class BattleScene extends Scene {
             FrameRate frameRate = new FrameRate(100,4);
             while (isHit) {
                 ImagePattern currentImage;
+                if(frameRate.getFrame() % 2 == 1) rectangle2.setEffect(new ColorAdjust(100,100,100,100));
+                else rectangle2.setEffect(null);
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else if(frameRate.getFrame() == 2) currentImage = image3;
                 else if(frameRate.getFrame() == 3) currentImage = image4;
@@ -251,13 +252,13 @@ public class BattleScene extends Scene {
                 Platform.runLater(() -> {
                     rectangle.setFill(currentImage);
                 });
-
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            monsterBox.setEffect(null);
         });
         monsterMoving.start();
     }
@@ -269,6 +270,7 @@ public class BattleScene extends Scene {
         });
         return inventoryButton;
     }
+
     private static void initializeInventoryList(){
         inventoryBox = new VBox();
         inventoryBox.setBackground(Background.fill(Color.WHITESMOKE));
@@ -278,7 +280,7 @@ public class BattleScene extends Scene {
         inventoryBox.getChildren().addAll(btn1);
 
         btn1.setOnMouseClicked( event -> {
-            showAttackEffect(heal ,"h1" , "h2" , "h3");
+            showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
             isHit = true;
             root.getChildren().remove(root.getChildren().size() - 1);
         });
@@ -317,4 +319,9 @@ public class BattleScene extends Scene {
         root.getRowConstraints().addAll(ToolKit.setRowCon(20,VPos.BOTTOM),
                 ToolKit.setRowCon(60,VPos.CENTER),ToolKit.setRowCon(20,VPos.BOTTOM));
     }
+
+    public static BattleScene getInstance(){
+        return instance;
+    }
+
 }

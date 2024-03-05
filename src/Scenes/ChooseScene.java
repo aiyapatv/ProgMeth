@@ -1,5 +1,6 @@
 package Scenes;
 
+import Utils.Config;
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
@@ -20,6 +21,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.character.Kid;
 
 public class ChooseScene extends Scene {
 
@@ -29,7 +31,6 @@ public class ChooseScene extends Scene {
     private static StackPane selectBlock;
     private static Rectangle selectedChar;
     private static Text selectedName;
-    private static TextField addName;
     private static boolean isSelected = false;
     private static Button backButton;
     private static Button playButton;
@@ -67,8 +68,10 @@ public class ChooseScene extends Scene {
             ImageView imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ num +".png"), 100, 100);
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
-                selectChar(stack, block);
-                showCharModel(num);
+                if(number != num){
+                    selectChar(stack, block);
+                    showCharModel(num);
+                }
             });
             charTable.add(stack, i % 3, i / 3);
         }
@@ -103,9 +106,9 @@ public class ChooseScene extends Scene {
         VBox selectBlock = new VBox(10);
         selectedChar = new Rectangle(100,100,null);
         selectedName = new Text();
-        addName = new TextField();
+        selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
         selectBlock.setAlignment(Pos.CENTER);
-        selectBlock.getChildren().addAll(selectedChar,selectedName,addName);
+        selectBlock.getChildren().addAll(selectedChar,selectedName);
         root.add(selectBlock, 0, 1);
     }
 
@@ -113,12 +116,11 @@ public class ChooseScene extends Scene {
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 1 +".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 2 +".png"));
         setNumber(num);
-        selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
-        selectedName.setText(addName.getText());
         charMoving = new Thread(() -> {
             FrameRate frameRate = new FrameRate(500,2);
             while (isSelected) {
                 ImagePattern currentImage;
+                selectedName.setText("name");
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else currentImage = image3;
                 Platform.runLater(() ->
@@ -130,7 +132,6 @@ public class ChooseScene extends Scene {
                     throw new RuntimeException(e);
                 }
             }
-            selectedChar.setFill(null);
         });
         charMoving.start();
     }
