@@ -57,7 +57,7 @@ public class LoadingScene extends Scene {
 
     private void prepareGameScene(Stage stage) {
         new Thread(() -> {
-            GameScene gameScene = new GameScene(stage);
+            GameScene gameScene = GameScene.getInstance(stage);
             Platform.runLater(() -> {
                 stage.setScene(gameScene);
                 isStart = true;

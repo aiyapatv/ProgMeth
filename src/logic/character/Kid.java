@@ -5,17 +5,17 @@ import Utils.Config;
 public class Kid extends BaseCharacter{
 
     public Kid() {
-        super(Config.KidHp);
+        super(Config.KIDMAXHP);
     }
 
     @Override
     public int getPower() {
-        return Config.KidPower;
+        return Config.KIDPOWER;
     }
 
     @Override
     public int getDefense() {
-        return Config.KidDefense;
+        return Config.KIDDEFENSE;
     }
 
     @Override

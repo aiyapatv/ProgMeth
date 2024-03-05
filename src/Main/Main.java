@@ -18,7 +18,7 @@ public class Main extends Application{
         stage.getIcons().add(ToolKit.loadImage("element/Logo.jpg"));
         stage.setResizable(false);
         stage.setTitle("Game");
-        Scene sceneStart = new StartScene(stage);
+        Scene sceneStart = StartScene.getInstance(stage);
         stage.setScene(sceneStart);
         stage.show();
     }
