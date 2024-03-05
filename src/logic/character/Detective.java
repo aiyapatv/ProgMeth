@@ -7,15 +7,6 @@ public class Detective extends BaseCharacter{
         super(Config.DetectiveHp);
     }
 
-    @Override
-    public int getPower() {
-        return Config.DetectivePower;
-    }
-
-    @Override
-    public int getDefense() {
-        return Config.DetectiveDefense;
-    }
 
     @Override
     public void attack() {

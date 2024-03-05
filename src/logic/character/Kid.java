@@ -8,15 +8,6 @@ public class Kid extends BaseCharacter{
         super(Config.KidHp);
     }
 
-    @Override
-    public int getPower() {
-        return Config.KidPower;
-    }
-
-    @Override
-    public int getDefense() {
-        return Config.KidDefense;
-    }
 
     @Override
     public void attack() {

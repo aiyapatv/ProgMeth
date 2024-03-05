@@ -7,15 +7,6 @@ public class Fighter extends BaseCharacter{
         super(Config.FighterHp);
     }
 
-    @Override
-    public int getPower() {
-        return Config.FighterPower;
-    }
-
-    @Override
-    public int getDefense() {
-        return Config.FighterDefense;
-    }
 
     @Override
     public void attack() {

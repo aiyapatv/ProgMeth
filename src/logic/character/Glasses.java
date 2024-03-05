@@ -7,15 +7,6 @@ public class Glasses extends BaseCharacter{
         super(Config.GlassesHp);
     }
 
-    @Override
-    public int getPower() {
-        return Config.GlassesPower;
-    }
-
-    @Override
-    public int getDefense() {
-        return Config.GlassesDefense;
-    }
 
     @Override
     public void attack() {
