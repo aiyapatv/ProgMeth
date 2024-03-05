@@ -66,7 +66,7 @@ public class ChooseScene extends Scene {
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
                 selectChar(stack, block);
-//                showCharModel(num);
+                showCharModel(num);
             });
             charTable.add(stack, i % 3, i / 3);
         }
