@@ -77,10 +77,8 @@ public class StartScene extends Scene {
         btnExit.setOnMouseClicked(event -> {
             stage.close();
         });
-
         return btnExit;
     }
-
     private static void initializeCenterBox(Stage stage){
         centerBox = new VBox(10);
         centerBox.setSpacing(15);

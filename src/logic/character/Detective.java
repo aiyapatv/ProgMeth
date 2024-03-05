@@ -22,7 +22,6 @@ public class Detective extends BaseCharacter{
 
     }
 
-
     public String toString() {
         return "Detective";
     }
