@@ -10,6 +10,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.game.GameController;
 
 public class GameScene extends Scene {
     private static GameScene instance;

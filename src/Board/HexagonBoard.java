@@ -10,18 +10,23 @@ public class HexagonBoard extends AnchorPane {
     private static final int HEXAGONSIZE = 94;
 
     public HexagonBoard(){
-
+        HexagonTile tile;
+        int q;
+        int r = 6;
         for(int i = 13;i >= -1;i--) {
             if(i%2 == 1 || i == -1) {
-                for (int l = -1; l <= 6; l++) {
-                    HexagonTile tile = new HexagonTile((i * 6) + l,false, "element/test3.png", HEXAGONSIZE);
+                q = -7;
+                for (int l = -1; l <= 6; l++, q += 2) {
+                    tile = new HexagonTile(q,r - l,false, "element/test3.png", HEXAGONSIZE);
                     AnchorPane.setTopAnchor(tile, i * HEXAGONSIZE / 2.0);
                     AnchorPane.setLeftAnchor(tile, l * HEXAGONSIZE * 3 / 2.0);
                     getChildren().add(tile);
                 }
             }else{
-                for (int l = -1; l < 6; l++) {
-                    HexagonTile tile = new HexagonTile((i * 5) + l, false, "element/test3.png", HEXAGONSIZE);
+                q = -6;
+                r--;
+                for (int l = -1; l < 6; l++, q += 2) {
+                    tile = new HexagonTile(q,r - l,false, "element/test3.png", HEXAGONSIZE);
                     AnchorPane.setTopAnchor(tile, i * HEXAGONSIZE / 2.0);
                     AnchorPane.setLeftAnchor(tile, HEXAGONSIZE * 3 / 4 + l * HEXAGONSIZE * 3 / 2.0);
                     getChildren().add(tile);
