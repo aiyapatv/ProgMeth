@@ -28,20 +28,17 @@ public class Config {
 
     //MaxHpMonster
     public  static  int basemonster_maxhp = 1  ;
-    public  static  int bossmonster_maxhp = 1  ;
     public  static  int tankmonster_maxhp = 1  ;
     public static int magictankmonster_maxhp = 1 ;
 
 
     //defMonster
     public  static  int basemonster_def = 1  ;
-    public  static  int bossmonster_def = 1  ;
     public  static  int tankmonster_def = 1  ;
     public static int magictankmonster_def = 1 ;
 
     //MagicdefMonster
     public  static  int basemonster_magicdef = 1  ;
-    public  static  int bossmonster_magicdef = 1  ;
     public  static  int tankmonster_magicdef = 1  ;
     public static int magictankmonster_magicdef = 1 ;
 
