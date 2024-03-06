@@ -34,11 +34,6 @@ public abstract class Monster {
         this.magicdef = checkless(magicdef) ;
     }
 
-    abstract public void attack(BaseCharacter target) ;
-
-    abstract public  void magic_attack(BaseCharacter target);
-
-    abstract public void special_attack(BaseCharacter target);
 
 
     public boolean Isdie(Monster m){

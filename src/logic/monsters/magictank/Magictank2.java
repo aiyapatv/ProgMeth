@@ -3,8 +3,8 @@ package logic.monsters.magictank;
 import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
-
-public class Magictank2 extends Monster {
+import logic.able.* ;
+public class Magictank2 extends Monster implements spatk , atk{
 
     public Magictank2() {
         super(Config.magictankmonster_maxhp +5 , Config.atktype1 +1 ,
@@ -16,10 +16,6 @@ public class Magictank2 extends Monster {
     }
 
 
-    @Override
-    public void magic_attack(BaseCharacter target) {
-        return;
-    }
 
     @Override
     public void special_attack(BaseCharacter target) {
