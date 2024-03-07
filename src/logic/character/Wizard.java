@@ -7,15 +7,7 @@ public class Wizard extends BaseCharacter{
         super(Config.WIZARDMAXHP);
     }
 
-    @Override
-    public int getPower() {
-        return Config.WIZARDPOWER;
-    }
 
-    @Override
-    public int getDefense() {
-        return Config.WIZARDDEFENSE;
-    }
 
     @Override
     public void attack() {

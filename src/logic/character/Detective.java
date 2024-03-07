@@ -8,16 +8,6 @@ public class Detective extends BaseCharacter{
     }
 
     @Override
-    public int getPower() {
-        return Config.DETECIVEPOWER;
-    }
-
-    @Override
-    public int getDefense() {
-        return Config.DETECTIVEDEFENSE;
-    }
-
-    @Override
     public void attack() {
 
     }
