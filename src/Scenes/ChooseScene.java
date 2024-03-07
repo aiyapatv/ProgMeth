@@ -161,6 +161,11 @@ public class ChooseScene extends Scene {
             stage.setScene(new StartScene(stage));
         });
     }
+    private static void initializeAttributeBox(){
+        VBox attributeBox = new VBox();
+        Text attack = new Text("Attack: ");
+        Text defense = new Text("Defense: ");
+    }
 
     private static void setConstraint(){
         root.getColumnConstraints().addAll(ToolKit.setColumnCon(40,HPos.CENTER),
@@ -174,4 +179,5 @@ public class ChooseScene extends Scene {
     public static void setNumber(int number) {
         ChooseScene.number = number;
     }
+
 }

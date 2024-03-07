@@ -238,7 +238,7 @@ public class BattleScene extends Scene {
         initializeBackToActionButton(monsterBox);
     }
 
-    private static void showAttackEffect(Rectangle rectangle ,Rectangle rectangle2, String string ,String string2 , String string3){
+    private static void showAttackEffect(Rectangle effectBlock ,Rectangle monsterBlock, String string ,String string2 , String string3){
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("effect/" + string + ".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("effect/" + string2 + ".png"));
         ImagePattern image4 = new ImagePattern(ToolKit.loadImage("effect/" + string3 + ".png"));
@@ -247,8 +247,8 @@ public class BattleScene extends Scene {
             FrameRate frameRate = new FrameRate(100,4);
             while (isHit) {
                 ImagePattern currentImage;
-                if(frameRate.getFrame() % 2 == 1) rectangle2.setEffect(new ColorAdjust(100,100,100,100));
-                else rectangle2.setEffect(null);
+                if(frameRate.getFrame() % 2 == 1) monsterBlock.setEffect(new ColorAdjust(100,100,100,100));
+                else monsterBlock.setEffect(null);
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else if(frameRate.getFrame() == 2) currentImage = image3;
                 else if(frameRate.getFrame() == 3) currentImage = image4;
@@ -257,7 +257,7 @@ public class BattleScene extends Scene {
                     isHit = false;
                 }
                 Platform.runLater(() -> {
-                    rectangle.setFill(currentImage);
+                    effectBlock.setFill(currentImage);
                 });
                 try {
                     Thread.sleep(1);
