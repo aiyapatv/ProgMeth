@@ -1,5 +1,6 @@
 package Scenes;
 
+import Utils.Config;
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
@@ -10,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -19,6 +21,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.character.Kid;
 
 public class ChooseScene extends Scene {
 
@@ -65,8 +68,10 @@ public class ChooseScene extends Scene {
             ImageView imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ num +".png"), 100, 100);
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
-                selectChar(stack, block);
-//                showCharModel(num);
+                if(number != num){
+                    selectChar(stack, block);
+                    showCharModel(num);
+                }
             });
             charTable.add(stack, i % 3, i / 3);
         }
@@ -100,22 +105,29 @@ public class ChooseScene extends Scene {
     private static void initializePreviewChar(){
         VBox selectBlock = new VBox(10);
         selectedChar = new Rectangle(100,100,null);
-        selectedName = new Text();
+        initializeName();
         selectBlock.setAlignment(Pos.CENTER);
         selectBlock.getChildren().addAll(selectedChar,selectedName);
         root.add(selectBlock, 0, 1);
+    }
+    public static void initializeName(){
+        selectedName = new Text();
+        selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
+        selectedName.setText("Name");
+    }
+    public static String getName(){
+        return selectedName.getText();
     }
 
     private static void showCharModel(int num){
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 1 +".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 2 +".png"));
         setNumber(num);
-        selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
-        selectedName.setText("Test");
         charMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500);
+            FrameRate frameRate = new FrameRate(500,2);
             while (isSelected) {
                 ImagePattern currentImage;
+                selectedName.setText("name");
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else currentImage = image3;
                 Platform.runLater(() ->
@@ -127,7 +139,6 @@ public class ChooseScene extends Scene {
                     throw new RuntimeException(e);
                 }
             }
-            selectedChar.setFill(null);
         });
         charMoving.start();
     }
@@ -152,13 +163,8 @@ public class ChooseScene extends Scene {
     }
 
     private static void setConstraint(){
-        ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(40);
-        c1.setHalignment(HPos.CENTER);
-        ColumnConstraints c2 = new ColumnConstraints();
-        c2.setPercentWidth(60);
-        c2.setHalignment(HPos.CENTER);
-        root.getColumnConstraints().addAll(c1, c2);
+        root.getColumnConstraints().addAll(ToolKit.setColumnCon(40,HPos.CENTER),
+                ToolKit.setColumnCon(60,HPos.CENTER));
     }
 
     public static int getNumber() {

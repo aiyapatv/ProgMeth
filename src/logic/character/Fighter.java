@@ -4,7 +4,7 @@ import Utils.Config;
 
 public class Fighter extends BaseCharacter{
     public Fighter(){
-        super(Config.FighterHp);
+        super(Config.FIGHTERMAXHP);
     }
 
 

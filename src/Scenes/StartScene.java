@@ -13,6 +13,7 @@ import javafx.scene.image.*;
 //import main.MusicController;
 
 public class StartScene extends Scene {
+    private static Scene instance;
     private static GridPane root;
     private static ImageView logoImageView;
     private static Button btnNewGame;
@@ -77,10 +78,8 @@ public class StartScene extends Scene {
         btnExit.setOnMouseClicked(event -> {
             stage.close();
         });
-
         return btnExit;
     }
-
     private static void initializeCenterBox(Stage stage){
         centerBox = new VBox(10);
         centerBox.setSpacing(15);
@@ -91,9 +90,12 @@ public class StartScene extends Scene {
         root.add(centerBox, 0, 1);
     }
 
-
-
-
+    public static Scene getInstance(Stage stage){
+        if(instance == null){
+            instance = new StartScene(stage);
+        }
+        return instance;
+    }
     private static Background createBackground(){
         return new Background((BackgroundFill) null);
     }

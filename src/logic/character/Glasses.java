@@ -4,8 +4,9 @@ import Utils.Config;
 
 public class Glasses extends BaseCharacter{
     public Glasses() {
-        super(Config.GlassesHp);
+        super(Config.GLASSESMAXHP);
     }
+
 
 
     @Override

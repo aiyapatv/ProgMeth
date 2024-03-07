@@ -4,8 +4,9 @@ import Utils.Config;
 
 public class Wizard extends BaseCharacter{
     public Wizard(){
-        super(Config.WizardHp);
+        super(Config.WIZARDMAXHP);
     }
+
 
 
     @Override

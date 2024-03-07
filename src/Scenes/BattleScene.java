@@ -2,6 +2,7 @@ package Scenes;
 
 import Utils.FrameRate;
 import Utils.Images;
+import Utils.RandomMonster;
 import Utils.ToolKit;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -9,22 +10,46 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class BattleScene extends Scene {
     private static GridPane root;
     private static boolean isEnd = true;
+    private static boolean isHit = true;
     private static Rectangle blockPlayer;
     private static GridPane fightPane;
+    private static Button attackButton;
+    private static Button inventoryButton;
+    private static Button escapeButton;
+    private static HBox actionBox;
+    private static VBox inventoryBox;
+    private static VBox monsterBox;
+    private static Button backtoactionButton;
+    private static Rectangle monsterBlock;
+    private static Rectangle effectBlock;
+    private static Rectangle heal;
+    private static int totalMonster;
+    private static ArrayList<Rectangle> allMonster;
+    private static ArrayList<Rectangle> allEffect;
+    private static int randomMonster;
+    private static int hp = 10 ;
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
     }
+
+    private static BattleScene instance;
+
     private static GridPane createBattleScene(Stage stage){
         root = new GridPane(2,2);
         root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
@@ -36,20 +61,28 @@ public class BattleScene extends Scene {
         initializeStatusBar();
         initializeTurnBased();
         initializeFightPane();
+        initializeActionBar(stage);
 
         return root;
     }
+
     private static void initializeStatusBar(){
         HBox boxStatus = new HBox();
         StackPane stack = new StackPane();
         Rectangle block = new Rectangle(100,100, null);
+//        VBox description = new VBox();
 
-//      int num = ChooseScene.getNumber();
-        ImageView imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ 1 +".png"), 50, 50);
+//        Text name = new Text(ChooseScene.getName());
+//        Text maxHp = new Text("Hp " + hp + "/100");
+//        description.getChildren().addAll(name , maxHp);
+
+        int num = ChooseScene.getNumber();
+
+        ImageView character = Images.setImageViewSize(ToolKit.loadImage("character/c"+ num +".png"), 50, 50);
         ImageView imageView1 = Images.setImageViewSize(ToolKit.loadImage("element/ui1.png"), 60, 60);
         ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
-        stack.getChildren().addAll(block, imageView1, imageView);
-        boxStatus.getChildren().addAll(stack , imageView3 );
+        stack.getChildren().addAll(block, imageView1, character);
+        boxStatus.getChildren().addAll(stack , imageView3);
         root.add(boxStatus,0,2);
     }
 
@@ -59,7 +92,6 @@ public class BattleScene extends Scene {
         turnBased.setSpacing(5);
 
         for(int i = 0;i < 7; i++){
-            final int num = i + 1;
             StackPane stack = new StackPane();
             Rectangle block = new Rectangle(50,50,null);
             block.setStroke(Color.BLACK);
@@ -72,70 +104,74 @@ public class BattleScene extends Scene {
     }
 
     private static void initializePlayerSide(){
-        blockPlayer = new Rectangle(90,90);
+        blockPlayer = new Rectangle(80,80);
+        heal = new Rectangle(70,70);
+        heal.setFill(null);
+
         ImagePattern player = new ImagePattern(ToolKit.loadImage("character/c"+ 1 +"_3.png"));
         blockPlayer.setFill(player);
         showModelPlayer();
         fightPane.add(blockPlayer , 0,1);
+        fightPane.add(heal , 0 ,1 );
     }
 
     private static void initializeMonsterSide(){
         GridPane monster = new GridPane();
         monster.setGridLinesVisible(true);
 
-        Rectangle rectangle1 = new Rectangle(60,60);
-        Rectangle rectangle2 = new Rectangle(60,60);
-        Rectangle rectangle3 = new Rectangle(60,60);
-        ImagePattern monster1 = new ImagePattern(ToolKit.loadImage("monster/m1_i_0.png"));
-        ImagePattern monster2 = new ImagePattern(ToolKit.loadImage("monster/m8_i_0.png"));
-        ImagePattern monster3 = new ImagePattern(ToolKit.loadImage("monster/m6_i_0.png"));
-        rectangle1.setFill(monster1);
-        rectangle2.setFill(monster2);
-        rectangle3.setFill(monster3);
+        for (int i = 0; i < 3; i++) {
+            monster.getColumnConstraints().add(new ColumnConstraints(60));
+            monster.getRowConstraints().add(new RowConstraints(60));
+        }
+        totalMonster = RandomMonster.randomMonsterAmount();
 
-        showModelMonster(rectangle1,1);
-        showModelMonster(rectangle2,8);
-        showModelMonster(rectangle3,6);
+        allMonster = new ArrayList<>(totalMonster);
+        allEffect = new ArrayList<>(totalMonster);
+        for (int i = 1;i <= totalMonster; i++){
+            monsterBlock = new Rectangle(60,60);
+            effectBlock = new Rectangle(50,50);
+            effectBlock.setFill(null);
+            randomMonster = RandomMonster.randomMonsterImage();
+            ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/m" + randomMonster + "_i_1.png"));
+            monsterBlock.setFill(imageMonster);
 
-        monster.add(rectangle1,0,0);
-        monster.add(rectangle2,1,1);
-        monster.add(rectangle3,2,2);
+            allMonster.add(monsterBlock);
+            allEffect.add(effectBlock);
+
+            showModelMonster(monsterBlock,randomMonster);
+            if(i == 3) {
+                monster.add(monsterBlock, 0, 0);
+                monster.add(effectBlock, 0, 0);
+            }else{
+                monster.add(monsterBlock, i, i);
+                monster.add(effectBlock, i, i);
+            }
+        }
 
         monster.setAlignment(Pos.BOTTOM_RIGHT);
 
         fightPane.add(monster , 1,0);
     }
+
     private static void initializeFightPane(){
         fightPane = new GridPane();
         fightPane.setGridLinesVisible(true);
         initializePlayerSide();
         initializeMonsterSide();
 
-        ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(50);
-        ColumnConstraints c2 = new ColumnConstraints();
-        c2.setPercentWidth(50);
-
-        RowConstraints r1 = new RowConstraints();
-        r1.setPercentHeight(69);
-        r1.setValignment(VPos.CENTER);
-        RowConstraints r3 = new RowConstraints();
-        r3.setPercentHeight(31);
-
-        fightPane.getRowConstraints().addAll(r1,r3);
-        fightPane.getColumnConstraints().addAll(c1,c2);
+        fightPane.getRowConstraints().addAll(ToolKit.setRowCon(75,VPos.CENTER),ToolKit.setRowCon(25,null));
+        fightPane.getColumnConstraints().addAll(ToolKit.setColumnCon(50,null) , ToolKit.setColumnCon(50,null));
 
         root.add(fightPane,1,1);
-
     }
+
     private static void showModelPlayer(){
-        int num = 1 ;
-//        int num = ChooseScene.getNumber();
+        int num = ChooseScene.getNumber();
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 4 +".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 3 +".png"));
 
         Thread playerMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500);
+            FrameRate frameRate = new FrameRate(500,2);
             while (isEnd) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() == 1) currentImage = image2;
@@ -152,13 +188,13 @@ public class BattleScene extends Scene {
         });
         playerMoving.start();
     }
+
     private static void showModelMonster(Rectangle rectangle,int num){
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("monster/m" + num + "_i_1.png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("monster/m" + num + "_i_2.png"));
 
-
         Thread monsterMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500);
+            FrameRate frameRate = new FrameRate(500,2);
             while (isEnd) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() == 1) currentImage = image2;
@@ -176,28 +212,123 @@ public class BattleScene extends Scene {
         monsterMoving.start();
     }
 
-    private static void setConstraint(){
-        ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(30);
-        c1.setHalignment(HPos.CENTER);
-        ColumnConstraints c2 = new ColumnConstraints();
-        c2.setPercentWidth(50);
-        c2.setHalignment(HPos.CENTER);
-        ColumnConstraints c3 = new ColumnConstraints();
-        c3.setPercentWidth(20);
-        c3.setHalignment(HPos.CENTER);
-
-        RowConstraints r1 = new RowConstraints();
-        r1.setPercentHeight(20);
-        RowConstraints r2 = new RowConstraints();
-        r2.setPercentHeight(70);
-        RowConstraints r3 = new RowConstraints();
-        r3.setPercentHeight(10);
-        r1.setValignment(VPos.BOTTOM);
-        r2.setValignment(VPos.CENTER);
-        r3.setValignment(VPos.BOTTOM);
-
-        root.getColumnConstraints().addAll(c1, c2 , c3);
-        root.getRowConstraints().addAll(r1,r2,r3);
+    private static Button initializeAttackButton(){
+        attackButton = new Button("Attack");
+        attackButton.setOnMouseClicked(event -> {
+            initializeMonsterList();
+        });
+        return attackButton;
     }
+
+    private static void initializeMonsterList(){
+        monsterBox = new VBox();
+        monsterBox.setBackground(Background.fill(Color.WHITESMOKE));
+
+        for ( int i = 0; i < totalMonster; i++){
+            Button btn = new Button("Monster"+(i+1));
+            monsterBox.getChildren().add(btn);
+            int count = i;
+            btn.setOnMouseClicked( event -> {
+                showAttackEffect(allEffect.get(count) , allMonster.get(count),"a1" , "a2" , "a3");
+                isHit = true;
+                root.getChildren().remove(root.getChildren().size() - 1);
+            });
+        }
+        root.add(monsterBox,1,2);
+        initializeBackToActionButton(monsterBox);
+    }
+
+    private static void showAttackEffect(Rectangle rectangle ,Rectangle rectangle2, String string ,String string2 , String string3){
+        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("effect/" + string + ".png"));
+        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("effect/" + string2 + ".png"));
+        ImagePattern image4 = new ImagePattern(ToolKit.loadImage("effect/" + string3 + ".png"));
+
+        Thread monsterMoving = new Thread(() -> {
+            FrameRate frameRate = new FrameRate(100,4);
+            while (isHit) {
+                ImagePattern currentImage;
+                if(frameRate.getFrame() % 2 == 1) rectangle2.setEffect(new ColorAdjust(100,100,100,100));
+                else rectangle2.setEffect(null);
+                if(frameRate.getFrame() == 1) currentImage = image2;
+                else if(frameRate.getFrame() == 2) currentImage = image3;
+                else if(frameRate.getFrame() == 3) currentImage = image4;
+                else{
+                    currentImage = null;
+                    isHit = false;
+                }
+                Platform.runLater(() -> {
+                    rectangle.setFill(currentImage);
+                });
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            monsterBox.setEffect(null);
+        });
+        monsterMoving.start();
+    }
+
+    private static Button initializeInventoryButton(){
+        inventoryButton = new Button("Inventory");
+        inventoryButton.setOnMouseClicked(event -> {
+            initializeInventoryList();
+        });
+        return inventoryButton;
+    }
+
+    private static void initializeInventoryList(){
+        inventoryBox = new VBox();
+        inventoryBox.setBackground(Background.fill(Color.WHITESMOKE));
+
+        Button btn1 = new Button("Heal");
+
+        inventoryBox.getChildren().addAll(btn1);
+
+        btn1.setOnMouseClicked( event -> {
+            showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
+            isHit = true;
+            root.getChildren().remove(root.getChildren().size() - 1);
+        });
+
+        root.add(inventoryBox,1,2);
+        initializeBackToActionButton(inventoryBox);
+    }
+    private static void initializeBackToActionButton(VBox vBox){
+        backtoactionButton = new Button("Back");
+        vBox.getChildren().add(backtoactionButton);
+
+        backtoactionButton.setOnMouseClicked(event -> {
+            root.getChildren().remove(root.getChildren().size() - 1);
+        });
+    }
+
+    private static Button initializeEscapeButton(Stage stage){
+        escapeButton = new Button("Escape");
+        escapeButton.setOnMouseClicked(event -> {
+            stage.setScene(new EscapeScene(stage));
+        });
+        return escapeButton;
+    }
+
+    private static void initializeActionBar(Stage stage){
+        actionBox = new HBox();
+        actionBox.getChildren().addAll(initializeAttackButton(),initializeInventoryButton(), initializeEscapeButton(stage));
+
+        root.add(actionBox,1,2);
+    }
+
+    private static void setConstraint(){
+        root.getColumnConstraints().addAll(ToolKit.setColumnCon(30,HPos.CENTER),
+                ToolKit.setColumnCon(50,HPos.CENTER) , ToolKit.setColumnCon(20,HPos.CENTER));
+
+        root.getRowConstraints().addAll(ToolKit.setRowCon(20,VPos.BOTTOM),
+                ToolKit.setRowCon(60,VPos.CENTER),ToolKit.setRowCon(20,VPos.BOTTOM));
+    }
+
+    public static BattleScene getInstance(){
+        return instance;
+    }
+
 }
