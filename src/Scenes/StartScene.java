@@ -48,7 +48,7 @@ public class StartScene extends Scene {
     }
 
     private static Button initializeNewGameButton(Stage stage){
-        btnNewGame = ToolKit.createButton("New Game", "element/shortBox.png",25);
+        btnNewGame = ToolKit.createButton("New Game", "element/shortBox.png",null,25);
         btnNewGame.setOnMouseClicked(event -> {
             stage.setScene(new ChooseScene(stage));
         });
@@ -56,7 +56,7 @@ public class StartScene extends Scene {
     }
 
     private static Button initializeLoadGameButton(Stage stage){
-        btnLoadGame = ToolKit.createButton("Load Game", "element/shortBox.png",25);
+        btnLoadGame = ToolKit.createButton("Load Game", "element/shortBox.png",null,25);
         btnLoadGame.setOnMouseClicked(event -> {
             stage.setScene(new BattleScene(stage));
         });
@@ -64,17 +64,17 @@ public class StartScene extends Scene {
     }
 
     private static Button initializeSettingButton(){
-        btnSetting = ToolKit.createButton("Setting", "element/shortBox.png", 25);
+        btnSetting = ToolKit.createButton("Setting", "element/shortBox.png",null, 25);
         return btnSetting;
     }
 
     private static Button initializeHowToPlayButton(){
-         btnHowToPlay = ToolKit.createButton("How To Play", "element/shortBox.png", 25);
+         btnHowToPlay = ToolKit.createButton("How To Play", "element/shortBox.png",null, 25);
          return btnHowToPlay;
     }
 
     private static Button initializeExitButton(Stage stage){
-        btnExit = ToolKit.createButton("Exit", "element/shortBox.png", 25);
+        btnExit = ToolKit.createButton("Exit", "element/shortBox.png",null, 25);
         btnExit.setOnMouseClicked(event -> {
             stage.close();
         });
