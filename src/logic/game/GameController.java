@@ -1,6 +1,7 @@
 package logic.game;
 
 import Board.HexagonBoard;
+import Scenes.ChooseScene;
 import Scenes.GameScene;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
@@ -13,7 +14,6 @@ public class GameController {
     private ArrayList<Monster> monsters;
     private HexagonBoard hexagonBoard;
     public GameController(){
-
         setHexagonBoard(new HexagonBoard());
     }
 

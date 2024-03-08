@@ -1,6 +1,7 @@
 package logic.character;
 
 import Utils.Config;
+import javafx.scene.image.ImageView;
 
 public class Detective extends BaseCharacter{
     public Detective() {
@@ -25,4 +26,5 @@ public class Detective extends BaseCharacter{
     public String toString() {
         return "Detective";
     }
+
 }

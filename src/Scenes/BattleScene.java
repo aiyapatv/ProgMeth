@@ -252,7 +252,7 @@ public class BattleScene extends Scene {
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else if(frameRate.getFrame() == 2) currentImage = image3;
                 else if(frameRate.getFrame() == 3) currentImage = image4;
-                else{
+                else {
                     currentImage = null;
                     isHit = false;
                 }
@@ -265,7 +265,7 @@ public class BattleScene extends Scene {
                     throw new RuntimeException(e);
                 }
             }
-            monsterBox.setEffect(null);
+            rectangle2.setEffect(null);
         });
         monsterMoving.start();
     }
