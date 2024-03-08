@@ -21,20 +21,23 @@ public class ToolKit {
         String font_path = ClassLoader.getSystemResource(fontPath).toExternalForm();
         return Font.loadFont(font_path, Size);
     }
-    public static Button createButton(String string, String imagePath, int FontSize) {
+    public static Button createButton(String string, String imagePath, String imagePath2, int FontSize) {
         Button button = new Button(string);
         Font buttonFont = ToolKit.loadFont("font/pixeboyFont.ttf", FontSize);
         button.setFont(buttonFont);
         button.setOnMouseEntered(event -> {
             button.setCursor(Cursor.HAND);
+            if ( imagePath2 != null ) button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath2 + ");" + "-fx-background-size: contain;");
         });
         button.setOnMouseExited(event -> {
             button.setCursor(Cursor.DEFAULT);
+            button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: contain;");
+
         });
         button.setAlignment(Pos.CENTER);
         button.setPrefWidth(180);
         button.setPrefHeight(35);
-        button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: cover;");
+        button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: contain;");
         return button;
     }
 

@@ -1,6 +1,5 @@
 package Scenes;
 
-import Utils.Config;
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
@@ -8,10 +7,8 @@ import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -21,12 +18,12 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.character.Kid;
+import logic.character.BaseCharacter;
+import logic.game.GameController;
 
 public class ChooseScene extends Scene {
 
     private static GridPane root;
-
     private static GridPane charTable;
     private static StackPane selectBlock;
     private static Rectangle selectedChar;
@@ -35,6 +32,10 @@ public class ChooseScene extends Scene {
     private static Button backButton;
     private static Button playButton;
     private static Thread charMoving;
+    private static BaseCharacter character;
+    private static Text maxHp;
+    private static Text power;
+    private static Text defense;
     public static int number;
     public ChooseScene(Stage stage) {
         super(createChooseScene(stage), 800, 600);
@@ -43,7 +44,6 @@ public class ChooseScene extends Scene {
     private static GridPane createChooseScene(Stage stage){
         root = new GridPane(10,10);
         root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/Background3.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
-//        root.setBackground(Background.fill(Color.WHITESMOKE));
         root.setPadding(new Insets(10));
         root.setGridLinesVisible(true);
 
@@ -53,6 +53,7 @@ public class ChooseScene extends Scene {
         initializeCharTable();
         initializePlayButton(stage);
         initializeBackButton(stage);
+        initializeAttributeBox();
 
         return root;
     }
@@ -69,8 +70,10 @@ public class ChooseScene extends Scene {
             stack.getChildren().addAll(block, imageView);
             stack.setOnMouseClicked(event -> {
                 if(number != num){
+                    setNumber(num);
                     selectChar(stack, block);
-                    showCharModel(num);
+                    showCharModel();
+                    GameController.getInstance().defineCharacter(num);
                 }
             });
             charTable.add(stack, i % 3, i / 3);
@@ -113,21 +116,28 @@ public class ChooseScene extends Scene {
     public static void initializeName(){
         selectedName = new Text();
         selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
-        selectedName.setText("Name");
+        selectedName.setText(getName());
     }
     public static String getName(){
-        return selectedName.getText();
+        character = GameController.getInstance().getCharacter();
+        String name = "";
+        if (character != null){
+            name = character.toString();
+        }
+        return name;
     }
 
-    private static void showCharModel(int num){
-        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 1 +".png"));
-        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + num + "_" + 2 +".png"));
-        setNumber(num);
+    private static void showCharModel(){
+        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + getNumber() + "_" + 1 +".png"));
+        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + getNumber() + "_" + 2 +".png"));
         charMoving = new Thread(() -> {
             FrameRate frameRate = new FrameRate(500,2);
             while (isSelected) {
                 ImagePattern currentImage;
-                selectedName.setText("name");
+                selectedName.setText(getName());
+                maxHp.setText("Hp: " + GameController.getInstance().getCharacter().getMaxHp());
+                power.setText("Power: " + GameController.getInstance().getCharacter().getPower());
+                defense.setText("Defense: " + GameController.getInstance().getCharacter().getDef());
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else currentImage = image3;
                 Platform.runLater(() ->
@@ -144,7 +154,7 @@ public class ChooseScene extends Scene {
     }
 
     private static void initializePlayButton(Stage stage){
-        playButton = ToolKit.createButton("PLAY>>>", "element/shortBox.png",25);
+        playButton = ToolKit.createButton("PLAY>>>", "element/shortBox.png", null,25);
         root.add(playButton,1,3);
         playButton.setOnMouseClicked( event -> {
             if(selectBlock != null) {
@@ -154,12 +164,30 @@ public class ChooseScene extends Scene {
     }
 
     private static void initializeBackButton(Stage stage){
-        backButton = ToolKit.createButton("<<<BACK", "element/shortBox.png",25);
+        backButton = ToolKit.createButton("<<<BACK", "element/shortBox.png",null,25);
         root.add(backButton,0,3);
         backButton.setOnMouseClicked( event -> {
             isSelected = false;
             stage.setScene(new StartScene(stage));
         });
+    }
+    private static void initializeAttributeBox(){
+        VBox attributeBox = new VBox();
+        Font font = ToolKit.loadFont("font/pixeboyFont.ttf", 20);
+        maxHp = new Text("Hp: " );
+        power = new Text("Power: ");
+        defense = new Text("Defense: " );
+        maxHp.setFont(font);
+        power.setFont(font);
+        defense.setFont(font);
+
+        attributeBox.getChildren().addAll(maxHp , power , defense);
+        if ( GameController.getInstance().getCharacter() != null){
+            maxHp.setText("Hp: " + GameController.getInstance().getCharacter().getMaxHp());
+            power.setText("Power: " + GameController.getInstance().getCharacter().getPower());
+            defense.setText("Defense: " + GameController.getInstance().getCharacter().getDef());
+        }
+        root.add(attributeBox ,0,2);
     }
 
     private static void setConstraint(){
@@ -174,4 +202,5 @@ public class ChooseScene extends Scene {
     public static void setNumber(int number) {
         ChooseScene.number = number;
     }
+
 }
