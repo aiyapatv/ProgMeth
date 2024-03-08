@@ -1,5 +1,7 @@
 package logic.monsters;
 
+import logic.character.BaseCharacter;
+
 public abstract class Monster {
     private int maxHP;
     private int Hp;
@@ -32,7 +34,16 @@ public abstract class Monster {
         this.magicdef = checkless(magicdef) ;
     }
 
-    abstract public void attack(Monster m) ;
+
+
+    public boolean Isdie(Monster m){
+        if (m.getHp() <= 0 ){
+            return true ;
+        }
+        else {
+            return false ;
+        }
+    }
 
     public String getType() {
         return this.getClass().getSimpleName();

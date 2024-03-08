@@ -27,4 +27,34 @@ public class Config {
 
 
 
+
+
+    //MaxHpMonster
+    public  static  int basemonster_maxhp = 1  ;
+    public  static  int tankmonster_maxhp = 1  ;
+    public static int magictankmonster_maxhp = 1 ;
+
+
+    //defMonster
+    public  static  int basemonster_def = 1  ;
+    public  static  int tankmonster_def = 1  ;
+    public static int magictankmonster_def = 1 ;
+
+    //MagicdefMonster
+    public  static  int basemonster_magicdef = 1  ;
+    public  static  int tankmonster_magicdef = 1  ;
+    public static int magictankmonster_magicdef = 1 ;
+
+    //atktype 1 basic atk
+    public static  int atktype1 =1 ;
+    public static int magictype1 = 1;
+
+    //atktype 2 magic atk
+    public static  int atktype2 = 1 ;
+    public static int magictype2 =1 ;
+
+    ///atk type 3
+    public static  int atktype3 = 1 ;
+    public static int magictype3  =1 ;
+
 }
