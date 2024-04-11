@@ -14,12 +14,16 @@ public class basic extends Monster implements atk , spatk{
         super(Config.BASEMONSTER_MAXHP, Config.atktype1 ,
                 Config.basemonster_def , Config.magictype1 ,Config.basemonster_magicdef);
         setLevel(1);
+        setPicture("m7_i_1");
+        setPicture2("m7_i_2");
         //basic2
         if (getTime() == 21){
             setMaxHP(this.getMaxHp() + 6);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 2);
-            setLevel(2); ;
+            setLevel(2);
+            setPicture("m15_i_1");
+            setPicture2("m15_i_2");
         }
     }
 

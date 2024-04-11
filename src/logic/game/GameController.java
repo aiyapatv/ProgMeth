@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import logic.character.*;
 import logic.monsters.Monster;
+import logic.potion.BasePotion;
+import logic.potion.HealingPotion;
 
 import java.util.ArrayList;
 
@@ -16,9 +18,16 @@ public class GameController {
     private static GameController instance;
     private BaseCharacter character;
     private int turn;
-
+    private int healingPotion;
+    private int pill;
+    private int strengthPotion;
+    private int ultimatePotion;
     public GameController(){
         turn = 0;
+        healingPotion = 0;
+        pill = 0;
+        strengthPotion = 0;
+        ultimatePotion = 0;
     }
 
     public static GameController getInstance() {
@@ -56,5 +65,36 @@ public class GameController {
 
     public void increaseTurn(){
         turn++;
+    }
+    public int getHealingPotion() {
+        return healingPotion;
+    }
+
+    public void setHealingPotion(int healingPotion) {
+        this.healingPotion = healingPotion;
+    }
+
+    public int getPill() {
+        return pill;
+    }
+
+    public void setPill(int pill) {
+        this.pill = pill;
+    }
+
+    public int getStrengthPotion() {
+        return strengthPotion;
+    }
+
+    public void setStrengthPotion(int strengthPotion) {
+        this.strengthPotion = strengthPotion;
+    }
+
+    public int getUltimatePotion() {
+        return ultimatePotion;
+    }
+
+    public void setUltimatePotion(int ultimatePotion) {
+        this.ultimatePotion = ultimatePotion;
     }
 }

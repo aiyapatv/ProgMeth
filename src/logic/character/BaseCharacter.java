@@ -4,18 +4,20 @@ public abstract class BaseCharacter {
     protected int maxHp;
     protected int hp;
     protected int power;
-    protected int def;
-    private int defense ;
+    protected int defense ;
     private int magic_defense ;
     private int magicpower;
+
     private int poison_status = 0 ;
 
     //Params
-    public BaseCharacter(int maxHp , int power , int def){
+    public BaseCharacter(int maxHp , int power , int defense,int magicpฒower, int magic_defense){
         setMaxHp(maxHp);
         setPower(power);
-        setDef(def);
         setHp(maxHp);
+        setDefense(defense);
+        setMagicpower(magicpower);
+        setMagic_defense(magic_defense);
     }
     public int decreaseHp_def(int amount ){
         int def = this.getDefense() ;
@@ -35,8 +37,19 @@ public abstract class BaseCharacter {
         return b ;
     }
 
-    //Abstract Function
-    public abstract void attack();
+    //Attack & Magic Atk
+    public void attack(Monster target){
+        int targetHp = target.getHp()+target.getDef();
+        int remainHp = targetHp-getPower() ;
+        target.setHp(remainHp);
+    };
+    public void magicattack(Monster target){
+        int targetHp = target.getHp()+target.getMagicdef();
+        int remainHp = targetHp-getMagicpower() ;
+        target.setHp(remainHp);
+    };
+
+
 
     //Getter,Setter
     public int getMaxHp() {
@@ -55,15 +68,6 @@ public abstract class BaseCharacter {
         this.power = Math.max( power , 0);
     }
 
-
-    public int getDef() {
-        return def;
-    }
-
-    public void setDef(int def) {
-        this.def = Math.max(def , 0);
-    }
-
     public int getHp() {
         return hp;
     }
@@ -71,7 +75,8 @@ public abstract class BaseCharacter {
     public void setHp(int hp) {
         this.hp = Math.max(maxHp,0);
     }
-    //getter setter
+    //geter setter
+
 
     public int getDefense() {
         return defense;

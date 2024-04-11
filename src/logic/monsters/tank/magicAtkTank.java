@@ -10,6 +10,8 @@ public class magicAtkTank extends Monster implements magicatk , spatk {
         super(Config.tankmonster_maxhp , Config.atktype2 ,
                 Config.tankmonster_def , Config.magictype2 ,Config.tankmonster_magicdef);
         setLevel(1);
+        setPicture("m11_i_1");
+        setPicture2("m11_i_2");
         if (getTime() == 34 )
         {
             setMaxHP(this.getMaxHp() + 5);
@@ -17,6 +19,8 @@ public class magicAtkTank extends Monster implements magicatk , spatk {
             setMagicatk(this.getAtk() + 3);
             setDef(this.getMagicdef()+3);
             setLevel(2);
+            setPicture("m19_i_1");
+            setPicture2("m19_i_2");
         }
     }
 

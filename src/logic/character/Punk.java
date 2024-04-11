@@ -1,18 +1,13 @@
 package logic.character;
 
 import Utils.Config;
+import logic.monsters.Monster;
 
 public class Punk extends BaseCharacter{
     public Punk() {
-        super(Config.GLASSESMAXHP , Config.GLASSESPOWER ,Config.GLASSESDEFENSE);
+        super(Config.PUNKMAXHP , Config.PUNKPOWER ,Config.PUNKDEFENSE,Config.PUNKMAGICPOWER,Config.PUNKMAGICDEFENSE);
     }
-
     @Override
-    public void attack() {
-
-    }
-
-
     public String toString() {
         return "Punk";
     }

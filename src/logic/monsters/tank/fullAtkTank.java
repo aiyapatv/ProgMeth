@@ -8,6 +8,8 @@ public class fullAtkTank extends Monster implements atk , magicatk , spatk {
     public fullAtkTank() {
         super(Config.tankmonster_maxhp   , Config.atktype3 ,
                 Config.tankmonster_def , Config.magictype3  ,Config.tankmonster_magicdef);
+        setPicture("m16_i_1");
+        setPicture2("m16_i_2");
     }
 
     @Override

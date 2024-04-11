@@ -14,6 +14,8 @@ public class magicAtkMagicTank extends Monster implements magicatk , spatk {
         super(Config.magictankmonster_maxhp, Config.atktype2 ,
                 Config.magictankmonster_def , Config.magictype2 ,Config.magictankmonster_magicdef);
         setLevel(1);
+        setPicture("m8_i_1");
+        setPicture2("m8_i_2");
         //magicatkmagintank2
         if (getTime() == 12);
         {
@@ -22,6 +24,8 @@ public class magicAtkMagicTank extends Monster implements magicatk , spatk {
             setMagicatk(this.getAtk() + 2);
             setMagicdef(this.getMagicdef()+2);
             setLevel(2);
+            setPicture("m12_i_1");
+            setPicture2("m12_i_2");
         }
     }
 
