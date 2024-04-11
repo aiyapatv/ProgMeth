@@ -39,9 +39,18 @@ public abstract class BaseCharacter {
         return b ;
     }
 
+    //Attack & Magic Atk
+    public void attack(Monster target){
+        int targetHp = target.getHp()+target.getDef();
+        int remainHp = targetHp-getPower() ;
+        target.setHp(remainHp);
+    };
+    public void magicattack(Monster target){
+        int targetHp = target.getHp()+target.getMagicdef();
+        int remainHp = targetHp-getMagicpower() ;
+        target.setHp(remainHp);
+    };
 
-    //Abstract Function
-    public abstract void attack(Monster target);
 
 
     //Getter,Setter

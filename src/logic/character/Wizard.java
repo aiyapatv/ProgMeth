@@ -7,12 +7,7 @@ public class Wizard extends BaseCharacter{
     public Wizard(){
         super(Config.WIZARDMAXHP , Config.WIZARDPOWER , Config.WIZARDDEFENSE,Config.WIZARDMAGICPOWER,Config.WIZARDMAGICDEFENSE);
     }
-
     @Override
-    public void attack(Monster target) {
-    }
-
-
     public String toString() {
         return "Wizard";
     }

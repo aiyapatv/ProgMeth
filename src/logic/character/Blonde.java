@@ -9,10 +9,6 @@ public class Blonde extends BaseCharacter{
     }
 
     @Override
-    public void attack(Monster target) {
-
-    }
-    @Override
     public String toString() {
         return "Blonde";
     }

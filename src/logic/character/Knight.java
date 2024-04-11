@@ -9,11 +9,6 @@ public class Knight extends BaseCharacter{
     }
 
     @Override
-    public void attack(Monster target) {
-
-    }
-
-
     public String toString() {
         return "Knight";
     }

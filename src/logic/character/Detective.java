@@ -9,12 +9,10 @@ public class Detective extends BaseCharacter{
         super(Config.DETECTIVEMAXHP, Config.DETECIVEPOWER, Config.DETECTIVEDEFENSE,Config.DETECTIVEMAGICPOWER,Config.DETECTIVEMAGICDEFENSE);
     }
 
+    @Override
     public String toString() {
         return "Detective";
     }
 
-    @Override
-    public void attack(Monster target) {
 
-    }
 }
