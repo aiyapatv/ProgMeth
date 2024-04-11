@@ -1,14 +1,15 @@
 package logic.character;
 
 import Utils.Config;
+import logic.monsters.Monster;
 
 public class Blonde extends BaseCharacter{
     public Blonde() {
-        super(Config.KIDMAXHP , Config.KIDPOWER , Config.KIDDEFENSE);
+        super(Config.BLONDEMAXHP , Config.BLONDPOWER , Config.BLONDEDEFENSE, Config.BLONDEMAGICPOWER,Config.BLONDEMAGICDEFENSE);
     }
 
     @Override
-    public void attack() {
+    public void attack(Monster target) {
 
     }
     @Override

@@ -1,14 +1,15 @@
 package logic.character;
 
 import Utils.Config;
+import logic.monsters.Monster;
 
 public class Boy extends BaseCharacter{
     public Boy() {
-        super(Config.KIDMAXHP , Config.KIDPOWER , Config.KIDDEFENSE);
+        super(Config.BOYMAXHP , Config.BOYPOWER , Config.BOYDEFENSE,Config.BOYMAGICPOWER,Config.BOYMAGICDEFENSE);
     }
 
     @Override
-    public void attack() {
+    public void attack(Monster target) {
 
     }
     @Override

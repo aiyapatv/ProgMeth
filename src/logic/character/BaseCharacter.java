@@ -1,22 +1,25 @@
 package logic.character;
 
+import logic.monsters.Monster;
+
 public abstract class BaseCharacter {
     protected int maxHp;
+
     protected int hp;
     protected int power;
-    protected int def;
-    private int defense ;
+    protected int defense ;
     private int magic_defense ;
     private int magicpower;
 
     private int poison_status = 0 ;
 
     //Params
-    public BaseCharacter(int maxHp , int power , int def){
+    public BaseCharacter(int maxHp , int power , int defense,int magicpฒower, int magic_defense){
         setMaxHp(maxHp);
         setPower(power);
-        setDef(def);
-
+        setDefense(defense);
+        setMagicpower(magicpower);
+        setMagic_defense(magic_defense);
     }
     public int decreaseHp_def(int amount ){
         int def = this.getDefense() ;
@@ -38,7 +41,7 @@ public abstract class BaseCharacter {
 
 
     //Abstract Function
-    public abstract void attack();
+    public abstract void attack(Monster target);
 
 
     //Getter,Setter
@@ -56,15 +59,6 @@ public abstract class BaseCharacter {
 
     public void setPower(int power) {
         this.power = Math.max( power , 0);
-    }
-
-
-    public int getDef() {
-        return def;
-    }
-
-    public void setDef(int def) {
-        this.def = Math.max(def , 0);
     }
 
     public int getHp() {
