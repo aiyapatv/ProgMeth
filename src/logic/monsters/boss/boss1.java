@@ -7,8 +7,10 @@ import logic.able.* ;
 
 public class boss1 extends Monster implements atk , spatk {
     public boss1() {
-        super(150, 20 ,
+        super(150, 10 ,
                 15 , 5 , 15);
+        setPicture("m2_i_1");
+        setPicture2("m2_i_2");
     }
 
     public void attack(BaseCharacter target) {

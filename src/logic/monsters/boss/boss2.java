@@ -5,8 +5,10 @@ import logic.monsters.Monster;
 import logic.able.*;
 public class boss2 extends Monster implements atk , magicatk , spatk {
     public boss2() {
-        super(100, 7 ,
-                10 , 7 , 10);
+        super(100, 4 ,
+                7, 4 , 7);
+        setPicture("m6_i_1");
+        setPicture2("m6_i_2");
     }
 
     public void attack(BaseCharacter target) {
@@ -34,9 +36,10 @@ public class boss2 extends Monster implements atk , magicatk , spatk {
     }
 
 
-    //summon basicmonster
+    //incress 2 time of atk and magic atk for all game
     public void skill2(){
-        //todo
+        setAtk(this.getAtk()*2);
+        setMagicatk(this.getMagicatk()*2);
     }
 
 }

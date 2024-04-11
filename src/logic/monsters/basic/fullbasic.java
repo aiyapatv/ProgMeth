@@ -9,6 +9,8 @@ public class fullbasic extends Monster implements atk , magicatk ,spatk {
     public fullbasic() {
         super(Config.BASEMONSTER_MAXHP , Config.atktype3 ,
                 Config.basemonster_def , Config.magictype3 ,Config.basemonster_magicdef);
+        setPicture("m10_i_1");
+        setPicture2("m10_i_2");
     }
 
     @Override
