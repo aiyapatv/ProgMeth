@@ -73,7 +73,7 @@ public class EscapeScene extends Scene {
     private Text createEscapeText(int dotNum) {
         Text text = new Text();
         text.setText("Escape" + "..".repeat(dotNum));
-        text.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 30));
+        text.setFont(ToolKit.loadFont( 30));
         return text;
     }
 

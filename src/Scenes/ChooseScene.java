@@ -102,7 +102,7 @@ public class ChooseScene extends Scene {
     private static void initializeHeader(){
         Text header = new Text("Select Character");
         header.setFill(Color.WHITESMOKE);
-        header.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
+        header.setFont(ToolKit.loadFont( 50));
         root.add(header, 0, 0, 2, 1);
     }
 
@@ -116,7 +116,7 @@ public class ChooseScene extends Scene {
     }
     public static void initializeName(){
         selectedName = new Text();
-        selectedName.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 50));
+        selectedName.setFont(ToolKit.loadFont(50));
         selectedName.setText(getName());
     }
     public static String getName(){
@@ -176,7 +176,7 @@ public class ChooseScene extends Scene {
     }
     private static void initializeAttributeBox(){
         VBox attributeBox = new VBox();
-        Font font = ToolKit.loadFont("font/pixeboyFont.ttf", 35);
+        Font font = ToolKit.loadFont( 35);
         maxHp = new Text("Hp: " );
         power = new Text("Power: ");
         defense = new Text("Defense: " );

@@ -17,13 +17,13 @@ public class ToolKit {
         return new Image(image_path);
     }
 
-    public static Font loadFont(String fontPath, int Size){
-        String font_path = ClassLoader.getSystemResource(fontPath).toExternalForm();
+    public static Font loadFont(int Size){
+        String font_path = ClassLoader.getSystemResource("font/pixeboyFont.ttf").toExternalForm();
         return Font.loadFont(font_path, Size);
     }
     public static Button createButton(String string, String imagePath, String imagePath2, int FontSize) {
         Button button = new Button(string);
-        Font buttonFont = ToolKit.loadFont("font/pixeboyFont.ttf", FontSize);
+        Font buttonFont = ToolKit.loadFont( FontSize);
         button.setFont(buttonFont);
         button.setOnMouseEntered(event -> {
             button.setCursor(Cursor.HAND);

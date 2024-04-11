@@ -52,7 +52,7 @@ public class LoadingScene extends Scene {
     private Text createLoadingText(int dotNum){
         Text text = new Text();
         text.setText("Loading" + ".".repeat(dotNum));
-        text.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 30));
+        text.setFont(ToolKit.loadFont( 30));
         return text;
     }
 
