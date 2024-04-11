@@ -13,6 +13,8 @@ public class tank1 extends Monster implements atk  , spatk{
         super(Config.tankmonster_maxhp, Config.atktype1,
                 Config.tankmonster_def , Config.magictype1 ,Config.tankmonster_magicdef);
         setLevel(1);
+        setPicture("m23_i_1");
+        setPicture2("m23_i_2");
         //tank2
         if (getTime() == 65)
         {
@@ -21,6 +23,9 @@ public class tank1 extends Monster implements atk  , spatk{
             setAtk(this.getAtk() + 2);
             setDef(this.getMagicdef()+2);
             setLevel(2);
+
+            setPicture("m13_i_1");
+            setPicture2("m13_i_2");
             //tank3
         } else if (getTime() == 98) {
 
@@ -29,6 +34,8 @@ public class tank1 extends Monster implements atk  , spatk{
             setAtk(this.getAtk() + 4);
             setDef(this.getMagicdef()+4);
             setLevel(3);
+            setPicture("m4_i_1");
+            setPicture2("m4_i_2");
         }
     }
 

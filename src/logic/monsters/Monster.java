@@ -5,6 +5,9 @@ import logic.game.GameController;
 
 public abstract class Monster {
     private int maxHP;
+
+    private String picture ;
+    private String picture2;
     private int Hp;
     private int atk;
 
@@ -135,5 +138,22 @@ public abstract class Monster {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+
+    }
+
+    public String getPicture2() {
+        return picture2;
+    }
+
+    public void setPicture2(String picture2) {
+        this.picture2 = picture2;
     }
 }
