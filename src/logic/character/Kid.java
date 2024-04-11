@@ -5,7 +5,7 @@ import Utils.Config;
 public class Kid extends BaseCharacter{
 
     public Kid() {
-        super(Config.KIDMAXHP);
+        super(Config.KIDMAXHP,Config.KIDPOWER,Config.KIDDEFENSE);
     }
 
     @Override

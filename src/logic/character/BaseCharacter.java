@@ -5,13 +5,8 @@ public abstract class BaseCharacter {
     protected int hp;
     protected int power;
     protected int def;
-
     private int defense ;
-
     private int magic_defense ;
-
-    private int power ;
-
     private int magicpower;
 
     private int poison_status = 0 ;
@@ -43,10 +38,6 @@ public abstract class BaseCharacter {
 
 
     //Abstract Function
-<<<<<<< HEAD
-
-=======
->>>>>>> 6e93848cdbee085381d7ed2d6d8733c663d9286e
     public abstract void attack();
 
 
@@ -83,9 +74,6 @@ public abstract class BaseCharacter {
     public void setHp(int hp) {
         this.hp = Math.max(maxHp,0);
     }
-<<<<<<< HEAD
-=======
-
     //geter setter
 
 
@@ -105,14 +93,6 @@ public abstract class BaseCharacter {
         this.magic_defense = Math.max(0, magic_defense) ;
     }
 
-    public int getPower() {
-        return power;
-    }
-
-    public void setPower(int power) {
-        this.power = Math.max(0, power) ;
-    }
-
     public int getMagicpower() {
         return magicpower;
     }
@@ -128,5 +108,4 @@ public abstract class BaseCharacter {
     public void setPoison_status(int poison_status) {
         this.poison_status = poison_status;
     }
->>>>>>> 6e93848cdbee085381d7ed2d6d8733c663d9286e
 }

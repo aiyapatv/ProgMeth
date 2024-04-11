@@ -1,5 +1,6 @@
 package Scenes;
 
+import Board.HexagonBoard;
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
@@ -45,7 +46,7 @@ public class ChooseScene extends Scene {
         root = new GridPane(10,10);
         root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/Background3.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         root.setPadding(new Insets(10));
-        root.setGridLinesVisible(true);
+        root.setGridLinesVisible(false);
 
         setConstraint();
         initializeHeader();
@@ -173,7 +174,7 @@ public class ChooseScene extends Scene {
     }
     private static void initializeAttributeBox(){
         VBox attributeBox = new VBox();
-        Font font = ToolKit.loadFont("font/pixeboyFont.ttf", 20);
+        Font font = ToolKit.loadFont("font/pixeboyFont.ttf", 35);
         maxHp = new Text("Hp: " );
         power = new Text("Power: ");
         defense = new Text("Defense: " );

@@ -271,7 +271,7 @@ public class BattleScene extends Scene {
                     throw new RuntimeException(e);
                 }
             }
-            rectangle2.setEffect(null);
+            monsterBlock.setEffect(null);
         });
         monsterMoving.start();
     }
@@ -318,7 +318,7 @@ public class BattleScene extends Scene {
         escapeButton = ToolKit.createButton("Escape", "button/red1.png","button/red2.png",20);
         setButtonPref(escapeButton, 90 , 30);
         escapeButton.setOnMouseClicked(event -> {
-            stage.setScene(new EscapeScene(stage));
+            stage.setScene(GameScene.getInstance(stage));
         });
         return escapeButton;
     }

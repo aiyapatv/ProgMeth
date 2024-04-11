@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
+import logic.game.GameController;
 //import main.MusicController;
 
 public class StartScene extends Scene {
@@ -33,7 +34,7 @@ public class StartScene extends Scene {
         root.setPadding(new Insets(100, 20, 20, 70));
         root.setVgap(10);
         root.setHgap(50);
-
+        GameController.getInstance();
         initializeCenterBox(stage);
         root.setAlignment(Pos.BASELINE_LEFT);
 
@@ -51,6 +52,7 @@ public class StartScene extends Scene {
         btnNewGame = ToolKit.createButton("New Game", "element/shortBox.png",null,25);
         btnNewGame.setOnMouseClicked(event -> {
             stage.setScene(new ChooseScene(stage));
+
         });
         return btnNewGame;
     }

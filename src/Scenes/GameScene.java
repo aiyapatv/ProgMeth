@@ -18,7 +18,7 @@ public class GameScene extends Scene {
         super(createGameScene(stage), 800, 600);
     }
     public static AnchorPane createGameScene(Stage stage){
-        AnchorPane root = HexagonBoard.getInstance();
+        AnchorPane root = new HexagonBoard(stage);
         Button test = new Button();
         test.setOnMouseClicked(event -> {
             stage.setScene(StartScene.getInstance(stage));
@@ -32,4 +32,9 @@ public class GameScene extends Scene {
         }
         return instance;
     }
+
+    public static void setInstance (GameScene gameScene){
+        instance = gameScene;
+    }
+
 }
