@@ -41,14 +41,18 @@ public abstract class BaseCharacter {
 
     //Attack & Magic Atk
     public void attack(Monster target){
-        int targetHp = target.getHp()+target.getDef();
-        int remainHp = targetHp-getPower() ;
-        target.setHp(remainHp);
+        int atk = target.getDef()-getPower();
+        if(atk<0){
+            int remainHp = target.getHp()+atk ;
+            target.setHp(remainHp);
+        }
     };
-    public void magicattack(Monster target){
-        int targetHp = target.getHp()+target.getMagicdef();
-        int remainHp = targetHp-getMagicpower() ;
-        target.setHp(remainHp);
+    public void magicAttack(Monster target){
+        int magicAtk = target.getMagicdef()-getMagicpower();
+        if(magicAtk<0){
+            int remainHp = target.getHp()+magicAtk ;
+            target.setHp(remainHp);
+        }
     };
 
 
