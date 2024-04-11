@@ -2,19 +2,17 @@ package logic.character;
 
 import Utils.Config;
 import javafx.scene.image.ImageView;
+import logic.monsters.Monster;
 
 public class Detective extends BaseCharacter{
     public Detective() {
-        super(Config.DETECTIVEMAXHP, Config.DETECIVEPOWER, Config.DETECTIVEDEFENSE);
+        super(Config.DETECTIVEMAXHP, Config.DETECIVEPOWER, Config.DETECTIVEDEFENSE,Config.DETECTIVEMAGICPOWER,Config.DETECTIVEMAGICDEFENSE);
     }
 
     @Override
-    public void attack() {
-
-    }
-
     public String toString() {
         return "Detective";
     }
+
 
 }

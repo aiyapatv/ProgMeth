@@ -2,32 +2,67 @@ package Utils;
 
 public class Config {
     //Power stat.
-    public final static int KIDPOWER = 10;
+    public final static int BOYPOWER = 20;
+    public final static int BLONDPOWER = 20;
     public final static int GLASSESPOWER = 20;
     public final static int DETECIVEPOWER = 25;
-    public final static int WIZARDPOWER = 30;
-    public final static int FIGHTERPOWER = 35;
+    public final static int GIRLPOWER = 20;
     public final static int PUNKPOWER = 15;
+    public final static int KNIGHTPOWER = 20;
+    public final static int VIKINGPOWER = 20;
+    public final static int WIZARDPOWER = 30;
 
     //Hp
-    public final static int KIDMAXHP = 80;
+    public final static int BOYMAXHP = 80;
+    public final static int BLONDEMAXHP = 85;
     public final static int GLASSESMAXHP = 85;
     public final static int DETECTIVEMAXHP = 90;
-    public final static int WIZARDMAXHP = 100;
-    public final static int FIGHTERMAXHP = 105;
+
+    public final static int GIRLMAXHP = 105;
     public final static int PUNKMAXHP = 95;
+    public final static int KNIGHTMAXHP = 95;
+    public final static int VIKINGMAXHP = 95;
+    public final static int WIZARDMAXHP = 100;
+
 
     //Defense stat.
-    public final static int KIDDEFENSE = 5;
+    public final static int BOYDEFENSE = 20;
+    public final static int BLONDEDEFENSE = 20;
     public final static int GLASSESDEFENSE = 20;
     public final static int DETECTIVEDEFENSE = 15;
-    public final static int WIZARDDEFENSE = 8;
-    public final static int FIGHTERDEFENSE = 25;
+
+    public final static int GIRLDEFENSE = 25;
+
     public final static int PUNKDEFENSE = 9;
+    public final static int KNIGHTDEFENSE = 9;
+    public final static int VIKINGDEFENSE = 9;
+    public final static int WIZARDDEFENSE = 8;
 
+    //Magic Power stat.
+    public final static int BOYMAGICPOWER = 20;
+    public final static int BLONDEMAGICPOWER = 20;
+    public final static int GLASSESMAGICPOWER = 20;
+    public final static int DETECTIVEMAGICPOWER = 15;
 
+    public final static int GIRLMAGICPOWER = 25;
 
+    public final static int PUNKMAGICPOWER = 9;
+    public final static int KNIGHTMAGICPOWER = 9;
+    public final static int VIKINGMAGICPOWER = 9;
+    public final static int WIZARDMAGICPOWER = 8;
 
+    //Magic Defense stats.
+    public final static int BOYMAGICDEFENSE = 20;
+    public final static int BLONDEMAGICDEFENSE = 20;
+    public final static int GLASSESMAGICDEFENSE = 20;
+    public final static int DETECTIVEMAGICDEFENSE = 15;
+
+    public final static int GIRLMAGICDEFENSE = 25;
+
+    public final static int PUNKMAGICDEFENSE = 9;
+    public final static int KNIGHTMAGICDEFENSE = 9;
+    public final static int VIKINGMAGICDEFENSE = 9;
+    public final static int WIZARDMAGICDEFENSE = 8;
 
     //MaxHpMonster
     public final static  int BASEMONSTER_MAXHP = 1  ;
