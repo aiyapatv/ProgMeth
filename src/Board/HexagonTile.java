@@ -2,6 +2,7 @@ package Board;
 
 import Scenes.BattleScene;
 import Scenes.ChooseScene;
+import Scenes.GameScene;
 import Utils.ToolKit;
 import Utils.Images;
 import javafx.scene.control.Label;
@@ -13,56 +14,37 @@ import javafx.stage.Stage;
 import logic.game.GameController;
 
 public class HexagonTile extends StackPane {
-    private int q;
-    private int r;
-    private double top;
-    private double left;
     private boolean isWalked;
     private final ImageView charImage;
 
-    public HexagonTile(double top, double left, int q, int r, String image, int size, Stage stage){
+    public HexagonTile(String image, int size, Stage stage, boolean isWalked){
         charImage = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +"_1.png"), 50, 50);
-        setTop(top);
-        setLeft(left);
-        setQ(q);
-        setR(r);
-        setIsWalked(false);
+        setIsWalked(isWalked);
         createHexagon(image, size, stage);
     }
 
     public void createHexagon(String image, int size, Stage stage){
         ImageView hexagonImage = Images.setImageViewSize(ToolKit.loadImage(image), size, size);
         getChildren().add(hexagonImage);
-        hexagonImage.setEffect(new InnerShadow(5,Color.GRAY));
-        setOnMouseEntered(mouseEvent -> {
-            hexagonImage.setEffect(new Glow(0.5));
-        });
-        setOnMouseClicked(mouseEvent -> {
-            setOnMouseEntered(null);
-            setOnMouseExited(null);
-            hexagonImage.setEffect(new Glow(0.5));
-            setOnMouseClicked(null);
-            stage.setScene(new BattleScene(stage));
-        });
-        setOnMouseExited(mouseEvent -> {
-            hexagonImage.setEffect(new InnerShadow(5,Color.GRAY));
-        });
-    }
-
-    public int getQ() {
-        return q;
-    }
-
-    public void setQ(int q) {
-        this.q = q;
-    }
-
-    public int getR() {
-        return r;
-    }
-
-    public void setR(int r) {
-        this.r = r;
+        if(!isWalked) {
+            setOnMouseEntered(mouseEvent -> {
+                hexagonImage.setEffect(new Glow(0.5));
+            });
+            setOnMouseClicked(mouseEvent -> {
+                setOnMouseEntered(null);
+                setOnMouseExited(null);
+                hexagonImage.setEffect(new Glow(0.5));
+                setOnMouseClicked(null);
+                GameController.getInstance().increaseTurn();
+                GameScene.updateTurn();
+                stage.setScene(new BattleScene(stage));
+            });
+            setOnMouseExited(mouseEvent -> {
+                hexagonImage.setEffect(new InnerShadow(5, Color.GRAY));
+            });
+        }else{
+            hexagonImage.setEffect(new InnerShadow(100,Color.GRAY));
+        }
     }
 
     public boolean isWalked() {
@@ -71,13 +53,5 @@ public class HexagonTile extends StackPane {
 
     public void setIsWalked(boolean walked) {
         isWalked = walked;
-    }
-
-    public void setTop(double top) {
-        this.top = top;
-    }
-
-    public void setLeft(double left) {
-        this.left = left;
     }
 }

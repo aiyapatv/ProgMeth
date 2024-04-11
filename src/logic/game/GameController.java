@@ -15,14 +15,10 @@ import java.util.ArrayList;
 public class GameController {
     private static GameController instance;
     private BaseCharacter character;
-    private ArrayList<Monster> monsters;
-    private HexagonBoard hexagonBoard;
     private int turn;
-    private int charPosition;
 
     public GameController(){
         turn = 0;
-        setCharPosition(84);
     }
 
     public static GameController getInstance() {
@@ -54,19 +50,11 @@ public class GameController {
         else if (num == 9) setCharacter(new Wizard());
     }
 
-    public HexagonBoard getHexagonBoard() {
-        return hexagonBoard;
+    public int getTurn(){
+        return turn;
     }
 
-    public void setHexagonBoard(HexagonBoard hexagonBoard) {
-        this.hexagonBoard = hexagonBoard;
-    }
-
-    public int getCharPosition() {
-        return charPosition;
-    }
-
-    public void setCharPosition(int charPosition) {
-        this.charPosition = charPosition;
+    public void increaseTurn(){
+        turn++;
     }
 }

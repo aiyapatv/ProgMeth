@@ -1,5 +1,6 @@
 package Main;
 
+import Scenes.PauseScene;
 import Utils.FrameRate;
 import Utils.ToolKit;
 import javafx.application.Application;
@@ -18,6 +19,7 @@ public class Main extends Application{
         stage.getIcons().add(ToolKit.loadImage("element/Logo.jpg"));
         stage.setResizable(false);
         stage.setTitle("Game");
+        PauseScene.getInstance(stage);
         Scene sceneStart = StartScene.getInstance(stage);
         stage.setScene(sceneStart);
         stage.show();
