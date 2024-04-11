@@ -5,8 +5,8 @@ import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.*;
 
-public class MagicAtkTank1 extends Monster implements magicatk , spatk {
-    public MagicAtkTank1() {
+public class magicAtkTank extends Monster implements magicatk , spatk {
+    public magicAtkTank() {
         super(Config.tankmonster_maxhp , Config.atktype2 ,
                 Config.tankmonster_def , Config.magictype2 ,Config.tankmonster_magicdef);
         setLevel(1);

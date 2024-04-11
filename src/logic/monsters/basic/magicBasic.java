@@ -3,14 +3,13 @@ package logic.monsters.basic;
 import Utils.Config;
 import logic.able.magicatk;
 import logic.character.BaseCharacter;
-import logic.game.GameController;
 import logic.monsters.Monster;
 import logic.able.* ;
 
-public class magicbasic1 extends Monster implements magicatk , spatk  {
+public class magicBasic extends Monster implements magicatk , spatk  {
 
 
-    public magicbasic1() {
+    public magicBasic() {
         //magicbasic 1
         super(Config.BASEMONSTER_MAXHP, Config.atktype2 ,
                 Config.basemonster_def , Config.magictype2 ,Config.basemonster_magicdef);

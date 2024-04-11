@@ -2,7 +2,7 @@ package Scenes;
 
 import Utils.FrameRate;
 import Utils.Images;
-import Utils.RandomMonster;
+import Utils.Random;
 import Utils.ToolKit;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -21,7 +21,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.game.GameController;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 
 public class BattleScene extends Scene {
@@ -43,7 +42,7 @@ public class BattleScene extends Scene {
     private static Rectangle heal;
     private static int totalMonster;
     private static int hpPlayer;
-    private static ArrayList<Rectangle> allMonster;
+    private static ArrayList<Rectangle> allMonster; //delete
     //private static ArrayList<Monster> allMonster;
     //private static ArrayList<Rectangle> allMonPic;
     private static ArrayList<Rectangle> allEffect;
@@ -124,7 +123,7 @@ public class BattleScene extends Scene {
             monster.getColumnConstraints().add(new ColumnConstraints(60));
             monster.getRowConstraints().add(new RowConstraints(60));
         }
-        totalMonster = RandomMonster.randomMonsterAmount();
+        totalMonster = Random.randomMonsterAmount();
 
         allMonster = new ArrayList<>(totalMonster);
         allEffect = new ArrayList<>(totalMonster);
@@ -132,7 +131,7 @@ public class BattleScene extends Scene {
             monsterBlock = new Rectangle(60,60);
             effectBlock = new Rectangle(50,50);
             effectBlock.setFill(null);
-            randomMonster = RandomMonster.randomMonsterImage();
+            randomMonster = Random.randomMonsterImage();
 
             ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/m" + randomMonster + "_i_1.png")); //delete
             //ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage(randomMonster.getImage()));

@@ -2,13 +2,12 @@ package logic.monsters.magictank;
 
 import Utils.Config;
 import logic.character.BaseCharacter;
-import logic.game.GameController;
 import logic.monsters.Monster;
 import logic.able.* ;
-public class Magictank1 extends Monster implements atk  , spatk{
+public class magicTank extends Monster implements atk  , spatk{
 
 
-    public Magictank1() {
+    public magicTank() {
         //Magictank1
         super(Config.magictankmonster_maxhp, Config.atktype1 ,
                 Config.magictankmonster_def , Config.magictype1 ,Config.magictankmonster_magicdef);

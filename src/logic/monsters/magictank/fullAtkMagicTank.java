@@ -1,19 +1,20 @@
-package logic.monsters.tank;
+package logic.monsters.magictank;
 
 import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
-public class FullAtkTank1 extends Monster implements atk , magicatk , spatk {
-    public FullAtkTank1() {
-        super(Config.tankmonster_maxhp   , Config.atktype3 ,
-                Config.tankmonster_def , Config.magictype3  ,Config.tankmonster_magicdef);
+
+public class fullAtkMagicTank extends Monster implements atk, magicatk ,spatk{
+    public fullAtkMagicTank() {
+        super(Config.magictankmonster_maxhp, Config.atktype3 ,
+                Config.magictankmonster_def , Config.magictype3 ,Config.magictankmonster_magicdef);
     }
 
-    @Override
     public void attack(BaseCharacter target) {
         target.decreaseHp_def(this.getAtk());
     }
+
 
     @Override
     public void magic_attack(BaseCharacter target) {
@@ -22,8 +23,7 @@ public class FullAtkTank1 extends Monster implements atk , magicatk , spatk {
 
     @Override
     public void special_attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk() /2);
-        target.decreaseHp_magicdef(this.getMagicatk()/2);
+        target.decreaseHp_magicdef(this.getMagicatk() /2 );
+        target.decreaseHp_def(this.getAtk()/2);
     }
-
 }

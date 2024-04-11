@@ -7,8 +7,8 @@ import logic.able.* ;
 
 //basic at
 //no special
-public class tank1 extends Monster implements atk  , spatk{
-    public tank1() {
+public class tank extends Monster implements atk  , spatk{
+    public tank() {
         //tank1
         super(Config.tankmonster_maxhp, Config.atktype1,
                 Config.tankmonster_def , Config.magictype1 ,Config.tankmonster_magicdef);
