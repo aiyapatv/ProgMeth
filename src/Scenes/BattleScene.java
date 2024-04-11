@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.game.GameController;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 
 public class BattleScene extends Scene {
@@ -35,14 +36,19 @@ public class BattleScene extends Scene {
     private static HBox actionBox;
     private static VBox inventoryBox;
     private static VBox monsterBox;
+    private static HBox monsterButton;
     private static Button backtoactionButton;
     private static Rectangle monsterBlock;
     private static Rectangle effectBlock;
     private static Rectangle heal;
     private static int totalMonster;
+    private static int hpPlayer;
     private static ArrayList<Rectangle> allMonster;
+    //private static ArrayList<Monster> allMonster;
+    //private static ArrayList<Rectangle> allMonPic;
     private static ArrayList<Rectangle> allEffect;
     private static int randomMonster;
+
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
@@ -58,7 +64,6 @@ public class BattleScene extends Scene {
         setConstraint();
 
         initializeStatusBar();
-        initializeTurnBased();
         initializeFightPane();
         initializeActionBar(stage);
 
@@ -78,31 +83,26 @@ public class BattleScene extends Scene {
         ImageView character = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +".png"), 50, 50);
         ImageView imageView1 = Images.setImageViewSize(ToolKit.loadImage("element/ui1.png"), 60, 60);
         ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
-        stack.getChildren().addAll(block, imageView1, character);
-        boxStatus.getChildren().addAll(stack , imageView3 , description);
-        root.add(boxStatus,0,2);
-    }
+        ImageView hpBar = new ImageView();
+        hpPlayer = (GameController.getInstance().getCharacter().getHp()) / (GameController.getInstance().getCharacter().getMaxHp())* 100 ;
 
-    private static void initializeTurnBased(){
-        HBox turnBased = new HBox();
-        turnBased.setAlignment(Pos.CENTER);
-        turnBased.setSpacing(5);
-
-        for(int i = 0;i < 7; i++){
-            StackPane stack = new StackPane();
-            Rectangle block = new Rectangle(50,50,null);
-            block.setStroke(Color.BLACK);
-            ImageView imageView;
-            if ( i%2 == 0){
-                imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +"_1.png"), 50, 50);
-            } else {
-                imageView = Images.setImageViewSize(ToolKit.loadImage("character/c"+ 9 +"_1.png"), 50, 50);
-            }
-            stack.getChildren().addAll(block, imageView);
-
-            turnBased.getChildren().add(stack);
+        if ( hpPlayer == 0 ) {
+            hpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health0%.png"), 30, 100);
+        } else if ( hpPlayer > 0 && hpPlayer <= 20 ){
+            hpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health20%.png"), 30, 100);
+        } else if ( hpPlayer > 20 && hpPlayer <= 40 ){
+            hpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health40%.png"), 30, 100);
+        } else if ( hpPlayer > 40 && hpPlayer <= 60 ){
+            hpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health60%.png"), 30, 100);
+        } else if ( hpPlayer > 60 && hpPlayer <= 80 ){
+            hpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health80%.png"), 30, 100);
+        } else if ( hpPlayer > 80 && hpPlayer <= 100) {
+            hpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health100%.png"), 30, 100);
         }
-        root.add(turnBased, 1, 0);
+
+        stack.getChildren().addAll(block, imageView1, character,hpBar);
+        boxStatus.getChildren().addAll(stack ,imageView3 , description);
+        root.add(boxStatus,0,2);
     }
 
     private static void initializePlayerSide(){
@@ -133,10 +133,15 @@ public class BattleScene extends Scene {
             effectBlock = new Rectangle(50,50);
             effectBlock.setFill(null);
             randomMonster = RandomMonster.randomMonsterImage();
-            ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/m" + randomMonster + "_i_1.png"));
+
+            ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/m" + randomMonster + "_i_1.png")); //delete
+            //ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage(randomMonster.getImage()));
             monsterBlock.setFill(imageMonster);
 
-            allMonster.add(monsterBlock);
+            //allMonPic.add(monsterBlock);
+            //allMonster.add(randomMonster);
+
+            allMonster.add(monsterBlock); //delete
             allEffect.add(effectBlock);
 
             showModelMonster(monsterBlock,randomMonster);
@@ -182,7 +187,8 @@ public class BattleScene extends Scene {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
+                    break;
                 }
             }
         });
@@ -218,6 +224,7 @@ public class BattleScene extends Scene {
         setButtonPref(attackButton , 90 , 30);
         attackButton.setOnMouseClicked(event -> {
             initializeMonsterList();
+            GameController.getInstance().getCharacter().attack();
         });
         return attackButton;
     }
@@ -227,10 +234,29 @@ public class BattleScene extends Scene {
         monsterBox.setBackground(Background.fill(Color.WHITESMOKE));
 
         for ( int i = 0; i < totalMonster; i++){
+            monsterButton = new HBox();
             Button btn = ToolKit.createButton("Monster"+(i+1), "button/red1.png","button/red2.png",20);
             setButtonPref(btn, 90 , 30);
 
-            monsterBox.getChildren().add(btn);
+            int hpMon = 0;
+            ImageView hpMonBar = new ImageView();
+            if ( hpMon == 0 ) {
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health0%.png"), 30, 100);
+            } else if ( hpMon > 0 && hpMon <= 20 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health20%.png"), 30, 100);
+            } else if ( hpMon> 20 && hpMon <= 40 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health40%.png"), 30, 100);
+            } else if ( hpMon > 40 && hpMon <= 60 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health60%.png"), 30, 100);
+            } else if ( hpMon > 60 && hpMon <= 80 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health80%.png"), 30, 100);
+            } else if ( hpMon > 80 && hpMon <= 100) {
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health100%.png"), 30, 100);
+            }
+
+            monsterButton.getChildren().addAll(btn,hpMonBar);
+            monsterBox.getChildren().add(monsterButton);
+
             int count = i;
             btn.setOnMouseClicked( event -> {
                 showAttackEffect(allEffect.get(count) , allMonster.get(count),"a1" , "a2" , "a3");
@@ -317,6 +343,7 @@ public class BattleScene extends Scene {
         setButtonPref(escapeButton, 90 , 30);
         escapeButton.setOnMouseClicked(event -> {
             stage.setScene(GameScene.getInstance(stage));
+            isEnd = true;
         });
         return escapeButton;
     }

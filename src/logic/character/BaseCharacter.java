@@ -8,7 +8,6 @@ public abstract class BaseCharacter {
     private int defense ;
     private int magic_defense ;
     private int magicpower;
-
     private int poison_status = 0 ;
 
     //Params
@@ -16,7 +15,7 @@ public abstract class BaseCharacter {
         setMaxHp(maxHp);
         setPower(power);
         setDef(def);
-
+        setHp(maxHp);
     }
     public int decreaseHp_def(int amount ){
         int def = this.getDefense() ;
@@ -36,10 +35,8 @@ public abstract class BaseCharacter {
         return b ;
     }
 
-
     //Abstract Function
     public abstract void attack();
-
 
     //Getter,Setter
     public int getMaxHp() {
@@ -74,8 +71,7 @@ public abstract class BaseCharacter {
     public void setHp(int hp) {
         this.hp = Math.max(maxHp,0);
     }
-    //geter setter
-
+    //getter setter
 
     public int getDefense() {
         return defense;

@@ -54,14 +54,6 @@ public class GameController {
         else if (num == 9) setCharacter(new Wizard());
     }
 
-    public ArrayList<Monster> getMonsters() {
-        return monsters;
-    }
-
-    public void setMonsters(ArrayList<Monster> monsters) {
-        this.monsters = monsters;
-    }
-
     public HexagonBoard getHexagonBoard() {
         return hexagonBoard;
     }
