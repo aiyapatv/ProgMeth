@@ -159,6 +159,8 @@ public class ChooseScene extends Scene {
         root.add(playButton,1,3);
         playButton.setOnMouseClicked( event -> {
             if(selectBlock != null) {
+                isSelected = false;
+                selectBlock = null;
                 stage.setScene(new LoadingScene(stage));
             }
         });

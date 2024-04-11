@@ -12,16 +12,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoadingScene extends Scene {
-    private static VBox root = new VBox();
-    private static boolean isStart = false;
+    private VBox root = new VBox();
+    private boolean isStart = false;
 
     public LoadingScene(Stage stage) {
-        super(root, 800, 600);
+        super(new VBox(), 800, 600);
+        root = (VBox) getRoot();
         createLoadingScene();
         prepareGameScene(stage);
     }
 
-    public static void createLoadingScene() {
+    public void createLoadingScene() {
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
         new Thread(() -> {
@@ -48,7 +49,7 @@ public class LoadingScene extends Scene {
         }).start();
     }
 
-    private static Text createLoadingText(int dotNum){
+    private Text createLoadingText(int dotNum){
         Text text = new Text();
         text.setText("Loading" + ".".repeat(dotNum));
         text.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 30));

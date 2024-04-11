@@ -67,7 +67,6 @@ public class EscapeScene extends Scene {
             }
         });
         escapeThread.start();
-
         prepareGameScene(stage);
     }
 

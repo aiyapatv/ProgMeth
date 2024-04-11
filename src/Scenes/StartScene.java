@@ -34,7 +34,6 @@ public class StartScene extends Scene {
         root.setPadding(new Insets(100, 20, 20, 70));
         root.setVgap(10);
         root.setHgap(50);
-        GameController.getInstance();
         initializeCenterBox(stage);
         root.setAlignment(Pos.BASELINE_LEFT);
 
@@ -51,18 +50,10 @@ public class StartScene extends Scene {
     private static Button initializeNewGameButton(Stage stage){
         btnNewGame = ToolKit.createButton("New Game", "element/shortBox.png",null,25);
         btnNewGame.setOnMouseClicked(event -> {
+            GameController.setInstance(new GameController());
             stage.setScene(new ChooseScene(stage));
-
         });
         return btnNewGame;
-    }
-
-    private static Button initializeLoadGameButton(Stage stage){
-        btnLoadGame = ToolKit.createButton("Load Game", "element/shortBox.png",null,25);
-        btnLoadGame.setOnMouseClicked(event -> {
-            stage.setScene(new BattleScene(stage));
-        });
-        return btnLoadGame;
     }
 
     private static Button initializeSettingButton(){
@@ -88,7 +79,7 @@ public class StartScene extends Scene {
         centerBox.setAlignment(Pos.CENTER);
         centerBox.getChildren().addAll(
                 initializeLogo(),
-                initializeNewGameButton(stage), initializeLoadGameButton(stage),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
+                initializeNewGameButton(stage),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
         root.add(centerBox, 0, 1);
     }
 
