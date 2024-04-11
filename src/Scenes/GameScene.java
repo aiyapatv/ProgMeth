@@ -2,6 +2,7 @@ package Scenes;
 
 import Board.HexagonBoard;
 import Utils.ToolKit;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -20,14 +21,15 @@ public class GameScene extends Scene {
     private static Text turn;
     public GameScene(Stage stage) {
         super(createGameScene(stage), 800, 600);
+        setCursor(new ImageCursor(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 1 +".png"),100,0));
         addKeyEventHandler(stage);
     }
     public static AnchorPane createGameScene(Stage stage){
         AnchorPane root = new HexagonBoard(stage);
         turn = new Text();
         turn.setFont(ToolKit.loadFont(40));
-        AnchorPane.setTopAnchor(turn, 5.0);
-        AnchorPane.setLeftAnchor(turn, 5.0);
+        AnchorPane.setTopAnchor(turn, 10.0);
+        AnchorPane.setLeftAnchor(turn, 10.0);
         turn.setText("Turn: " + GameController.getInstance().getTurn());
         root.getChildren().addAll(turn);
         return root;
