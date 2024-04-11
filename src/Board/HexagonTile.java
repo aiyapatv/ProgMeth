@@ -1,33 +1,51 @@
 package Board;
 
+import Scenes.BattleScene;
+import Scenes.ChooseScene;
 import Utils.ToolKit;
 import Utils.Images;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import logic.game.GameController;
 
 public class HexagonTile extends StackPane {
     private int q;
     private int r;
+    private double top;
+    private double left;
     private boolean isWalked;
+    private final ImageView charImage;
 
-    public HexagonTile(int q, int r,boolean isWalked, String image, int size){
+    public HexagonTile(double top, double left, int q, int r, String image, int size, Stage stage){
+        charImage = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +"_1.png"), 50, 50);
+        setTop(top);
+        setLeft(left);
         setQ(q);
         setR(r);
         setIsWalked(false);
-        createHexagon(image, size);
+        createHexagon(image, size, stage);
     }
 
-    public void createHexagon(String image, int size){
+    public void createHexagon(String image, int size, Stage stage){
         ImageView hexagonImage = Images.setImageViewSize(ToolKit.loadImage(image), size, size);
         getChildren().add(hexagonImage);
-        getChildren().add(new Label(Integer.toString((Math.abs(q) + Math.abs(-q-r) + Math.abs(-r))/2)));
+        hexagonImage.setEffect(new InnerShadow(5,Color.GRAY));
         setOnMouseEntered(mouseEvent -> {
             hexagonImage.setEffect(new Glow(0.5));
         });
+        setOnMouseClicked(mouseEvent -> {
+            setOnMouseEntered(null);
+            setOnMouseExited(null);
+            hexagonImage.setEffect(new Glow(0.5));
+            setOnMouseClicked(null);
+            stage.setScene(new BattleScene(stage));
+        });
         setOnMouseExited(mouseEvent -> {
-            hexagonImage.setEffect(null);
+            hexagonImage.setEffect(new InnerShadow(5,Color.GRAY));
         });
     }
 
@@ -55,4 +73,11 @@ public class HexagonTile extends StackPane {
         isWalked = walked;
     }
 
+    public void setTop(double top) {
+        this.top = top;
+    }
+
+    public void setLeft(double left) {
+        this.left = left;
+    }
 }

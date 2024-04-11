@@ -57,22 +57,12 @@ public class LoadingScene extends Scene {
 
     private void prepareGameScene(Stage stage) {
         new Thread(() -> {
-            GameScene gameScene = GameScene.getInstance(stage);
+            GameScene gameScene = new GameScene(stage);
             Platform.runLater(() -> {
+                GameScene.setInstance(gameScene);
                 stage.setScene(gameScene);
                 isStart = true;
             });
         }).start();
-    }
-    public static void setRoot(VBox root) {
-        LoadingScene.root = root;
-    }
-
-    public static boolean isIsStart() {
-        return isStart;
-    }
-
-    public static void setIsStart(boolean isStart) {
-        LoadingScene.isStart = isStart;
     }
 }

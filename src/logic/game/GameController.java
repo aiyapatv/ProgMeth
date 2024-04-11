@@ -1,8 +1,13 @@
 package logic.game;
 
 import Board.HexagonBoard;
+import Board.HexagonTile;
+import Scenes.ChooseScene;
 import Scenes.GameScene;
-import logic.character.BaseCharacter;
+import Utils.ToolKit;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import logic.character.*;
 import logic.monsters.Monster;
 
 import java.util.ArrayList;
@@ -12,9 +17,12 @@ public class GameController {
     private BaseCharacter character;
     private ArrayList<Monster> monsters;
     private HexagonBoard hexagonBoard;
-    public GameController(){
+    private int turn;
+    private int charPosition;
 
-        setHexagonBoard(new HexagonBoard());
+    public GameController(){
+        turn = 0;
+        setCharPosition(84);
     }
 
     public static GameController getInstance() {
@@ -34,6 +42,18 @@ public class GameController {
         this.character = character;
     }
 
+    public void defineCharacter(int num){
+        if ( num == 1 ) setCharacter(new Boy());
+        else if ( num == 2 ) setCharacter(new Blonde());
+        else if ( num == 3 ) setCharacter(new Glasses());
+        else if ( num == 4 ) setCharacter(new Detective());
+        else if ( num == 5 ) setCharacter(new Girl());
+        else if ( num == 6 ) setCharacter(new Punk());
+        else if ( num == 7 ) setCharacter(new Knight());
+        else if ( num == 8 ) setCharacter(new Viking());
+        else if (num == 9) setCharacter(new Wizard());
+    }
+
     public ArrayList<Monster> getMonsters() {
         return monsters;
     }
@@ -48,5 +68,13 @@ public class GameController {
 
     public void setHexagonBoard(HexagonBoard hexagonBoard) {
         this.hexagonBoard = hexagonBoard;
+    }
+
+    public int getCharPosition() {
+        return charPosition;
+    }
+
+    public void setCharPosition(int charPosition) {
+        this.charPosition = charPosition;
     }
 }

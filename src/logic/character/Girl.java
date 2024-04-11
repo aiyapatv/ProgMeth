@@ -2,10 +2,9 @@ package logic.character;
 
 import Utils.Config;
 
-public class Kid extends BaseCharacter{
-
-    public Kid() {
-        super(Config.KIDMAXHP,Config.KIDPOWER,Config.KIDDEFENSE);
+public class Girl extends BaseCharacter {
+    public Girl() {
+        super(Config.KIDMAXHP , Config.KIDPOWER , Config.KIDDEFENSE);
     }
 
     @Override
@@ -14,6 +13,6 @@ public class Kid extends BaseCharacter{
     }
     @Override
     public String toString() {
-        return "Kid";
+        return "Girl";
     }
 }

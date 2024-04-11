@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
+import logic.game.GameController;
 //import main.MusicController;
 
 public class StartScene extends Scene {
@@ -33,7 +34,7 @@ public class StartScene extends Scene {
         root.setPadding(new Insets(100, 20, 20, 70));
         root.setVgap(10);
         root.setHgap(50);
-
+        GameController.getInstance();
         initializeCenterBox(stage);
         root.setAlignment(Pos.BASELINE_LEFT);
 
@@ -48,15 +49,16 @@ public class StartScene extends Scene {
     }
 
     private static Button initializeNewGameButton(Stage stage){
-        btnNewGame = ToolKit.createButton("New Game", "element/shortBox.png",25);
+        btnNewGame = ToolKit.createButton("New Game", "element/shortBox.png",null,25);
         btnNewGame.setOnMouseClicked(event -> {
             stage.setScene(new ChooseScene(stage));
+
         });
         return btnNewGame;
     }
 
     private static Button initializeLoadGameButton(Stage stage){
-        btnLoadGame = ToolKit.createButton("Load Game", "element/shortBox.png",25);
+        btnLoadGame = ToolKit.createButton("Load Game", "element/shortBox.png",null,25);
         btnLoadGame.setOnMouseClicked(event -> {
             stage.setScene(new BattleScene(stage));
         });
@@ -64,17 +66,17 @@ public class StartScene extends Scene {
     }
 
     private static Button initializeSettingButton(){
-        btnSetting = ToolKit.createButton("Setting", "element/shortBox.png", 25);
+        btnSetting = ToolKit.createButton("Setting", "element/shortBox.png",null, 25);
         return btnSetting;
     }
 
     private static Button initializeHowToPlayButton(){
-         btnHowToPlay = ToolKit.createButton("How To Play", "element/shortBox.png", 25);
+         btnHowToPlay = ToolKit.createButton("How To Play", "element/shortBox.png",null, 25);
          return btnHowToPlay;
     }
 
     private static Button initializeExitButton(Stage stage){
-        btnExit = ToolKit.createButton("Exit", "element/shortBox.png", 25);
+        btnExit = ToolKit.createButton("Exit", "element/shortBox.png",null, 25);
         btnExit.setOnMouseClicked(event -> {
             stage.close();
         });
