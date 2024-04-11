@@ -1,6 +1,7 @@
 package logic.monsters;
 
 import logic.character.BaseCharacter;
+import logic.game.GameController;
 
 public abstract class Monster {
     private int maxHP;
@@ -11,6 +12,10 @@ public abstract class Monster {
     private int def;
 
     private int magicdef ;
+
+    private int  level ;
+    private  int time = GameController.getInstance().getTurn();
+
 
     private int checkless(int number) {
         if (number < 0) number = 0;
@@ -114,5 +119,21 @@ public abstract class Monster {
 
     public void setMagicdef(int magicdef) {
         this.magicdef = checkless(magicdef);
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 }
