@@ -7,7 +7,7 @@ import logic.monsters.Monster;
 
 public class magicbasic2 extends Monster implements magicatk , spatk {
     public magicbasic2() {
-        super(Config.basemonster_maxhp + 4, Config.atktype2  ,
+        super(Config.BASEMONSTER_MAXHP + 4, Config.atktype2  ,
                 Config.basemonster_def , Config.magictype2 + 3  ,Config.basemonster_magicdef);
     }
     @Override

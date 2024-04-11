@@ -7,7 +7,7 @@ import logic.able.* ;
 
 public class basic2 extends Monster implements  atk , spatk{
     public basic2() {
-        super(Config.basemonster_maxhp + 6, Config.atktype1 +2,
+        super(Config.BASEMONSTER_MAXHP + 6, Config.atktype1 +2,
                 Config.basemonster_def , Config.magictype1 ,Config.basemonster_magicdef);
     }
 

@@ -17,12 +17,11 @@ public class EscapeScene extends Scene {
     private static boolean isStart = false;
 
     public EscapeScene(Stage stage) {
-        super(root, 800, 600);
-        createEscapeScene();
+        super(createEscapeScene(), 800, 600);
         prepareGameScene(stage);
     }
 
-    public static void createEscapeScene() {
+    public static VBox createEscapeScene() {
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
         new Thread(() -> {
@@ -57,6 +56,7 @@ public class EscapeScene extends Scene {
                 }
             }
         }).start();
+        return root;
     }
 
     private static Text createEscapeText(int dotNum){

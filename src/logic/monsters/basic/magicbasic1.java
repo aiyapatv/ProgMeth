@@ -8,7 +8,7 @@ import logic.monsters.Monster;
 public class magicbasic1 extends Monster implements logic.able.magicatk {
 
     public magicbasic1() {
-        super(Config.basemonster_maxhp, Config.atktype2 ,
+        super(Config.BASEMONSTER_MAXHP, Config.atktype2 ,
                 Config.basemonster_def , Config.magictype2 ,Config.basemonster_magicdef);
     }
     @Override
