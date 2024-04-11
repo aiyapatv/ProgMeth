@@ -4,10 +4,8 @@ import Utils.Config;
 
 public class Wizard extends BaseCharacter{
     public Wizard(){
-        super(Config.WIZARDMAXHP);
+        super(Config.WIZARDMAXHP , Config.WIZARDPOWER , Config.WIZARDDEFENSE);
     }
-
-
 
     @Override
     public void attack() {

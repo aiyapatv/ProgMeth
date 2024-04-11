@@ -1,21 +1,22 @@
 package logic.character;
 
 public abstract class BaseCharacter {
-    private int hp;
-
+    protected int maxHp;
+    protected int hp;
+    protected int power;
+    protected int def;
     private int defense ;
-
     private int magic_defense ;
-
-    private int power ;
-
     private int magicpower;
 
     private int poison_status = 0 ;
 
     //Params
-    public BaseCharacter(int hp){
-        setHp(hp);
+    public BaseCharacter(int maxHp , int power , int def){
+        setMaxHp(maxHp);
+        setPower(power);
+        setDef(def);
+
     }
     public int decreaseHp_def(int amount ){
         int def = this.getDefense() ;
@@ -41,13 +42,38 @@ public abstract class BaseCharacter {
 
 
     //Getter,Setter
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = Math.max(maxHp,0);
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = Math.max( power , 0);
+    }
+
+
+    public int getDef() {
+        return def;
+    }
+
+    public void setDef(int def) {
+        this.def = Math.max(def , 0);
+    }
+
     public int getHp() {
         return hp;
     }
-    public void setHp(int hp) {
-        this.hp = Math.max(hp,0);
-    }
 
+    public void setHp(int hp) {
+        this.hp = Math.max(maxHp,0);
+    }
     //geter setter
 
 
@@ -65,14 +91,6 @@ public abstract class BaseCharacter {
 
     public void setMagic_defense(int magic_defense) {
         this.magic_defense = Math.max(0, magic_defense) ;
-    }
-
-    public int getPower() {
-        return power;
-    }
-
-    public void setPower(int power) {
-        this.power = Math.max(0, power) ;
     }
 
     public int getMagicpower() {

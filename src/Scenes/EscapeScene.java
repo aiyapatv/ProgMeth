@@ -13,28 +13,38 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class EscapeScene extends Scene {
-    private static VBox root = new VBox();
-    private static boolean isStart = false;
+    private boolean isStart = false;
+    private Thread escapeThread;
+    private VBox root = new VBox();
 
     public EscapeScene(Stage stage) {
-        super(createEscapeScene(), 800, 600);
-        prepareGameScene(stage);
+        super(new VBox(), 800, 600);
+        root = (VBox) this.getRoot();
+        createEscapeScene(stage);
     }
 
-    public static VBox createEscapeScene() {
+    private void createEscapeScene(Stage stage) {
+        if (escapeThread != null && escapeThread.isAlive()) {
+            isStart = true;
+            try {
+                escapeThread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
-        new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500,2);
+        escapeThread = new Thread(() -> {
+            FrameRate frameRate = new FrameRate(500, 2);
             int num = ChooseScene.getNumber();
-            ImageView image1 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_5.png"),50,50);
-            ImageView image2 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_6.png"),50,50);
-            ImageView image3 = Images.setImageViewSize(ToolKit.loadImage("monster/m1_r_0.png"),50,50);
-            ImageView image4 = Images.setImageViewSize(ToolKit.loadImage("monster/m1_r_1.png"),50,50);
+            ImageView image1 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_5.png"), 50, 50);
+            ImageView image2 = Images.setImageViewSize(ToolKit.loadImage("character/c" + num + "_6.png"), 50, 50);
+            ImageView image3 = Images.setImageViewSize(ToolKit.loadImage("monster/m1_r_0.png"), 50, 50);
+            ImageView image4 = Images.setImageViewSize(ToolKit.loadImage("monster/m1_r_1.png"), 50, 50);
             HBox h1 = new HBox();
-            h1.getChildren().addAll(image1,image3);
+            h1.getChildren().addAll(image1, image3);
             HBox h2 = new HBox();
-            h2.getChildren().addAll(image2,image4);
+            h2.getChildren().addAll(image2, image4);
             h2.setSpacing(30);
             h1.setAlignment(Pos.CENTER);
             h1.setSpacing(30);
@@ -43,9 +53,9 @@ public class EscapeScene extends Scene {
                 Platform.runLater(() -> {
                     root.getChildren().clear();
                     int frame = frameRate.getFrame();
-                    if(frame == 1){
+                    if (frame == 1) {
                         root.getChildren().addAll(h1, createEscapeText(frame));
-                    }else{
+                    } else {
                         root.getChildren().addAll(h2, createEscapeText(frame));
                     }
                 });
@@ -55,24 +65,24 @@ public class EscapeScene extends Scene {
                     throw new RuntimeException(e);
                 }
             }
-        }).start();
-        return root;
+        });
+        escapeThread.start();
+
+        prepareGameScene(stage);
     }
 
-    private static Text createEscapeText(int dotNum){
+    private Text createEscapeText(int dotNum) {
         Text text = new Text();
         text.setText("Escape" + "..".repeat(dotNum));
         text.setFont(ToolKit.loadFont("font/pixeboyFont.ttf", 30));
         return text;
     }
 
-
     private void prepareGameScene(Stage stage) {
         new Thread(() -> {
             GameScene gameScene = GameScene.getInstance(stage);
             Platform.runLater(() -> {
                 stage.setScene(gameScene);
-                isStart = true;
             });
         }).start();
     }
