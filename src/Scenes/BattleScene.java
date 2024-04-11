@@ -25,8 +25,8 @@ import java.util.ArrayList;
 
 public class BattleScene extends Scene {
     private static GridPane root;
-    private static boolean isEnd = true;
-    private static boolean isHit = true;
+    private static boolean isEnd;
+    private static boolean isHit;
     private static Rectangle blockPlayer;
     private static GridPane fightPane;
     private static Button attackButton;
@@ -47,10 +47,9 @@ public class BattleScene extends Scene {
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
     }
-
-    private static BattleScene instance;
-
     private static GridPane createBattleScene(Stage stage){
+        isEnd = false;
+        isHit = false;
         root = new GridPane(2,2);
         root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         root.setPadding(new Insets(10));
@@ -110,7 +109,6 @@ public class BattleScene extends Scene {
         blockPlayer = new Rectangle(80,80);
         heal = new Rectangle(70,70);
         heal.setFill(null);
-
         ImagePattern player = new ImagePattern(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +"_3.png"));
         blockPlayer.setFill(player);
         showModelPlayer();
@@ -174,7 +172,7 @@ public class BattleScene extends Scene {
 
         Thread playerMoving = new Thread(() -> {
             FrameRate frameRate = new FrameRate(500,2);
-            while (isEnd) {
+            while (!isEnd) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else currentImage = image3;
@@ -197,7 +195,7 @@ public class BattleScene extends Scene {
 
         Thread monsterMoving = new Thread(() -> {
             FrameRate frameRate = new FrameRate(500,2);
-            while (isEnd) {
+            while (!isEnd) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else currentImage = image3;
@@ -236,7 +234,7 @@ public class BattleScene extends Scene {
             int count = i;
             btn.setOnMouseClicked( event -> {
                 showAttackEffect(allEffect.get(count) , allMonster.get(count),"a1" , "a2" , "a3");
-                isHit = true;
+                isHit = false;
                 root.getChildren().remove(root.getChildren().size() - 1);
             });
         }
@@ -251,7 +249,7 @@ public class BattleScene extends Scene {
 
         Thread monsterMoving = new Thread(() -> {
             FrameRate frameRate = new FrameRate(100,4);
-            while (isHit) {
+            while (!isHit) {
                 ImagePattern currentImage;
                 if(frameRate.getFrame() % 2 == 1) monsterBlock.setEffect(new ColorAdjust(100,100,100,100));
                 else monsterBlock.setEffect(null);
@@ -260,7 +258,7 @@ public class BattleScene extends Scene {
                 else if(frameRate.getFrame() == 3) currentImage = image4;
                 else {
                     currentImage = null;
-                    isHit = false;
+                    isHit = true;
                 }
                 Platform.runLater(() -> {
                     effectBlock.setFill(currentImage);
@@ -297,7 +295,7 @@ public class BattleScene extends Scene {
 
         btn1.setOnMouseClicked( event -> {
             showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
-            isHit = true;
+            isHit = false;
             root.getChildren().remove(root.getChildren().size() - 1);
         });
 
@@ -340,10 +338,6 @@ public class BattleScene extends Scene {
     private static void setButtonPref(Button button ,int width , int height){
         button.setPrefWidth(width);
         button.setPrefHeight(height);
-    }
-
-    public static BattleScene getInstance(){
-        return instance;
     }
 
 }

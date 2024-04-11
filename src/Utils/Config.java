@@ -30,7 +30,7 @@ public class Config {
 
 
     //MaxHpMonster
-    public  static  int basemonster_maxhp = 1  ;
+    public final static  int BASEMONSTER_MAXHP = 1  ;
     public  static  int tankmonster_maxhp = 1  ;
     public static int magictankmonster_maxhp = 1 ;
 

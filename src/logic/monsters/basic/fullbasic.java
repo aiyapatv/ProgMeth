@@ -7,7 +7,7 @@ import logic.able.* ;
 public class fullbasic extends Monster implements atk , magicatk ,spatk {
 
     public fullbasic() {
-        super(Config.basemonster_maxhp , Config.atktype3 ,
+        super(Config.BASEMONSTER_MAXHP , Config.atktype3 ,
                 Config.basemonster_def , Config.magictype3 ,Config.basemonster_magicdef);
     }
 

@@ -13,9 +13,8 @@ public abstract class Monster {
     private int magicdef ;
 
     private int checkless(int number) {
-        if (number < 0) {
-            return 0;
-        } else return number;
+        if (number < 0) number = 0;
+        return number;
     }
 
     public Monster() {
