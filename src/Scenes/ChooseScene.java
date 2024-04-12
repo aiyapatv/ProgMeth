@@ -36,7 +36,9 @@ public class ChooseScene extends Scene {
     private static BaseCharacter character;
     private static Text maxHp;
     private static Text power;
+    private static Text magicPower;
     private static Text defense;
+    private static Text magicDefense;
     public static int number;
     public ChooseScene(Stage stage) {
         super(createChooseScene(stage), 800, 600);
@@ -138,7 +140,10 @@ public class ChooseScene extends Scene {
                 selectedName.setText(getName());
                 maxHp.setText("Hp: " + GameController.getInstance().getCharacter().getMaxHp());
                 power.setText("Power: " + GameController.getInstance().getCharacter().getPower());
-                defense.setText("Defense: " + GameController.getInstance().getCharacter().getDef());
+                magicPower.setText("MagicPower: " + + GameController.getInstance().getCharacter().getMagicPower());
+                defense.setText("Defense: " + GameController.getInstance().getCharacter().getDefense());
+                magicDefense.setText("MagicDefense: " + GameController.getInstance().getCharacter().getMagicDefense());
+
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else currentImage = image3;
                 Platform.runLater(() ->
@@ -150,6 +155,7 @@ public class ChooseScene extends Scene {
                     throw new RuntimeException(e);
                 }
             }
+            isSelected = false;
         });
         charMoving.start();
     }
@@ -180,6 +186,8 @@ public class ChooseScene extends Scene {
         maxHp = new Text("Hp: " );
         power = new Text("Power: ");
         defense = new Text("Defense: " );
+        magicPower = new Text("MagicPower: ");
+        magicDefense = new Text("MagicDefense: " );
         maxHp.setFont(font);
         power.setFont(font);
         defense.setFont(font);
@@ -188,7 +196,9 @@ public class ChooseScene extends Scene {
         if ( GameController.getInstance().getCharacter() != null){
             maxHp.setText("Hp: " + GameController.getInstance().getCharacter().getMaxHp());
             power.setText("Power: " + GameController.getInstance().getCharacter().getPower());
-            defense.setText("Defense: " + GameController.getInstance().getCharacter().getDef());
+            defense.setText("Defense: " + GameController.getInstance().getCharacter().getDefense());
+            magicPower.setText("MagicPower: " + + GameController.getInstance().getCharacter().getMagicPower());
+            magicDefense.setText("MagicDefense: " + GameController.getInstance().getCharacter().getMagicDefense());
         }
         root.add(attributeBox ,0,2);
     }

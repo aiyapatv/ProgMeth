@@ -1,5 +1,6 @@
 package logic.potion;
 
+import logic.game.GameController;
 import logic.potion.BasePotion;
 import logic.usage.Healable;
 import logic.usage.Upgradable;
@@ -45,5 +46,11 @@ public class HealingPotion extends BasePotion implements Healable, Upgradable {
     @Override
     public int getMaxLevel() {
         return MAX_LEVEL;
+    }
+
+    @Override
+    public void usePotion() {
+        GameController.getInstance().getCharacter().setHp(GameController.getInstance().getCharacter().getHp() + getRecoverPoint());
+        GameController.getInstance().setHealingPotion(GameController.getInstance().getHealingPotion() - 1);
     }
 }

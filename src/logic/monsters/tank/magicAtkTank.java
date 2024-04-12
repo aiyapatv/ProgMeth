@@ -14,20 +14,19 @@ public class magicAtkTank extends Monster implements magicatk , spatk {
         setPicture2("m11_i_2");
         if (getTime() == 34 )
         {
-            setMaxHP(this.getMaxHp() + 5);
+            setMaxHp(this.getMaxHp() + 5);
             setHp(this.getMaxHp());
-            setMagicatk(this.getAtk() + 3);
-            setDef(this.getMagicdef()+3);
+            setMagicAtk(this.getAtk() + 3);
+            setDef(this.getMagicDef()+3);
             setLevel(2);
             setPicture("m19_i_1");
             setPicture2("m19_i_2");
         }
     }
 
-
     @Override
     public void magic_attack(BaseCharacter target) {
-        target.decreaseHp_magicdef(this.getMagicatk());
+        target.decreaseHpMagicDef(this.getMagicAtk());
     }
 
     @Override
@@ -36,7 +35,7 @@ public class magicAtkTank extends Monster implements magicatk , spatk {
         {
             return;
         } else if (getLevel() == 2 ) {
-            this.setMagicatk(this.getMagicatk() + 2 );
+            this.setMagicAtk(this.getMagicAtk() + 2 );
         }
     }
 }

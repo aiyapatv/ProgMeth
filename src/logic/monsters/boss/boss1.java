@@ -14,16 +14,16 @@ public class boss1 extends Monster implements atk , spatk {
     }
 
     public void attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk());
+        target.decreaseHpDef(this.getAtk());
     }
 
 
     //attack and heal itself
     @Override
     public void special_attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk());
+        target.decreaseHpDef(this.getAtk());
         int hp = this.getHp();
-        this.setHp(hp + target.decreaseHp_def(this.getAtk()));
+        this.setHp(hp + target.decreaseHpDef(this.getAtk()));
     }
 
     //this skill is ef for 1 turn

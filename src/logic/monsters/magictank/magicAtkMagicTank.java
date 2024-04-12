@@ -7,8 +7,6 @@ import logic.able.* ;
 
 public class magicAtkMagicTank extends Monster implements magicatk , spatk {
 
-
-
     public magicAtkMagicTank() {
         //magicatkmagintank1
         super(Config.magictankmonster_maxhp, Config.atktype2 ,
@@ -19,10 +17,10 @@ public class magicAtkMagicTank extends Monster implements magicatk , spatk {
         //magicatkmagintank2
         if (getTime() == 12);
         {
-            setMaxHP(this.getMaxHp() + 5);
+            setMaxHp(this.getMaxHp() + 5);
             setHp(this.getMaxHp());
-            setMagicatk(this.getAtk() + 2);
-            setMagicdef(this.getMagicdef()+2);
+            setMagicAtk(this.getAtk() + 2);
+            setMagicDef(this.getMagicDef()+2);
             setLevel(2);
             setPicture("m12_i_1");
             setPicture2("m12_i_2");
@@ -31,9 +29,8 @@ public class magicAtkMagicTank extends Monster implements magicatk , spatk {
 
     @Override
     public void magic_attack(BaseCharacter target) {
-        target.decreaseHp_magicdef(this.getMagicatk());
+        target.decreaseHpMagicDef(this.getMagicAtk());
     }
-
 
     @Override
     public void special_attack(BaseCharacter target) {
@@ -41,7 +38,7 @@ public class magicAtkMagicTank extends Monster implements magicatk , spatk {
          return;
         }
         else {
-            this.setMagicdef(this.getMagicdef() + 2);
+            this.setMagicDef(this.getMagicDef() + 2);
         }
     }
 }

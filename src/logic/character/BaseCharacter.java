@@ -1,25 +1,26 @@
 package logic.character;
 
+import logic.monsters.Monster;
+
 public abstract class BaseCharacter {
     protected int maxHp;
     protected int hp;
     protected int power;
     protected int defense ;
-    private int magic_defense ;
-    private int magicpower;
-
-    private int poison_status = 0 ;
+    protected int magicDefense ;
+    private int magicPower;
+    protected int poisonStatus = 0 ;
 
     //Params
-    public BaseCharacter(int maxHp , int power , int defense,int magicpฒower, int magic_defense){
+    public BaseCharacter(int maxHp , int power , int defense,int magicPower, int magicDefense){
         setMaxHp(maxHp);
         setPower(power);
         setHp(maxHp);
         setDefense(defense);
-        setMagicpower(magicpower);
-        setMagic_defense(magic_defense);
+        setMagicPower(magicPower);
+        setMagicDefense(magicDefense);
     }
-    public int decreaseHp_def(int amount ){
+    public int decreaseHpDef(int amount){
         int def = this.getDefense() ;
         int hp = this.getHp() ;
         int b = (Math.max(1 , def - amount)) ;
@@ -28,11 +29,11 @@ public abstract class BaseCharacter {
         return b ;
     }
 
-    public int decreaseHp_magicdef(int amount ){
-        int magicdef = this.getMagic_defense() ;
+    public int decreaseHpMagicDef(int amount){
+        int magicDef = this.getMagicDefense() ;
         int hp = this.getHp() ;
-        int b = (Math.max(1 , magicdef - amount)) ;
-        int a = Math.max(0 , hp - (Math.max(1 , magicdef - amount))) ;
+        int b = (Math.max(1 , magicDef - amount)) ;
+        int a = Math.max(0 , hp - (Math.max(1 , magicDef - amount))) ;
         setHp(a);
         return b ;
     }
@@ -46,14 +47,12 @@ public abstract class BaseCharacter {
         }
     };
     public void magicAttack(Monster target){
-        int magicAtk = target.getMagicdef()-getMagicpower();
+        int magicAtk = target.getMagicDef()-getMagicPower();
         if(magicAtk<0){
             int remainHp = target.getHp()+magicAtk ;
             target.setHp(remainHp);
         }
     };
-
-
 
     //Getter,Setter
     public int getMaxHp() {
@@ -77,9 +76,9 @@ public abstract class BaseCharacter {
     }
 
     public void setHp(int hp) {
-        this.hp = Math.max(maxHp,0);
+        this.hp = Math.max(hp,0);
     }
-    //geter setter
+    //getter setter
 
 
     public int getDefense() {
@@ -90,27 +89,27 @@ public abstract class BaseCharacter {
         this.defense = Math.max(0 , defense);
     }
 
-    public int getMagic_defense() {
-        return magic_defense;
+    public int getMagicDefense() {
+        return magicDefense;
     }
 
-    public void setMagic_defense(int magic_defense) {
-        this.magic_defense = Math.max(0, magic_defense) ;
+    public void setMagicDefense(int magicDefense) {
+        this.magicDefense = Math.max(0, magicDefense) ;
     }
 
-    public int getMagicpower() {
-        return magicpower;
+    public int getMagicPower() {
+        return magicPower;
     }
 
-    public void setMagicpower(int magicpower) {
-        this.magicpower = Math.max(0, magicpower) ;
+    public void setMagicPower(int magicPower) {
+        this.magicPower = Math.max(0, magicPower) ;
     }
 
     public int getPoison_status() {
-        return poison_status;
+        return poisonStatus;
     }
 
     public void setPoison_status(int poison_status) {
-        this.poison_status = poison_status;
+        this.poisonStatus = poison_status;
     }
 }

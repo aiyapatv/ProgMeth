@@ -1,6 +1,7 @@
 package logic.potion;
 
 
+import logic.game.GameController;
 import logic.usage.AttBuffable;
 import logic.usage.Upgradable;
 
@@ -53,5 +54,12 @@ public class StrengthPotion extends BasePotion implements AttBuffable, Upgradabl
     @Override
     public int getMaxLevel() {
         return MAX_LEVEL;
+    }
+
+    @Override
+    public void usePotion() {
+        GameController.getInstance().getCharacter().setPower(GameController.getInstance().getCharacter().getPower() + getAttBuff());
+        GameController.getInstance().setStrengthPotion(GameController.getInstance().getStrengthPotion() - 1);
+
     }
 }

@@ -18,10 +18,10 @@ public class tank extends Monster implements atk  , spatk{
         //tank2
         if (getTime() == 65)
         {
-            setMaxHP(this.getMaxHp() + 5);
+            setMaxHp(this.getMaxHp() + 5);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 2);
-            setDef(this.getMagicdef()+2);
+            setDef(this.getMagicDef()+2);
             setLevel(2);
 
             setPicture("m13_i_1");
@@ -29,10 +29,10 @@ public class tank extends Monster implements atk  , spatk{
             //tank3
         } else if (getTime() == 98) {
 
-            setMaxHP(this.getMaxHp() + 8);
+            setMaxHp(this.getMaxHp() + 8);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 4);
-            setDef(this.getMagicdef()+4);
+            setDef(this.getMagicDef()+4);
             setLevel(3);
             setPicture("m4_i_1");
             setPicture2("m4_i_2");
@@ -41,7 +41,7 @@ public class tank extends Monster implements atk  , spatk{
 
     @Override
     public void attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk());
+        target.decreaseHpDef(this.getAtk());
     }
 
     @Override

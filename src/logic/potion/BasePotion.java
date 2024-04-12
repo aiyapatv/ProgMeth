@@ -17,4 +17,6 @@ public abstract class BasePotion {
             this.name = "Unnamed Item";
         }
     }
+
+    public abstract void usePotion();
 }

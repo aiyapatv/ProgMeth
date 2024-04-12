@@ -15,18 +15,17 @@ public class fullBasic extends Monster implements atk , magicatk ,spatk {
 
     @Override
     public void attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk());
-
+        target.decreaseHpDef(this.getAtk());
     }
 
     @Override
     public void magic_attack(BaseCharacter target) {
-        target.decreaseHp_magicdef(this.getMagicatk());
+        target.decreaseHpMagicDef(this.getMagicAtk());
     }
 
     @Override
     public void special_attack(BaseCharacter target) {
-        target.decreaseHp_magicdef(this.getMagicatk()/2);
-        target.decreaseHp_def(this.getAtk()/2);
+        target.decreaseHpMagicDef(this.getMagicAtk()/2);
+        target.decreaseHpDef(this.getAtk()/2);
     }
 }

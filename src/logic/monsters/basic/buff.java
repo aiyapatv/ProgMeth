@@ -16,8 +16,8 @@ public class buff extends Monster implements buffFriend {
     @Override
     public void buff(Monster target) {
         target.setAtk(target.getAtk() + this.getAtk());
-        target.setMagicatk(target.getMagicatk() + this.getMagicatk());
+        target.setMagicAtk(target.getMagicAtk() + this.getMagicAtk());
         target.setDef(target.getDef() + this.getDef());
-        target.setMagicatk(target.getMagicdef() + this.getMagicdef());
+        target.setMagicAtk(target.getMagicDef() + this.getMagicDef());
     }
 }
