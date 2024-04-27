@@ -138,7 +138,7 @@ public class ChooseScene extends Scene {
                 selectedName.setText(getName());
                 maxHp.setText("Hp: " + GameController.getInstance().getCharacter().getMaxHp());
                 power.setText("Power: " + GameController.getInstance().getCharacter().getPower());
-                defense.setText("Defense: " + GameController.getInstance().getCharacter().getDef());
+                defense.setText("Defense: " + GameController.getInstance().getCharacter().getDefense());
                 if(frameRate.getFrame() == 1) currentImage = image2;
                 else currentImage = image3;
                 Platform.runLater(() ->
@@ -188,7 +188,7 @@ public class ChooseScene extends Scene {
         if ( GameController.getInstance().getCharacter() != null){
             maxHp.setText("Hp: " + GameController.getInstance().getCharacter().getMaxHp());
             power.setText("Power: " + GameController.getInstance().getCharacter().getPower());
-            defense.setText("Defense: " + GameController.getInstance().getCharacter().getDef());
+            defense.setText("Defense: " + GameController.getInstance().getCharacter().getDefense());
         }
         root.add(attributeBox ,0,2);
     }

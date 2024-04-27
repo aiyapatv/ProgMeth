@@ -42,7 +42,7 @@ public class MagicAtkMagicTank1 extends Monster implements magicatk , spatk {
          return;
         }
         else {
-            this.setMagicdef(this.getMagicdef() + 2);
+            this.setMagicdef(this.getMagicdef() + 4);
         }
     }
 }

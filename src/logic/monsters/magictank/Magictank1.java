@@ -51,12 +51,12 @@ public class Magictank1 extends Monster implements atk  , spatk{
         else if (getLevel() == 2)
         {
             int magic_def = target.getMagic_defense()  ;
-            target.setMagic_defense(magic_def - 1);
+            target.setMagic_defense(magic_def - 4);
         }
         else if (getLevel() == 3 )
         {
             int magicpower = target.getMagicpower()  ;
-            target.setPower(magicpower - 2);
+            target.setPower(magicpower - 7);
         }
     }
 }

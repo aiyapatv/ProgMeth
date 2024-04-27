@@ -31,10 +31,10 @@ public class boss1 extends Monster implements atk , spatk {
     //else +2 atk
     public void skill1(BaseCharacter target){
         if (target.getHp()%2 == 0){
-            this.setHp(this.getHp() + 3);
+            this.setHp(this.getHp() + 20);
         }
         else {
-            this.setAtk(this.getAtk() + 2);
+            this.setAtk(this.getAtk() + 7);
         }
     }
 
