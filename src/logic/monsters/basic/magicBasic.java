@@ -1,16 +1,16 @@
 package logic.monsters.basic;
 
 import Utils.Config;
-import logic.able.magicatk;
+import logic.able.magicAtk;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
 
-public class magicBasic extends Monster implements magicatk , spatk  {
+public class magicBasic extends Monster implements magicAtk , spAtk  {
     public magicBasic() {
         //magicbasic 1
-        super(Config.BASEMONSTER_MAXHP, Config.atktype2 ,
-                Config.basemonster_def , Config.magictype2 ,Config.basemonster_magicdef);
+        super(Config.BASEMONSTERMAXHP, Config.ATKTYPE2 ,
+                Config.BASEMONSTERDEF , Config.MAGICTYPE2 ,Config.BASEMONSTERMAGICDEF);
         setLevel(1);
         setPicture("m17_i_1");
         setPicture2("m17_i_2");
@@ -26,12 +26,12 @@ public class magicBasic extends Monster implements magicatk , spatk  {
     }
 
     @Override
-    public void magic_attack(BaseCharacter target) {
+    public void magicAttack(BaseCharacter target) {
         target.decreaseHpMagicDef(this.getMagicAtk());
     }
 
     @Override
-    public void special_attack(BaseCharacter target) {
+    public void specialAttack(BaseCharacter target) {
         if (getLevel()==1){
             return;
         }

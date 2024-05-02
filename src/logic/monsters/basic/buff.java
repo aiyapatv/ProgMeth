@@ -7,8 +7,8 @@ import logic.able.* ;
 
 public class buff extends Monster implements buffFriend {
     public buff() {
-        super(Config.BASEMONSTER_MAXHP , Config.atktype3 ,
-                Config.basemonster_def , Config.magictype3 ,Config.basemonster_magicdef);
+        super(Config.BASEMONSTERMAXHP , Config.ATKTYPE3 ,
+                Config.BASEMONSTERDEF , Config.MAGICTYPE3 ,Config.BASEMONSTERMAGICDEF);
         setPicture("m14_i_1");
         setPicture2("m14_i_2");
     }

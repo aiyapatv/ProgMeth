@@ -4,13 +4,13 @@ import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
-public class magicTank extends Monster implements atk  , spatk{
+public class magicTank extends Monster implements atk  , spAtk{
 
 
     public magicTank() {
         //Magictank1
-        super(Config.magictankmonster_maxhp, Config.atktype1 ,
-                Config.magictankmonster_def , Config.magictype1 ,Config.magictankmonster_magicdef);
+        super(Config.MAGICTANKMONSTERMAXHP, Config.ATKTYPE1 ,
+                Config.MAGICTANKMONSTERDEF , Config.MAGICTYPE1 ,Config.MAGICTANKMONSTERMAGICDEF);
         setLevel(1);
         setPicture("m9_r_1");
         setPicture2("m9_r_2");
@@ -42,7 +42,7 @@ public class magicTank extends Monster implements atk  , spatk{
 
 
     @Override
-    public void special_attack(BaseCharacter target) {
+    public void specialAttack(BaseCharacter target) {
         if (getLevel() == 1 )
         {
             return;
@@ -54,8 +54,8 @@ public class magicTank extends Monster implements atk  , spatk{
         }
         else if (getLevel() == 3 )
         {
-            int magicpower = target.getMagicPower()  ;
-            target.setPower(magicpower - 2);
+            int magicPower = target.getMagicPower()  ;
+            target.setPower(magicPower - 2);
         }
     }
 }

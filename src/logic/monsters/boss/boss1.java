@@ -5,7 +5,7 @@ import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
 
-public class boss1 extends Monster implements atk , spatk {
+public class boss1 extends Monster implements atk , spAtk {
     public boss1() {
         super(150, 10 ,
                 15 , 5 , 15);
@@ -20,7 +20,7 @@ public class boss1 extends Monster implements atk , spatk {
 
     //attack and heal itself
     @Override
-    public void special_attack(BaseCharacter target) {
+    public void specialAttack(BaseCharacter target) {
         target.decreaseHpDef(this.getAtk());
         int hp = this.getHp();
         this.setHp(hp + target.decreaseHpDef(this.getAtk()));

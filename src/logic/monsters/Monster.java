@@ -12,28 +12,27 @@ public abstract class Monster {
     private int magicAtk;
     private int def;
     private int magicDef ;
-    private int  level ;
-    private  int time = GameController.getInstance().getTurn();
+    private int level ;
+    private int time = GameController.getInstance().getTurn();
 
-    private int checkless(int number) {
+    private int checkLess(int number) {
         if (number < 0) number = 0;
         return number;
     }
-
     public Monster() {
-        this.maxHp = 30;
+        this.maxHp = 50;
         this.Hp = maxHp;
         this.atk = 20;
         this.def = 5;
     }
 
     public Monster(int maxHP, int atk, int def , int magicAtk , int magicDef) {
-        this.maxHp = checkless(maxHP);
-        this.Hp = checkless(maxHP);
-        this.atk = checkless(atk);
-        this.def = checkless(def);
-        this.magicAtk = checkless(magicAtk);
-        this.magicDef = checkless(magicDef) ;
+        this.maxHp = checkLess(maxHP);
+        this.Hp = checkLess(maxHP);
+        this.atk = checkLess(atk);
+        this.def = checkLess(def);
+        this.magicAtk = checkLess(magicAtk);
+        this.magicDef = checkLess(magicDef) ;
     }
 
     public boolean isDie(){
@@ -64,7 +63,7 @@ public abstract class Monster {
     }
 
     public void setMaxHp(int maxHp) {
-        this.maxHp = checkless(maxHp);
+        this.maxHp = checkLess(maxHp);
     }
 
     public int getHp() {
@@ -86,7 +85,7 @@ public abstract class Monster {
     }
 
     public void setAtk(int atk) {
-        this.atk = checkless(atk);
+        this.atk = checkLess(atk);
     }
 
     public int getDef() {
@@ -94,7 +93,7 @@ public abstract class Monster {
     }
 
     public void setDef(int def) {
-        this.def = checkless(def);
+        this.def = checkLess(def);
     }
 
     public int getMagicAtk() {
@@ -102,14 +101,14 @@ public abstract class Monster {
     }
 
     public void setMagicAtk(int magicAtk) {
-        this.magicAtk =checkless(magicAtk) ;
+        this.magicAtk =checkLess(magicAtk) ;
     }
 
     public int getMagicDef() {
         return magicDef;
     }
     public void setMagicDef(int magicDef) {
-        this.magicDef = checkless(magicDef);
+        this.magicDef = checkLess(magicDef);
     }
 
     public int getLevel() {

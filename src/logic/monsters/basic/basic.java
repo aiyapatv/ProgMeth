@@ -4,12 +4,12 @@ import Utils.Config;
 import logic.monsters.Monster;
 import logic.able.* ;
 import logic.character.* ;
-public class basic extends Monster implements atk , spatk{
+public class basic extends Monster implements atk , spAtk{
 
     public basic() {
         //basic1
-        super(Config.BASEMONSTER_MAXHP, Config.atktype1 ,
-                Config.basemonster_def , Config.magictype1 ,Config.basemonster_magicdef);
+        super(Config.BASEMONSTERMAXHP, Config.ATKTYPE1 ,
+                Config.BASEMONSTERDEF , Config.MAGICTYPE1 ,Config.BASEMONSTERMAGICDEF);
         setLevel(1);
         setPicture("m7_i_1");
         setPicture2("m7_i_2");
@@ -32,7 +32,7 @@ public class basic extends Monster implements atk , spatk{
 
     //switch power and magicPower 1 turn
     @Override
-    public void special_attack(BaseCharacter target) {
+    public void specialAttack(BaseCharacter target) {
         if (getLevel() == 1){
             return;
         }

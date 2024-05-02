@@ -3,7 +3,7 @@ package logic.monsters.boss;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.*;
-public class boss2 extends Monster implements atk , magicatk , spatk {
+public class boss2 extends Monster implements atk , magicAtk , spAtk {
     public boss2() {
         super(100, 4 ,
                 7, 4 , 7);
@@ -16,13 +16,13 @@ public class boss2 extends Monster implements atk , magicatk , spatk {
     }
 
     @Override
-    public void magic_attack(BaseCharacter target) {
+    public void magicAttack(BaseCharacter target) {
         target.decreaseHpMagicDef(this.getMagicAtk()) ;
     }
 
     //attack and delete def and magic def for 1 turn
     @Override
-    public void special_attack(BaseCharacter target) {
+    public void specialAttack(BaseCharacter target) {
         target.decreaseHpDef(this.getAtk()/3) ;
         target.setDefense(0);
         target.setMagicDefense(0);

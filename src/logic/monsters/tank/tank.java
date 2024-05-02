@@ -7,11 +7,11 @@ import logic.able.* ;
 
 //basic at
 //no special
-public class tank extends Monster implements atk  , spatk{
+public class tank extends Monster implements atk, spAtk{
     public tank() {
         //tank1
-        super(Config.tankmonster_maxhp, Config.atktype1,
-                Config.tankmonster_def , Config.magictype1 ,Config.tankmonster_magicdef);
+        super(Config.TANKMONSTERMAXHP, Config.ATKTYPE1,
+                Config.TANKMONSTERDEF , Config.MAGICTYPE1 ,Config.TANKMONSTERMAGICDEF);
         setLevel(1);
         setPicture("m23_i_1");
         setPicture2("m23_i_2");
@@ -45,7 +45,7 @@ public class tank extends Monster implements atk  , spatk{
     }
 
     @Override
-    public void special_attack(BaseCharacter target) {
+    public void specialAttack(BaseCharacter target) {
         if (getLevel() ==1 )
         {
             return;
