@@ -318,7 +318,7 @@ public class BattleScene extends Scene {
                 }
                 delayAndContinue(() -> {
                     showAttackEffect(heal ,blockPlayer ,"a1" , "a2" , "a3");
-                    updateStatusBar();
+                    Platform.runLater(BattleScene::updateStatusBar);
                     playerDie();
                 }, 500);
             }
