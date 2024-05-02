@@ -3,7 +3,7 @@ package logic.monsters.boss;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.*;
-public class boss2 extends Monster implements atk , magicatk , spatk {
+public class boss2 extends Monster implements atk , magicAtk , spAtk {
     public boss2() {
         super(100, 4 ,
                 7, 4 , 7);
@@ -12,20 +12,20 @@ public class boss2 extends Monster implements atk , magicatk , spatk {
     }
 
     public void attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk());
+        target.decreaseHpDef(this.getAtk());
     }
 
     @Override
-    public void magic_attack(BaseCharacter target) {
-        target.decreaseHp_magicdef(this.getMagicatk()) ;
+    public void magicAttack(BaseCharacter target) {
+        target.decreaseHpMagicDef(this.getMagicAtk()) ;
     }
 
     //attack and delete def and magic def for 1 turn
     @Override
-    public void special_attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk()/3) ;
+    public void specialAttack(BaseCharacter target) {
+        target.decreaseHpDef(this.getAtk()/3) ;
         target.setDefense(0);
-        target.setMagic_defense(0);
+        target.setMagicDefense(0);
     }
 
    //this skill is for all game
@@ -39,7 +39,7 @@ public class boss2 extends Monster implements atk , magicatk , spatk {
     //incress 2 time of atk and magic atk for all game
     public void skill2(){
         setAtk(this.getAtk()*2);
-        setMagicatk(this.getMagicatk()*2);
+        setMagicAtk(this.getMagicAtk()*2);
     }
 
 }

@@ -2,35 +2,34 @@ package logic.monsters.magictank;
 
 import Utils.Config;
 import logic.character.BaseCharacter;
-import logic.game.GameController;
 import logic.monsters.Monster;
 import logic.able.* ;
-public class Magictank1 extends Monster implements atk  , spatk{
+public class magicTank extends Monster implements atk  , spAtk{
 
 
-    public Magictank1() {
+    public magicTank() {
         //Magictank1
-        super(Config.magictankmonster_maxhp, Config.atktype1 ,
-                Config.magictankmonster_def , Config.magictype1 ,Config.magictankmonster_magicdef);
+        super(Config.MAGICTANKMONSTERMAXHP, Config.ATKTYPE1 ,
+                Config.MAGICTANKMONSTERDEF , Config.MAGICTYPE1 ,Config.MAGICTANKMONSTERMAGICDEF);
         setLevel(1);
-        setPicture("m9_i_1");
-        setPicture2("m9_i_2");
+        setPicture("m9_r_1");
+        setPicture2("m9_r_2");
         //Magictank2
         if (getTime() == 21){
-            setMaxHP(this.getMaxHp() + 5);
+            setMaxHp(this.getMaxHp() + 5);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 2);
-            setMagicdef(this.getMagicdef()+2);
+            setMagicDef(this.getMagicDef()+2);
             setLevel(2);
             setPicture("m5_i_1");
             setPicture2("m5_i_2");
         }
         //Magictank3
         else if (getTime() == 23){
-            setMaxHP(this.getMaxHp() + 6);
+            setMaxHp(this.getMaxHp() + 6);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 4);
-            setMagicdef(this.getMagicdef()+4);
+            setMagicDef(this.getMagicDef()+4);
             setLevel(3);
             setPicture("m22_i_1");
             setPicture2("m22_i_2");
@@ -38,25 +37,25 @@ public class Magictank1 extends Monster implements atk  , spatk{
     }
 
     public void attack(BaseCharacter target) {
-        target.decreaseHp_def(this.getAtk());
+        target.decreaseHpDef(this.getAtk());
     }
 
 
     @Override
-    public void special_attack(BaseCharacter target) {
+    public void specialAttack(BaseCharacter target) {
         if (getLevel() == 1 )
         {
             return;
         }
         else if (getLevel() == 2)
         {
-            int magic_def = target.getMagic_defense()  ;
-            target.setMagic_defense(magic_def - 4);
+            int magic_def = target.getMagicDefense()  ;
+            target.setMagicDefense(magic_def - 1);
         }
         else if (getLevel() == 3 )
         {
-            int magicpower = target.getMagicpower()  ;
-            target.setPower(magicpower - 7);
+            int magicPower = target.getMagicPower()  ;
+            target.setPower(magicPower - 2);
         }
     }
 }

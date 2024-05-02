@@ -4,47 +4,39 @@ import logic.character.BaseCharacter;
 import logic.game.GameController;
 
 public abstract class Monster {
-    private int maxHP;
-
+    private int maxHp;
     private String picture ;
     private String picture2;
     private int Hp;
     private int atk;
-
-    private int magicatk;
+    private int magicAtk;
     private int def;
+    private int magicDef ;
+    private int level ;
+    private int time = GameController.getInstance().getTurn();
 
-    private int magicdef ;
-
-    private int  level ;
-    private  int time = GameController.getInstance().getTurn();
-
-
-    private int checkless(int number) {
+    private int checkLess(int number) {
         if (number < 0) number = 0;
         return number;
     }
-
     public Monster() {
-        this.maxHP = 30;
-        this.Hp = maxHP;
+        this.maxHp = 50;
+        this.Hp = maxHp;
         this.atk = 20;
         this.def = 5;
     }
 
-    public Monster(int maxHP, int atk, int def , int magicatk , int magicdef) {
-        this.maxHP = checkless(maxHP);
-        this.Hp = checkless(maxHP);
-        this.atk = checkless(atk);
-        this.def = checkless(def);
-        this.magicatk = checkless(magicatk);
-        this.magicdef = checkless(magicdef) ;
+    public Monster(int maxHP, int atk, int def , int magicAtk , int magicDef) {
+        this.maxHp = checkLess(maxHP);
+        this.Hp = checkLess(maxHP);
+        this.atk = checkLess(atk);
+        this.def = checkLess(def);
+        this.magicAtk = checkLess(magicAtk);
+        this.magicDef = checkLess(magicDef) ;
     }
 
-
-
-    public boolean Isdie(Monster m){
-        if (m.getHp() <= 0 ){
+    public boolean isDie(){
+        if (this.getHp() <= 0 ){
             return true ;
         }
         else {
@@ -61,17 +53,17 @@ public abstract class Monster {
                 "hp=<" + Hp +
                 "> atk=<" + atk +
                 "> def=<" + def +
-                "> magicdef=<" + magicdef +
-                "> magicatk=<" + magicatk +
+                "> magicDef=<" + magicDef +
+                "> magicAtk=<" + magicAtk +
                 ">";
     }
 
     public int getMaxHp() {
-        return maxHP;
+        return maxHp;
     }
 
-    public void setMaxHP(int maxHP) {
-        this.maxHP = checkless(maxHP);
+    public void setMaxHp(int maxHp) {
+        this.maxHp = checkLess(maxHp);
     }
 
     public int getHp() {
@@ -79,8 +71,8 @@ public abstract class Monster {
     }
 
     public void setHp(int hp) {
-        if (hp > maxHP) {
-            this.Hp = maxHP;
+        if (hp > maxHp) {
+            this.Hp = maxHp;
         } else if (hp < 0) {
             this.Hp = 0;
         } else {
@@ -93,7 +85,7 @@ public abstract class Monster {
     }
 
     public void setAtk(int atk) {
-        this.atk = checkless(atk);
+        this.atk = checkLess(atk);
     }
 
     public int getDef() {
@@ -101,27 +93,22 @@ public abstract class Monster {
     }
 
     public void setDef(int def) {
-        this.def = checkless(def);
+        this.def = checkLess(def);
     }
 
-    public int getMaxHP() {
-        return maxHP;
+    public int getMagicAtk() {
+        return magicAtk;
     }
 
-    public int getMagicatk() {
-        return magicatk;
+    public void setMagicAtk(int magicAtk) {
+        this.magicAtk =checkLess(magicAtk) ;
     }
 
-    public void setMagicatk(int magicatk) {
-        this.magicatk =checkless(magicatk) ;
+    public int getMagicDef() {
+        return magicDef;
     }
-
-    public int getMagicdef() {
-        return magicdef;
-    }
-
-    public void setMagicdef(int magicdef) {
-        this.magicdef = checkless(magicdef);
+    public void setMagicDef(int magicDef) {
+        this.magicDef = checkLess(magicDef);
     }
 
     public int getLevel() {
@@ -146,7 +133,6 @@ public abstract class Monster {
 
     public void setPicture(String picture) {
         this.picture = picture;
-
     }
 
     public String getPicture2() {

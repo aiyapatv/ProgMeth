@@ -17,22 +17,18 @@ public class Config {
     public final static int BLONDEMAXHP = 85;
     public final static int GLASSESMAXHP = 85;
     public final static int DETECTIVEMAXHP = 90;
-
     public final static int GIRLMAXHP = 105;
     public final static int PUNKMAXHP = 95;
     public final static int KNIGHTMAXHP = 95;
     public final static int VIKINGMAXHP = 95;
     public final static int WIZARDMAXHP = 100;
 
-
     //Defense stat.
     public final static int BOYDEFENSE = 20;
     public final static int BLONDEDEFENSE = 20;
     public final static int GLASSESDEFENSE = 20;
     public final static int DETECTIVEDEFENSE = 15;
-
     public final static int GIRLDEFENSE = 25;
-
     public final static int PUNKDEFENSE = 9;
     public final static int KNIGHTDEFENSE = 9;
     public final static int VIKINGDEFENSE = 9;
@@ -43,7 +39,6 @@ public class Config {
     public final static int BLONDEMAGICPOWER = 20;
     public final static int GLASSESMAGICPOWER = 20;
     public final static int DETECTIVEMAGICPOWER = 15;
-
     public final static int GIRLMAGICPOWER = 25;
 
     public final static int PUNKMAGICPOWER = 9;
@@ -56,40 +51,38 @@ public class Config {
     public final static int BLONDEMAGICDEFENSE = 20;
     public final static int GLASSESMAGICDEFENSE = 20;
     public final static int DETECTIVEMAGICDEFENSE = 15;
-
     public final static int GIRLMAGICDEFENSE = 25;
-
     public final static int PUNKMAGICDEFENSE = 9;
     public final static int KNIGHTMAGICDEFENSE = 9;
     public final static int VIKINGMAGICDEFENSE = 9;
     public final static int WIZARDMAGICDEFENSE = 8;
 
     //MaxHpMonster
-    public final static  int BASEMONSTER_MAXHP = 1  ;
-    public  static  int tankmonster_maxhp = 1  ;
-    public static int magictankmonster_maxhp = 1 ;
+    public final static int BASEMONSTERMAXHP = 10  ;
+    public final static int TANKMONSTERMAXHP = 10  ;
+    public static final int MAGICTANKMONSTERMAXHP = 10 ;
 
 
-    //defMonster
-    public  static  int basemonster_def = 1  ;
-    public  static  int tankmonster_def = 1  ;
-    public static int magictankmonster_def = 1 ;
+    //DefMonster
+    public final static int BASEMONSTERDEF = 10  ;
+    public final static int TANKMONSTERDEF = 10  ;
+    public final static int MAGICTANKMONSTERDEF = 10 ;
 
-    //MagicdefMonster
-    public  static  int basemonster_magicdef = 1  ;
-    public  static  int tankmonster_magicdef = 1  ;
-    public static int magictankmonster_magicdef = 1 ;
+    //MagicDefMonster
+    public final static int BASEMONSTERMAGICDEF = 10  ;
+    public final static int TANKMONSTERMAGICDEF = 10  ;
+    public final static int MAGICTANKMONSTERMAGICDEF = 10 ;
 
-    //atktype 1 basic atk
-    public static  int atktype1 =1 ;
-    public static int magictype1 = 1;
+    //atkype 1 basic atk
+    public final static int ATKTYPE1 = 1 ;
+    public final static int MAGICTYPE1 = 1;
 
     //atktype 2 magic atk
-    public static  int atktype2 = 1 ;
-    public static int magictype2 =1 ;
+    public final static int ATKTYPE2 = 1 ;
+    public final static int MAGICTYPE2 = 1 ;
 
     ///atk type 3
-    public static  int atktype3 = 1 ;
-    public static int magictype3  =1 ;
+    public final static int ATKTYPE3 = 1 ;
+    public final static int MAGICTYPE3 = 1 ;
 
 }

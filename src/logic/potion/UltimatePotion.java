@@ -1,5 +1,6 @@
 package logic.potion;
 
+import logic.game.GameController;
 import logic.usage.AttBuffable;
 import logic.usage.Healable;
 
@@ -36,4 +37,10 @@ public class UltimatePotion extends BasePotion implements AttBuffable, Healable{
         return getName() + " (+" + getAttBuff() + " Att for next 3 turns, +" + getRecoverPoint() + " HP)";
     }
 
+    @Override
+    public void usePotion() {
+        GameController.getInstance().getCharacter().setPower(GameController.getInstance().getCharacter().getPower() + getAttBuff());
+        GameController.getInstance().getCharacter().setHp(GameController.getInstance().getCharacter().getHp() + getRecoverPoint());
+        GameController.getInstance().setUltimatePotion(GameController.getInstance().getUltimatePotion() - 1);
+    }
 }
