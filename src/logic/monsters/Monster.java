@@ -12,7 +12,7 @@ public abstract class Monster {
     private int magicAtk;
     private int def;
     private int magicDef ;
-    private int level ;
+    private int level  = 1;
     private int time = GameController.getInstance().getTurn();
 
     private int checkLess(int number) {
