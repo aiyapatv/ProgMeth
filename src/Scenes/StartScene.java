@@ -36,7 +36,7 @@ public class StartScene extends Scene{
         initializeCenterBox(stage);
         root.setAlignment(Pos.BASELINE_LEFT);
 
-        Sound.backgroundSound("StartScene.mp3");
+        Sound.backgroundSound("sound/StartScene.mp3");
 
         return root;
     }
