@@ -584,7 +584,6 @@ public class BattleScene extends Scene {
         btn1.setOnMouseClicked( event -> {
             showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
             isHit = false;
-            root.getChildren().remove(root.getChildren().size() - 1);
             usePotion.run();
             updateStatusBar();
 
