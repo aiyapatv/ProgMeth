@@ -18,6 +18,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -67,6 +68,7 @@ public class BattleScene extends Scene {
     private static ImageView hpBar;
     private static VBox monsterTurnEnd;
     private static Text monTurn;
+    private static Text missAtk;
     private static ImageView newHpBar;
     private static HBox boxStatus;
     private static StackPane stack;
@@ -157,6 +159,9 @@ public class BattleScene extends Scene {
     }
 
     private static void initializePlayerSide(){
+        Font font = ToolKit.loadFont( 45);
+        missAtk = new Text("");
+        missAtk.setFont(font);
         blockPlayer = new Rectangle(80,80);
         heal = new Rectangle(70,70);
         heal.setFill(null);
@@ -165,6 +170,7 @@ public class BattleScene extends Scene {
         showModelPlayer();
         fightPane.add(blockPlayer , 0,1);
         fightPane.add(heal , 0 ,1 );
+        fightPane.add(missAtk , 0 ,1 );
     }
 
     private static void initializeMonsterSide(){
@@ -322,7 +328,14 @@ public class BattleScene extends Scene {
 
                 delayAndContinue(() -> {
                     showAttackEffect(heal ,blockPlayer ,"a1" , "a2" , "a3");
+                    if (player.getAttackStat() <= 0 ){
+                        missAtk.setText("Miss");
+                    }
                 }, 500);
+
+                delayAndContinue(() -> {
+                    missAtk.setText("");
+                }, 700);
 
             }
             delayAndContinue(() -> {
@@ -566,13 +579,26 @@ public class BattleScene extends Scene {
         potionButton.getChildren().addAll(btn1 , amountPotion);
         inventoryBox.getChildren().addAll(potionButton);
 
+        PauseTransition pauseTransition = new PauseTransition();
+
         btn1.setOnMouseClicked( event -> {
             showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
             isHit = false;
             root.getChildren().remove(root.getChildren().size() - 1);
             usePotion.run();
             updateStatusBar();
-            monsterTurn();
+
+            delayAndContinue(() -> {
+                Platform.runLater(() -> {
+                    endBattle();
+                    pauseTransition.setDuration(new Duration(500));
+                    pauseTransition.setOnFinished(e -> {
+                        monsterTurn();
+                    });
+                    pauseTransition.play();
+                });
+            }, 1000);
+
         });
     }
 

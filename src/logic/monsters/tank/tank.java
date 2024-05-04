@@ -28,7 +28,6 @@ public class tank extends Monster implements atk, spAtk{
             setPicture2("m13_i_2");
             //tank3
         } else if (getTime() == 98) {
-
             setMaxHp(this.getMaxHp() + 8);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 4);
@@ -53,7 +52,6 @@ public class tank extends Monster implements atk, spAtk{
         //decrease def target for 1 turn
         else if (getLevel() == 2 )
         {
-
             int def = target.getDefense()  ;
             target.setDefense(def - 4);
         }

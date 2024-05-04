@@ -10,6 +10,7 @@ public abstract class BaseCharacter {
     protected int magicDefense ;
     private int magicPower;
     protected int poisonStatus = 0 ;
+    protected int attackStat = 0;
 
     //Params
     public BaseCharacter(int maxHp , int power , int defense,int magicPower, int magicDefense){
@@ -35,6 +36,7 @@ public abstract class BaseCharacter {
         int b = (Math.max(1 , magicDef - amount)) ;
         int a = Math.max(0 , hp - (Math.max(1 , magicDef - amount))) ;
         setHp(a);
+        setAttackStat(b);
         return b ;
     }
 
@@ -111,5 +113,13 @@ public abstract class BaseCharacter {
 
     public void setPoison_status(int poison_status) {
         this.poisonStatus = poison_status;
+    }
+
+    public int getAttackStat() {
+        return attackStat;
+    }
+
+    public void setAttackStat(int attackStat) {
+        this.attackStat = attackStat;
     }
 }
