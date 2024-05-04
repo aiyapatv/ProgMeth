@@ -65,14 +65,14 @@ public class Config {
 
 
     //DefMonster
-    public final static int BASEMONSTERDEF = 5  ;
-    public final static int TANKMONSTERDEF = 10  ;
-    public final static int MAGICTANKMONSTERDEF = 5 ;
+    public final static int BASEMONSTERDEF = 0 ;
+    public final static int TANKMONSTERDEF = 5  ;
+    public final static int MAGICTANKMONSTERDEF = 0;
 
     //MagicDefMonster
-    public final static int BASEMONSTERMAGICDEF = 5  ;
-    public final static int TANKMONSTERMAGICDEF = 5  ;
-    public final static int MAGICTANKMONSTERMAGICDEF = 10 ;
+    public final static int BASEMONSTERMAGICDEF = 0  ;
+    public final static int TANKMONSTERMAGICDEF = 0  ;
+    public final static int MAGICTANKMONSTERMAGICDEF = 3 ;
 
     //atkype 1 basic atk
     public final static int ATKTYPE1 = 17 ;
