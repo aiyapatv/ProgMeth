@@ -79,6 +79,9 @@ public abstract class BaseCharacter {
     }
 
     public void setHp(int hp) {
+        if (hp>=getMaxHp()){
+            hp = getMaxHp() ;
+        }
         this.hp = Math.max(hp,0);
     }
     //getter setter
