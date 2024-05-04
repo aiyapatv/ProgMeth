@@ -9,6 +9,7 @@ public class FullAtkMagicTank extends Monster implements Atk, MagicAtk, SpAtk {
     public FullAtkMagicTank() {
         super(Config.MAGICTANKMONSTERMAXHP, Config.ATKTYPE3 ,
                 Config.MAGICTANKMONSTERDEF , Config.MAGICTYPE3 ,Config.MAGICTANKMONSTERMAGICDEF);
+        setLevel(1);
         setPicture("m1_i_1");
         setPicture2("m1_i_2");
     }

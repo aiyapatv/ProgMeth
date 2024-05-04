@@ -8,6 +8,7 @@ public class Buff extends Monster implements BuffFriend {
     public Buff() {
         super(Config.BASEMONSTERMAXHP , Config.ATKTYPE3 ,
                 Config.BASEMONSTERDEF , Config.MAGICTYPE3 ,Config.BASEMONSTERMAGICDEF);
+        setLevel(1);
         setPicture("m14_i_1");
         setPicture2("m14_i_2");
     }
