@@ -200,16 +200,7 @@ public class BattleScene extends Scene {
             effectBlock = new Rectangle(50,50);
             effectBlock.setFill(null);
 
-
             randomMonster = Random.randomBossMonsterImage();
-            if ( totalMonster == 1){
-                randomMonster = Random.randomMonsterImage();
-                while ( randomMonster instanceof Buff){
-                    randomMonster = Random.randomMonsterImage();
-                }
-            } else {
-                randomMonster = Random.randomMonsterImage();
-            }
 
             ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture() + ".png"));
             monsterBlock.setFill(imageMonster);
@@ -398,7 +389,7 @@ public class BattleScene extends Scene {
 
                 delayAndContinue(() -> {
                     showAttackEffect(heal ,blockPlayer ,"a1" , "a2" , "a3");
-                    if (player.getAttackStat() <= 0 ){
+                    if (player.getAttackStat() == 0 ){
                         missAtk.setText("Miss");
                     }
                 }, 500);
@@ -602,7 +593,6 @@ public class BattleScene extends Scene {
             int count = i;
             btn.setOnMouseClicked( event -> {
 
-
                 showAttackEffect(allEffect.get(count) , allMonPic.get(count),"a1" , "a2" , "a3");
                 isHit = false;
                 root.getChildren().remove(root.getChildren().size() - 1);
@@ -697,6 +687,7 @@ public class BattleScene extends Scene {
 
         btn1.setOnMouseClicked( event -> {
             showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
+            root.getChildren().remove(root.getChildren().size() - 1);
             isHit = false;
             usePotion.run();
             updateStatusBar();

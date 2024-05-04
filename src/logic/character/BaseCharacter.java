@@ -27,6 +27,7 @@ public abstract class BaseCharacter {
         int b = (Math.max(1 , def - amount)) ;
         int a =  Math.max(0 , hp - (Math.max(1 , def - amount))) ;
         setHp(a) ;
+        setAttackStat(b);
         return b ;
     }
 
