@@ -1,19 +1,18 @@
 package Scenes;
 
+import Utils.Sound;
 import Utils.ToolKit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
 import logic.game.GameController;
 //import main.MusicController;
 
-public class StartScene extends Scene {
+public class StartScene extends Scene{
     private static Scene instance;
     private static GridPane root;
     private static ImageView logoImageView;
@@ -37,6 +36,8 @@ public class StartScene extends Scene {
         initializeCenterBox(stage);
         root.setAlignment(Pos.BASELINE_LEFT);
 
+        Sound.backgroundSound("sound/StartScene.mp3");
+
         return root;
     }
     private static ImageView initializeLogo(){
@@ -56,12 +57,15 @@ public class StartScene extends Scene {
         return btnNewGame;
     }
 
-    private static Button initializeSettingButton(){
+    private static Button initializeSettingButton(Stage stage){
         btnSetting = ToolKit.createButton("Setting", "element/shortBox.png",null, 25);
+        btnSetting.setOnMouseClicked(event -> {
+            stage.setScene(new SettingScene(stage));
+        });
         return btnSetting;
     }
 
-    private static Button initializeHowToPlayButton(){
+    private static Button initializeHowToPlayButton(Stage stage){
          btnHowToPlay = ToolKit.createButton("How To Play", "element/shortBox.png",null, 25);
          return btnHowToPlay;
     }
@@ -79,7 +83,7 @@ public class StartScene extends Scene {
         centerBox.setAlignment(Pos.CENTER);
         centerBox.getChildren().addAll(
                 initializeLogo(),
-                initializeNewGameButton(stage),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
+                initializeNewGameButton(stage),initializeSettingButton(stage), initializeHowToPlayButton(stage), initializeExitButton(stage));
         root.add(centerBox, 0, 1);
     }
 
@@ -94,3 +98,4 @@ public class StartScene extends Scene {
     }
 
 }
+

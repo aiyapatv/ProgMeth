@@ -46,7 +46,7 @@ public class ChooseScene extends Scene {
 
     private static GridPane createChooseScene(Stage stage){
         root = new GridPane(10,10);
-        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/Background3.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/oakwood.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         root.setPadding(new Insets(10));
         root.setGridLinesVisible(false);
 
