@@ -12,8 +12,8 @@ public abstract class Monster {
     private int magicAtk;
     private int def;
     private int magicDef ;
-    private int level ;
-    private int time = GameController.getInstance().getTurn();
+    private int level = 1;
+    private static int time = GameController.getInstance().getTurn();
 
     private int checkLess(int number) {
         if (number < 0) number = 0;
@@ -119,12 +119,12 @@ public abstract class Monster {
         this.level = level;
     }
 
-    public int getTime() {
+    public static int getTime() {
         return time;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public static void setTime(int time) {
+        Monster.time = time;
     }
 
     public String getPicture() {

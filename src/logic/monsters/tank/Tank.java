@@ -53,12 +53,12 @@ public class Tank extends Monster implements Atk, SpAtk {
         else if (getLevel() == 2 )
         {
             int def = target.getDefense()  ;
-            target.setDefense(def - 4);
+            target.setDefense(def - 2);
         }
         //decrease power target for  turn
         else if (getLevel() == 3) {
             int power = target.getPower()  ;
-            target.setPower(power - 8);
+            target.setPower(power - 4);
         }
     }
 }

@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.game.GameController;
+import logic.monsters.Monster;
 
 public class HexagonTile extends StackPane {
     private boolean isWalked;
@@ -37,6 +38,7 @@ public class HexagonTile extends StackPane {
                 setOnMouseClicked(null);
                 GameController.getInstance().increaseTurn();
                 GameScene.updateTurn();
+                Monster.setTime(GameController.getInstance().getTurn());
                 stage.setScene(new BattleScene(stage));
             });
             setOnMouseExited(mouseEvent -> {
