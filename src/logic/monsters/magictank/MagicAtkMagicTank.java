@@ -15,7 +15,7 @@ public class MagicAtkMagicTank extends Monster implements MagicAtk, SpAtk {
         setPicture("m8_i_1");
         setPicture2("m8_i_2");
         //magicatkmagintank2
-        if (getTime() == 7);
+        if (getTime() >= 7);
         {
             setMaxHp(this.getMaxHp() + 10);
             setHp(this.getMaxHp());

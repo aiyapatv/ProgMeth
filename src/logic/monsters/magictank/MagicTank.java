@@ -15,7 +15,7 @@ public class MagicTank extends Monster implements Atk, SpAtk {
         setPicture("m9_r_1");
         setPicture2("m9_r_2");
         //Magictank2
-        if (getTime() == 7){
+        if (getTime() >= 7 && getTime() < 14){
             setMaxHp(this.getMaxHp() + 10);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 5);
@@ -25,7 +25,7 @@ public class MagicTank extends Monster implements Atk, SpAtk {
             setPicture2("m5_i_2");
         }
         //Magictank3
-        else if (getTime() == 14){
+        else if (getTime() >= 14){
             setMaxHp(this.getMaxHp() + 20);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 9);

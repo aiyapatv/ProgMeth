@@ -12,8 +12,9 @@ public class MagicAtkTank extends Monster implements MagicAtk, SpAtk {
         setLevel(1);
         setPicture("m11_i_1");
         setPicture2("m11_i_2");
-        if (getTime() == 7 )
+        if (getTime() >= 7 )
         {
+//            System.out.println("level 2 create ");
             setMaxHp(this.getMaxHp() + 10);
             setHp(this.getMaxHp());
             setMagicAtk(this.getAtk() + 5);

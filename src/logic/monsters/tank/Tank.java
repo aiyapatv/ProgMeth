@@ -16,7 +16,7 @@ public class Tank extends Monster implements Atk, SpAtk {
         setPicture("m23_i_1");
         setPicture2("m23_i_2");
         //tank2
-        if (getTime() == 7)
+        if (getTime() >= 7 && getTime() < 14)
         {
             setMaxHp(this.getMaxHp() + 10);
             setHp(this.getMaxHp());
@@ -27,7 +27,7 @@ public class Tank extends Monster implements Atk, SpAtk {
             setPicture("m13_i_1");
             setPicture2("m13_i_2");
             //tank3
-        } else if (getTime() ==14) {
+        } else if (getTime() >=14) {
             setMaxHp(this.getMaxHp() + 20);
             setHp(this.getMaxHp());
             setAtk(this.getAtk() + 9);
