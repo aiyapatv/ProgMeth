@@ -5,7 +5,7 @@ import logic.monsters.Monster;
 
 public class Knight extends BaseCharacter{
     public Knight() {
-        super(Config.KNIGHTMAXHP , Config.KNIGHTPOWER ,Config.KNIGHTPOWER,Config.KNIGHTMAGICPOWER,Config.KNIGHTMAGICDEFENSE);
+        super(Config.KNIGHTMAXHP , Config.KNIGHTPOWER ,Config.KNIGHTDEFENSE,Config.KNIGHTMAGICPOWER,Config.KNIGHTMAGICDEFENSE);
     }
 
     @Override
