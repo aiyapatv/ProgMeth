@@ -4,9 +4,9 @@ import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
-public class fullBasic extends Monster implements atk , magicAtk ,spAtk {
+public class FullBasic extends Monster implements Atk, MagicAtk, SpAtk {
 
-    public fullBasic() {
+    public FullBasic() {
         super(Config.BASEMONSTERMAXHP , Config.ATKTYPE3 ,
                 Config.BASEMONSTERDEF , Config.MAGICTYPE3 ,Config.BASEMONSTERMAGICDEF);
         setPicture("m10_i_1");

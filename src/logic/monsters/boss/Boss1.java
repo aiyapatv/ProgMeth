@@ -1,12 +1,11 @@
 package logic.monsters.boss;
 
-import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
 
-public class boss1 extends Monster implements atk , spAtk {
-    public boss1() {
+public class Boss1 extends Monster implements Atk, SpAtk {
+    public Boss1() {
         super(150, 10 ,
                 15 , 5 , 15);
         setPicture("m2_i_1");
@@ -38,17 +37,15 @@ public class boss1 extends Monster implements atk , spAtk {
         }
     }
 
-
     //switch hp to atk for 1 turn
-    public int skill2(int amount){
-        if (this.getHp() - amount <= 0)
+    public void skill2(){
+        if (this.getHp() - 10 <= 0)
         {
-            return 0;
+            return ;
         }
         else {
-            this.setHp(this.getHp() - amount);
-            this.setAtk(this.getAtk() + amount);
-            return amount ;
+            this.setHp(this.getHp() - 10);
+            this.setAtk(this.getAtk() + 10);
         }
     }
 }

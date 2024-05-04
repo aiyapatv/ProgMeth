@@ -2,6 +2,6 @@ package logic.able;
 
 import logic.character.BaseCharacter;
 
-public interface  atk {
+public interface Atk {
     void attack(BaseCharacter target) ;
 }

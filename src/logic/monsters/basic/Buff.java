@@ -1,12 +1,11 @@
 package logic.monsters.basic;
 
 import Utils.Config;
-import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
 
-public class buff extends Monster implements buffFriend {
-    public buff() {
+public class Buff extends Monster implements BuffFriend {
+    public Buff() {
         super(Config.BASEMONSTERMAXHP , Config.ATKTYPE3 ,
                 Config.BASEMONSTERDEF , Config.MAGICTYPE3 ,Config.BASEMONSTERMAGICDEF);
         setPicture("m14_i_1");

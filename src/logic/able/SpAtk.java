@@ -2,6 +2,6 @@ package logic.able;
 
 import logic.character.BaseCharacter;
 
-public interface spAtk {
+public interface SpAtk {
     void specialAttack(BaseCharacter target) ;
 }

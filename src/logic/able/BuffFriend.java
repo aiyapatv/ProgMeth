@@ -2,6 +2,6 @@ package logic.able;
 
 import logic.monsters.Monster;
 
-public interface buffFriend {
+public interface BuffFriend {
     void buff(Monster target);
 }

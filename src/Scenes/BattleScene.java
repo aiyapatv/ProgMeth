@@ -25,18 +25,18 @@ import javafx.util.Duration;
 import logic.character.BaseCharacter;
 import logic.game.GameController;
 import logic.monsters.Monster;
-import logic.monsters.basic.basic;
-import logic.monsters.basic.buff;
-import logic.monsters.basic.fullBasic;
-import logic.monsters.basic.magicBasic;
-import logic.monsters.boss.boss1;
-import logic.monsters.boss.boss2;
-import logic.monsters.magictank.fullAtkMagicTank;
-import logic.monsters.magictank.magicAtkMagicTank;
-import logic.monsters.magictank.magicTank;
-import logic.monsters.tank.fullAtkTank;
-import logic.monsters.tank.magicAtkTank;
-import logic.monsters.tank.tank;
+import logic.monsters.basic.Basic;
+import logic.monsters.basic.Buff;
+import logic.monsters.basic.FullBasic;
+import logic.monsters.basic.MagicBasic;
+import logic.monsters.boss.Boss1;
+import logic.monsters.boss.Boss2;
+import logic.monsters.magictank.FullAtkMagicTank;
+import logic.monsters.magictank.MagicAtkMagicTank;
+import logic.monsters.magictank.MagicTank;
+import logic.monsters.tank.FullAtkTank;
+import logic.monsters.tank.MagicAtkTank;
+import logic.monsters.tank.Tank;
 import logic.potion.*;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -200,7 +200,17 @@ public class BattleScene extends Scene {
             effectBlock = new Rectangle(50,50);
             effectBlock.setFill(null);
 
+
             randomMonster = Random.randomBossMonsterImage();
+            if ( totalMonster == 1){
+                randomMonster = Random.randomMonsterImage();
+                while ( randomMonster instanceof Buff){
+                    randomMonster = Random.randomMonsterImage();
+                }
+            } else {
+                randomMonster = Random.randomMonsterImage();
+            }
+
             ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture() + ".png"));
             monsterBlock.setFill(imageMonster);
 
@@ -228,7 +238,7 @@ public class BattleScene extends Scene {
 
                 if ( totalMonster == 1){
                     randomMonster = Random.randomMonsterImage();
-                    while ( randomMonster instanceof buff ){
+                    while ( randomMonster instanceof Buff ){
                         randomMonster = Random.randomMonsterImage();
                     }
                 } else {
@@ -286,105 +296,103 @@ public class BattleScene extends Scene {
             for (int i = 0; i< allMonster.size(); i++) {
                 int random;
                 Monster monster = allMonster.get(i);
-                if ( monster instanceof basic){
+                if ( monster instanceof Basic){
                     random = Random.randomMonsterAtk(2);
                     if ( random == 1 ){
-                        ((basic) monster).attack(player);
+                        ((Basic) monster).attack(player);
                     } else{
-                        ((basic) monster).specialAttack(player);
+                        ((Basic) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof magicTank ){
+                } else if ( monster instanceof MagicTank){
                     random = Random.randomMonsterAtk(2);
                     if ( random == 1 ){
-                        ((magicTank) monster).attack(player);
+                        ((MagicTank) monster).attack(player);
                     } else{
-                        ((magicTank) monster).specialAttack(player);
+                        ((MagicTank) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof tank ){
+                } else if ( monster instanceof Tank){
                     random = Random.randomMonsterAtk(2);
                     if ( random == 1 ){
-                        ((tank) monster).attack(player);
+                        ((Tank) monster).attack(player);
                     } else{
-                        ((tank) monster).specialAttack(player);
+                        ((Tank) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof magicBasic){
+                } else if ( monster instanceof MagicBasic){
                     random = Random.randomMonsterAtk(2);
                     if ( random == 1 ){
-                        ((magicBasic) monster).magicAttack(player);
+                        ((MagicBasic) monster).magicAttack(player);
                     } else{
-                        ((magicBasic) monster).specialAttack(player);
+                        ((MagicBasic) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof magicAtkMagicTank){
+                } else if ( monster instanceof MagicAtkMagicTank){
                     random = Random.randomMonsterAtk(2);
                     if ( random == 1 ){
-                        ((magicAtkMagicTank) monster).magicAttack(player);
+                        ((MagicAtkMagicTank) monster).magicAttack(player);
                     } else{
-                        ((magicAtkMagicTank) monster).specialAttack(player);
+                        ((MagicAtkMagicTank) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof magicAtkTank){
+                } else if ( monster instanceof MagicAtkTank){
                     random = Random.randomMonsterAtk(2);
                     if ( random == 1 ){
-                        ((magicAtkTank) monster).magicAttack(player);
+                        ((MagicAtkTank) monster).magicAttack(player);
                     } else{
-                        ((magicAtkTank) monster).specialAttack(player);
+                        ((MagicAtkTank) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof buff){
+                } else if ( monster instanceof Buff){
                     for ( int l = 0; l<allMonster.size(); l++){
                         if ( l != i){
-                            ((buff) monster).buff(allMonster.get(l));
+                            ((Buff) monster).buff(allMonster.get(l));
                         }
                     }
-                } else if ( monster instanceof fullBasic) {
+                } else if ( monster instanceof FullBasic) {
                     random = Random.randomMonsterAtk(3);
                     if ( random == 1 ){
-                        ((fullBasic) monster).attack(player);
+                        ((FullBasic) monster).attack(player);
                     } else if ( random == 2 ){
-                        ((fullBasic) monster).magicAttack(player);
+                        ((FullBasic) monster).magicAttack(player);
                     } else {
-                        ((fullBasic) monster).specialAttack(player);
+                        ((FullBasic) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof fullAtkMagicTank) {
+                } else if ( monster instanceof FullAtkMagicTank) {
                     random = Random.randomMonsterAtk(3);
                     if ( random == 1 ){
-                        ((fullAtkMagicTank) monster).attack(player);
+                        ((FullAtkMagicTank) monster).attack(player);
                     } else if ( random == 2 ){
-                        ((fullAtkMagicTank) monster).magicAttack(player);
+                        ((FullAtkMagicTank) monster).magicAttack(player);
                     } else {
-                        ((fullAtkMagicTank) monster).specialAttack(player);
+                        ((FullAtkMagicTank) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof boss1) {
+                } else if ( monster instanceof Boss1) {
                     random = Random.randomMonsterAtk(4);
                     if ( random == 1 ){
-                        ((boss1) monster).attack(player);
+                        ((Boss1) monster).attack(player);
                     } else if ( random == 2 ){
-                        ((boss1) monster).skill1(player);
+                        ((Boss1) monster).skill1(player);
                     } else if ( random == 3 ){
-//                        ((boss1) monster).skill2(player);
-                    } else{
-                        ((boss1) monster).specialAttack(player);
+                        ((Boss1) monster).skill2();
+                    }  else{
+                        ((Boss1) monster).specialAttack(player);
                     }
-                } else if ( monster instanceof boss2){
-                    random = Random.randomMonsterAtk(5);
+                } else if ( monster instanceof Boss2){
+                    random = Random.randomMonsterAtk(4);
                     if ( random == 1 ){
-                        ((boss2) monster).attack(player);
+                        ((Boss2) monster).attack(player);
                     } else if ( random == 2 ){
-                        ((boss2) monster).magicAttack(player);
+                        ((Boss2) monster).magicAttack(player);
                     } else if ( random == 3 ){
-                        ((boss2) monster).skill1(player);
-                    } else if ( random == 4 ){
-                        ((boss2) monster).skill2();
+                        ((Boss2) monster).skill1();
                     } else {
-                        ((boss2) monster).specialAttack(player);
+                        ((Boss2) monster).specialAttack(player);
                     }
                 }
                 else {
                     random = Random.randomMonsterAtk(3);
                     if ( random == 1 ){
-                        ((fullAtkTank) monster).attack(player);
+                        ((FullAtkTank) monster).attack(player);
                     } else if ( random == 2 ){
-                        ((fullAtkTank) monster).magicAttack(player);
+                        ((FullAtkTank) monster).magicAttack(player);
                     } else {
-                        ((fullAtkTank) monster).specialAttack(player);
+                        ((FullAtkTank) monster).specialAttack(player);
                     }
                 }
 

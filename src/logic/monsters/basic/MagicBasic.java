@@ -1,13 +1,13 @@
 package logic.monsters.basic;
 
 import Utils.Config;
-import logic.able.magicAtk;
+import logic.able.MagicAtk;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
 
-public class magicBasic extends Monster implements magicAtk , spAtk  {
-    public magicBasic() {
+public class MagicBasic extends Monster implements MagicAtk, SpAtk {
+    public MagicBasic() {
         //magicbasic 1
         super(Config.BASEMONSTERMAXHP, Config.ATKTYPE2 ,
                 Config.BASEMONSTERDEF , Config.MAGICTYPE2 ,Config.BASEMONSTERMAGICDEF);
