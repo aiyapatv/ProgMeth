@@ -25,8 +25,8 @@ public abstract class BaseCharacter {
     public int decreaseHpDef(int amount){
         int def = this.getDefense() ;
         int hp = this.getHp() ;
-        int b = (Math.max(1 , def - amount)) ;
-        int a =  Math.max(0 , hp - (Math.max(1 , def - amount))) ;
+        int b = (Math.max(1 , amount - def)) ;
+        int a =  Math.max(0 , hp - (Math.max(1 , amount - def))) ;
         setHp(a) ;
         setAttackStat(hp-a);
         return b ;
@@ -35,8 +35,8 @@ public abstract class BaseCharacter {
     public int decreaseHpMagicDef(int amount){
         int magicDef = this.getMagicDefense() ;
         int hp = this.getHp() ;
-        int b = (Math.max(1 , magicDef - amount)) ;
-        int a = Math.max(0 , hp - (Math.max(1 , magicDef - amount))) ;
+        int b = (Math.max(1 , amount - magicDef)) ;
+        int a = Math.max(0 , hp - (Math.max(1 , amount - magicDef))) ;
         setHp(a);
         setAttackStat(hp-a);
         return b ;
@@ -80,6 +80,9 @@ public abstract class BaseCharacter {
     }
 
     public void setHp(int hp) {
+        if (hp>=getMaxHp()){
+            hp = getMaxHp() ;
+        }
         this.hp = Math.max(hp,0);
     }
 
