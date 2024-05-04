@@ -16,7 +16,7 @@ public class HealingPotion extends BasePotion implements Healable, Upgradable {
         super("HealingPotion");
         setLevel(0);
         this.MAX_LEVEL = 3 ;
-        this.RECOVER_PT = new int[]{3,5,7,10} ;
+        this.RECOVER_PT = new int[]{10,17,21,30} ;
     }
 
     @Override

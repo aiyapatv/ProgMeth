@@ -18,7 +18,7 @@ public class MagicBasic extends Monster implements MagicAtk, SpAtk {
         if (getTime() >= 7){
             setMaxHp(this.getMaxHp() + 10);
             setHp(this.getMaxHp());
-            setMagicAtk(this.getMagicAtk() + 5);
+            setMagicAtk(this.getMagicAtk() + 3);
             setLevel(2); ;
             setPicture("m18_i_1");
             setPicture2("m18_i_2");

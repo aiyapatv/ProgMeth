@@ -12,9 +12,9 @@ public class UltimatePotion extends BasePotion implements AttBuffable, Healable{
 
     public UltimatePotion() {
         super("UltimatePotion");
-        ATT_BUFF = 5;
+        ATT_BUFF = 7;
         BUFF_TURN = 3;
-        RECOVER_PT = 5;
+        RECOVER_PT = 10;
     }
 
     @Override

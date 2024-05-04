@@ -26,10 +26,10 @@ public class MagicTank extends Monster implements Atk, SpAtk {
         }
         //Magictank3
         else if (getTime() >= 14){
-            setMaxHp(this.getMaxHp() + 20);
+            setMaxHp(this.getMaxHp() + 15);
             setHp(this.getMaxHp());
-            setAtk(this.getAtk() + 9);
-            setMagicDef(this.getMagicDef()+6);
+            setAtk(this.getAtk() + 6);
+            setMagicDef(this.getMagicDef()+4);
             setLevel(3);
             setPicture("m22_i_1");
             setPicture2("m22_i_2");

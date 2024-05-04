@@ -9,7 +9,7 @@ public class Pill extends BasePotion implements Healable {
 
     public Pill() {
         super("Pill");
-        this.RECOVERY_PT = 2 ;
+        this.RECOVERY_PT = 7 ;
     }
 
     @Override

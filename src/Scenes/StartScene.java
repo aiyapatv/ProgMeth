@@ -1,19 +1,18 @@
 package Scenes;
 
+import Utils.Sound;
 import Utils.ToolKit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
 import logic.game.GameController;
 //import main.MusicController;
 
-public class StartScene extends Scene {
+public class StartScene extends Scene{
     private static Scene instance;
     private static GridPane root;
     private static ImageView logoImageView;
@@ -36,6 +35,8 @@ public class StartScene extends Scene {
         root.setHgap(50);
         initializeCenterBox(stage);
         root.setAlignment(Pos.BASELINE_LEFT);
+
+        Sound.backgroundSound("StartScene.mp3");
 
         return root;
     }
@@ -94,3 +95,4 @@ public class StartScene extends Scene {
     }
 
 }
+

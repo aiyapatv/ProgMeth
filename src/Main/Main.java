@@ -6,8 +6,12 @@ import Utils.ToolKit;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import Scenes.StartScene;
+
+import java.io.File;
+import java.net.URL;
 
 public class Main extends Application{
     public static void main(String[] args) {
@@ -24,4 +28,5 @@ public class Main extends Application{
         stage.setScene(sceneStart);
         stage.show();
     }
+
 }

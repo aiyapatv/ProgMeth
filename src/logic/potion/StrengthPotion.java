@@ -18,7 +18,7 @@ public class StrengthPotion extends BasePotion implements AttBuffable, Upgradabl
         setLevel(0);
         this.MAX_LEVEL = 3 ;
         this.BUFF_TURN = 3 ;
-        this.ATT_BUFF = new int[]{3,5,7,10} ;
+        this.ATT_BUFF = new int[]{5,8,12,15} ;
     }
 
     @Override
