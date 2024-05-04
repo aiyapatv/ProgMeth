@@ -1,6 +1,6 @@
 package Scenes;
 
-import Main.Main;
+import Utils.Sound;
 import Utils.ToolKit;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -46,7 +46,7 @@ public class SettingScene extends Scene {
             // Update volume value
             volume = newValue.intValue();
             // Adjust media player volume accordingly
-            Main.getMediaPlayer().setVolume(volume/100.0);
+            Sound.getMediaPlayer().setVolume(volume/100.0);
 
             Platform.runLater(() -> {
                 volumeLabel.setText("Volume: " + volume);
