@@ -29,6 +29,8 @@ import logic.monsters.basic.basic;
 import logic.monsters.basic.buff;
 import logic.monsters.basic.fullBasic;
 import logic.monsters.basic.magicBasic;
+import logic.monsters.boss.boss1;
+import logic.monsters.boss.boss2;
 import logic.monsters.magictank.fullAtkMagicTank;
 import logic.monsters.magictank.magicAtkMagicTank;
 import logic.monsters.magictank.magicTank;
@@ -72,6 +74,7 @@ public class BattleScene extends Scene {
     private static Boolean isMagicAtk;
     private static ImageView newHpBar;
     private static HBox boxStatus;
+    private static Integer Turn;
     private static StackPane stack;
     private static Monster randomMonster;
     private static Stage stage;
@@ -86,6 +89,7 @@ public class BattleScene extends Scene {
         isEnd = false;
         isHit = false;
         isMagicAtk = false;
+        Turn = GameController.getInstance().getTurn();
         root = new GridPane(2,2);
         root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         root.setPadding(new Insets(10));
@@ -184,25 +188,19 @@ public class BattleScene extends Scene {
             monster.getColumnConstraints().add(new ColumnConstraints(60));
             monster.getRowConstraints().add(new RowConstraints(60));
         }
-        totalMonster = Random.randomMonsterAmount();
 
-        allMonster = new ArrayList<>(totalMonster);
-        allMonPic = new ArrayList<>(totalMonster);
-        allEffect = new ArrayList<>(totalMonster);
-        for (int i = 1;i <= totalMonster; i++){
+        if ( Turn == 15 ){
+            totalMonster = 1;
+
+            allMonster = new ArrayList<>(totalMonster);
+            allMonPic = new ArrayList<>(totalMonster);
+            allEffect = new ArrayList<>(totalMonster);
+
             monsterBlock = new Rectangle(60,60);
             effectBlock = new Rectangle(50,50);
             effectBlock.setFill(null);
 
-            if ( totalMonster == 1){
-                randomMonster = Random.randomMonsterImage();
-                while ( randomMonster instanceof buff ){
-                    randomMonster = Random.randomMonsterImage();
-                }
-            } else {
-                randomMonster = Random.randomMonsterImage();
-            }
-
+            randomMonster = Random.randomBossMonsterImage();
             ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture() + ".png"));
             monsterBlock.setFill(imageMonster);
 
@@ -211,14 +209,50 @@ public class BattleScene extends Scene {
             allEffect.add(effectBlock);
 
             showModelMonster(monsterBlock,randomMonster);
-            if(i == 3) {
-                monster.add(monsterBlock, 0, 0);
-                monster.add(effectBlock, 0, 0);
-            }else{
-                monster.add(monsterBlock, i, i);
-                monster.add(effectBlock, i, i);
+
+                monster.add(monsterBlock, 1, 1);
+                monster.add(effectBlock, 1, 1);
+
+
+        }
+        else {
+            totalMonster = Random.randomMonsterAmount();
+
+            allMonster = new ArrayList<>(totalMonster);
+            allMonPic = new ArrayList<>(totalMonster);
+            allEffect = new ArrayList<>(totalMonster);
+            for (int i = 1;i <= totalMonster; i++){
+                monsterBlock = new Rectangle(60,60);
+                effectBlock = new Rectangle(50,50);
+                effectBlock.setFill(null);
+
+                if ( totalMonster == 1){
+                    randomMonster = Random.randomMonsterImage();
+                    while ( randomMonster instanceof buff ){
+                        randomMonster = Random.randomMonsterImage();
+                    }
+                } else {
+                    randomMonster = Random.randomMonsterImage();
+                }
+
+                ImagePattern imageMonster = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture() + ".png"));
+                monsterBlock.setFill(imageMonster);
+
+                allMonPic.add(monsterBlock);
+                allMonster.add(randomMonster);
+                allEffect.add(effectBlock);
+
+                showModelMonster(monsterBlock,randomMonster);
+                if(i == 3) {
+                    monster.add(monsterBlock, 0, 0);
+                    monster.add(effectBlock, 0, 0);
+                }else{
+                    monster.add(monsterBlock, i, i);
+                    monster.add(effectBlock, i, i);
+                }
             }
         }
+
         monster.setAlignment(Pos.BOTTOM_RIGHT);
         fightPane.add(monster , 1,0);
     }
@@ -318,7 +352,32 @@ public class BattleScene extends Scene {
                     } else {
                         ((fullAtkMagicTank) monster).specialAttack(player);
                     }
-                } else {
+                } else if ( monster instanceof boss1) {
+                    random = Random.randomMonsterAtk(4);
+                    if ( random == 1 ){
+                        ((boss1) monster).attack(player);
+                    } else if ( random == 2 ){
+                        ((boss1) monster).skill1(player);
+                    } else if ( random == 3 ){
+//                        ((boss1) monster).skill2(player);
+                    } else{
+                        ((boss1) monster).specialAttack(player);
+                    }
+                } else if ( monster instanceof boss2){
+                    random = Random.randomMonsterAtk(5);
+                    if ( random == 1 ){
+                        ((boss2) monster).attack(player);
+                    } else if ( random == 2 ){
+                        ((boss2) monster).magicAttack(player);
+                    } else if ( random == 3 ){
+                        ((boss2) monster).skill1(player);
+                    } else if ( random == 4 ){
+                        ((boss2) monster).skill2();
+                    } else {
+                        ((boss2) monster).specialAttack(player);
+                    }
+                }
+                else {
                     random = Random.randomMonsterAtk(3);
                     if ( random == 1 ){
                         ((fullAtkTank) monster).attack(player);
@@ -499,11 +558,18 @@ public class BattleScene extends Scene {
     private static void initializeMonsterList(){
         monsterBox = new VBox();
         monsterBox.setBackground(Background.fill(Color.WHITESMOKE));
-
+        int round = 0;
         for ( int i = 0; i < allMonster.size(); i++){
+
+            if ( allMonster.size() == 3 && i == 0 && round == 0){
+                i++;
+                i++;
+            }
+            if ( i == 2 && round >= 1) break;
+
             Monster monster = allMonster.get(i);
             monsterButton = new HBox();
-            Button btn = ToolKit.createButton("Monster"+(i+1), "button/red1.png","button/red2.png",20);
+            Button btn = ToolKit.createButton("Mon Lv."+ monster.getLevel(), "button/red1.png","button/red2.png",20);
             setButtonPref(btn, 90 , 30);
 
             double hpMon = (double) monster.getHp() / monster.getMaxHp() * 100;
@@ -548,6 +614,12 @@ public class BattleScene extends Scene {
                 });
                 pauseTransition.play();
             });
+            if ( allMonster.size() == 3 && i == 2) {
+                i--;
+                i--;
+                i--;
+                round++;
+            }
         }
         root.add(monsterBox,1,2);
         initializeBackToActionButton(monsterBox);

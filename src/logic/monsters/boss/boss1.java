@@ -51,6 +51,4 @@ public class boss1 extends Monster implements atk , spAtk {
             return amount ;
         }
     }
-
-    //be
 }

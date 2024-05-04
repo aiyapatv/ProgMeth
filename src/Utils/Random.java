@@ -6,6 +6,8 @@ import logic.monsters.basic.basic;
 import logic.monsters.basic.buff;
 import logic.monsters.basic.fullBasic;
 import logic.monsters.basic.magicBasic;
+import logic.monsters.boss.boss1;
+import logic.monsters.boss.boss2;
 import logic.monsters.magictank.fullAtkMagicTank;
 import logic.monsters.magictank.magicAtkMagicTank;
 import logic.monsters.magictank.magicTank;
@@ -41,6 +43,16 @@ public class Random {
             return new magicAtkTank();
         } else {
             return new tank();
+        }
+    }
+
+    public static Monster randomBossMonsterImage() {
+        MAX_NUMBER = 2;
+        int randomNum = rng.nextInt(MAX_NUMBER) + 1;
+        if (randomNum == 1) {
+            return new boss1();
+        } else {
+            return new boss2();
         }
     }
 
