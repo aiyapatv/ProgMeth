@@ -29,9 +29,4 @@ public class Main extends Application{
         stage.show();
     }
 
-    public static void backgroundSound(String path){
-        URL gameMusic = StartScene.class.getResource(path) ;
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(gameMusic.toString()));
-        mediaPlayer.play();
-    }
 }
