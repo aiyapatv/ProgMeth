@@ -34,7 +34,7 @@ public class Basic extends Monster implements Atk, SpAtk {
     @Override
     public void specialAttack(BaseCharacter target) {
         if (getLevel() == 1){
-            return;
+            target.setAttackStat(0);
         }
         else {
             int magic = target.getMagicPower() ;

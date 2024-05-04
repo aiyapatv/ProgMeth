@@ -35,7 +35,7 @@ public class MagicAtkMagicTank extends Monster implements MagicAtk, SpAtk {
     @Override
     public void specialAttack(BaseCharacter target) {
         if (getLevel() == 1){
-         return;
+            target.setAttackStat(0);
         }
         else {
             this.setMagicDef(this.getMagicDef() + 2);

@@ -20,6 +20,7 @@ public abstract class BaseCharacter {
         setDefense(defense);
         setMagicPower(magicPower);
         setMagicDefense(magicDefense);
+        setAttackStat(0);
     }
     public int decreaseHpDef(int amount){
         int def = this.getDefense() ;
@@ -27,7 +28,7 @@ public abstract class BaseCharacter {
         int b = (Math.max(1 , def - amount)) ;
         int a =  Math.max(0 , hp - (Math.max(1 , def - amount))) ;
         setHp(a) ;
-        setAttackStat(b);
+        setAttackStat(hp-a);
         return b ;
     }
 
@@ -37,7 +38,7 @@ public abstract class BaseCharacter {
         int b = (Math.max(1 , magicDef - amount)) ;
         int a = Math.max(0 , hp - (Math.max(1 , magicDef - amount))) ;
         setHp(a);
-        setAttackStat(b);
+        setAttackStat(hp-a);
         return b ;
     }
 
@@ -81,8 +82,6 @@ public abstract class BaseCharacter {
     public void setHp(int hp) {
         this.hp = Math.max(hp,0);
     }
-    //getter setter
-
 
     public int getDefense() {
         return defense;
@@ -106,14 +105,6 @@ public abstract class BaseCharacter {
 
     public void setMagicPower(int magicPower) {
         this.magicPower = Math.max(0, magicPower) ;
-    }
-
-    public int getPoison_status() {
-        return poisonStatus;
-    }
-
-    public void setPoison_status(int poison_status) {
-        this.poisonStatus = poison_status;
     }
 
     public int getAttackStat() {
