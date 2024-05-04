@@ -33,7 +33,7 @@ public class MagicBasic extends Monster implements MagicAtk, SpAtk {
     @Override
     public void specialAttack(BaseCharacter target) {
         if (getLevel()==1){
-            target.setAttackStat(0);
+            return;
         }
         else {
             int magicDef = target.getMagicDefense() ;

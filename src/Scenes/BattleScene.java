@@ -91,7 +91,11 @@ public class BattleScene extends Scene {
         isMagicAtk = false;
         Turn = GameController.getInstance().getTurn();
         root = new GridPane(2,2);
-        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+        if ( Turn == 20 ){
+            root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg21.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+        } else {
+            root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+        }
         root.setPadding(new Insets(10));
         root.setGridLinesVisible(true);
 
@@ -189,7 +193,7 @@ public class BattleScene extends Scene {
             monster.getRowConstraints().add(new RowConstraints(60));
         }
 
-        if ( Turn == 15 ){
+        if ( Turn == 20 ){
             totalMonster = 1;
 
             allMonster = new ArrayList<>(totalMonster);
@@ -210,10 +214,8 @@ public class BattleScene extends Scene {
             allEffect.add(effectBlock);
 
             showModelMonster(monsterBlock,randomMonster);
-
-                monster.add(monsterBlock, 1, 1);
-                monster.add(effectBlock, 1, 1);
-
+            monster.add(monsterBlock, 1, 1);
+            monster.add(effectBlock, 1, 1);
 
         }
         else {
@@ -443,23 +445,39 @@ public class BattleScene extends Scene {
 
     private static void endBattle(){
         if ( allMonster.isEmpty()){
-            actionBox.getChildren().clear();
-            VBox text = new VBox();
-            text.setSpacing(5);
-            Text win = new Text("You Win !!!(Click to Continue)");
-            win.setFont(ToolKit.loadFont(30));
-            text.getChildren().addAll(win);
+            if ( Turn == 20 ){
+                actionBox.getChildren().clear();
+                VBox text = new VBox();
+                text.setSpacing(5);
+                Text win = new Text("You are already kill Boss !!!(Click to Exit)");
+                win.setFont(ToolKit.loadFont(30));
+                text.getChildren().addAll(win);
+                actionBox.getChildren().add(text);
+                actionBox.setOnMouseClicked(mouseEvent -> {
+                    stage.setScene(new StartScene(stage));
+                });
+                isEnd = true;
 
-            for ( int i = 0; i<Random.randomPotionAmount(); i++ ){
-                Text potion = new Text("You Got " + Random.randomDropPotion().getName());
-                potion.setFont(ToolKit.loadFont(20));
-                text.getChildren().add(potion);
+            } else {
+                actionBox.getChildren().clear();
+                VBox text = new VBox();
+                text.setSpacing(5);
+                Text win = new Text("You Win !!!(Click to Continue)");
+                win.setFont(ToolKit.loadFont(30));
+                text.getChildren().addAll(win);
+
+                for ( int i = 0; i<Random.randomPotionAmount(); i++ ){
+                    Text potion = new Text("You Got " + Random.randomDropPotion().getName());
+                    potion.setFont(ToolKit.loadFont(20));
+                    text.getChildren().add(potion);
+                }
+                actionBox.getChildren().add(text);
+                actionBox.setOnMouseClicked(mouseEvent -> {
+                    stage.setScene(GameScene.getInstance(stage));
+                });
+                isEnd = true;
             }
-            actionBox.getChildren().add(text);
-            actionBox.setOnMouseClicked(mouseEvent -> {
-                stage.setScene(GameScene.getInstance(stage));
-            });
-            isEnd = true;
+
         } else {
             monsterTurnEnd = new VBox();
             monsterTurnEnd.setBackground(Background.fill(Color.WHITESMOKE));

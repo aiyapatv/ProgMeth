@@ -47,7 +47,7 @@ public class Tank extends Monster implements Atk, SpAtk {
     public void specialAttack(BaseCharacter target) {
         if (getLevel() ==1 )
         {
-            target.setAttackStat(0);
+            return;
         }
         //decrease def target for 1 turn
         else if (getLevel() == 2 )
