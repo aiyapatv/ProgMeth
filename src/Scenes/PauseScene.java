@@ -4,8 +4,12 @@ import Utils.ToolKit;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -27,9 +31,13 @@ public class PauseScene extends Scene {
     public void createPauseScene(Stage stage) {
         root.setAlignment(Pos.CENTER);
         root.setSpacing(20);
+        root.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
 
         Text pauseText = new Text("Game Paused");
         pauseText.setFont(ToolKit.loadFont(50));
+
+        Label back = new Label("Press ESC to Continue");
+        back.setFont(ToolKit.loadFont(25));
 
         Button resumeButton = ToolKit.createButton("MAIN MENU", "element/shortBox.png",null, 25);
         resumeButton.setOnAction(event -> {
@@ -41,7 +49,7 @@ public class PauseScene extends Scene {
             stage.close();
         });
 
-        root.getChildren().addAll(pauseText, resumeButton, quitButton);
+        root.getChildren().addAll(pauseText, back, resumeButton, quitButton);
     }
 
     public static PauseScene getInstance(Stage stage){

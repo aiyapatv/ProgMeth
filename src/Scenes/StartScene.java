@@ -56,12 +56,15 @@ public class StartScene extends Scene {
         return btnNewGame;
     }
 
-    private static Button initializeSettingButton(){
+    private static Button initializeSettingButton(Stage stage){
         btnSetting = ToolKit.createButton("Setting", "element/shortBox.png",null, 25);
+        btnSetting.setOnMouseClicked(event -> {
+            stage.setScene(new SettingScene(stage));
+        });
         return btnSetting;
     }
 
-    private static Button initializeHowToPlayButton(){
+    private static Button initializeHowToPlayButton(Stage stage){
          btnHowToPlay = ToolKit.createButton("How To Play", "element/shortBox.png",null, 25);
          return btnHowToPlay;
     }
@@ -79,7 +82,7 @@ public class StartScene extends Scene {
         centerBox.setAlignment(Pos.CENTER);
         centerBox.getChildren().addAll(
                 initializeLogo(),
-                initializeNewGameButton(stage),initializeSettingButton(), initializeHowToPlayButton(), initializeExitButton(stage));
+                initializeNewGameButton(stage),initializeSettingButton(stage), initializeHowToPlayButton(stage), initializeExitButton(stage));
         root.add(centerBox, 0, 1);
     }
 
