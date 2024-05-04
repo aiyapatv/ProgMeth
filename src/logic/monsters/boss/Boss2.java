@@ -5,8 +5,8 @@ import logic.monsters.Monster;
 import logic.able.*;
 public class Boss2 extends Monster implements Atk, MagicAtk, SpAtk {
     public Boss2() {
-        super(100, 4 ,
-                7, 4 , 7);
+        super(70, 4 ,
+                5, 3 , 5);
         setPicture("m6_i_1");
         setPicture2("m6_i_2");
     }
