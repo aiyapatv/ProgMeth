@@ -191,8 +191,10 @@ public class ChooseScene extends Scene {
         maxHp.setFont(font);
         power.setFont(font);
         defense.setFont(font);
+        magicPower.setFont(font);
+        magicDefense.setFont(font);
 
-        attributeBox.getChildren().addAll(maxHp , power , defense);
+        attributeBox.getChildren().addAll(maxHp , power , defense ,magicPower, magicDefense);
         if ( GameController.getInstance().getCharacter() != null){
             maxHp.setText("Hp: " + GameController.getInstance().getCharacter().getMaxHp());
             power.setText("Power: " + GameController.getInstance().getCharacter().getPower());

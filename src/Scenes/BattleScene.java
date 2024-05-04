@@ -65,6 +65,8 @@ public class BattleScene extends Scene {
     private static ArrayList<Rectangle> allEffect;
     private static Text Hp;
     private static ImageView hpBar;
+    private static VBox monsterTurnEnd;
+    private static Text monTurn;
     private static ImageView newHpBar;
     private static HBox boxStatus;
     private static StackPane stack;
@@ -106,7 +108,7 @@ public class BattleScene extends Scene {
 
         ImageView character = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +".png"), 50, 50);
         ImageView imageView1 = Images.setImageViewSize(ToolKit.loadImage("element/ui1.png"), 60, 60);
-        ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
+//        ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
         hpBar = new ImageView();
         hpPlayer = ((double)GameController.getInstance().getCharacter().getHp()) / (GameController.getInstance().getCharacter().getMaxHp())* 100 ;
 
@@ -125,7 +127,9 @@ public class BattleScene extends Scene {
         }
 
         stack.getChildren().addAll(block, imageView1, character,hpBar);
-        boxStatus.getChildren().addAll(stack ,imageView3 , description);
+        boxStatus.getChildren().addAll(stack
+//                ,imageView3
+                , description);
         root.add(boxStatus,0,2);
     }
 
@@ -236,7 +240,6 @@ public class BattleScene extends Scene {
     private static void monsterTurn(){
         if (!isEnd){
             BaseCharacter player = GameController.getInstance().getCharacter();
-
             for (int i = 0; i< allMonster.size(); i++) {
                 int random;
                 Monster monster = allMonster.get(i);
@@ -316,12 +319,24 @@ public class BattleScene extends Scene {
                         ((fullAtkTank) monster).specialAttack(player);
                     }
                 }
+
                 delayAndContinue(() -> {
                     showAttackEffect(heal ,blockPlayer ,"a1" , "a2" , "a3");
-                    Platform.runLater(BattleScene::updateStatusBar);
-                    playerDie();
                 }, 500);
+
             }
+            delayAndContinue(() -> {
+                Platform.runLater(() -> {
+                    BattleScene.updateStatusBar();
+                    playerDie();
+                });
+            }, 700);
+
+            delayAndContinue(() -> {
+                Platform.runLater(() -> {
+                    root.getChildren().remove(root.getChildren().size() - 1);
+                });
+            }, 1000);
         }
     }
 
@@ -366,23 +381,19 @@ public class BattleScene extends Scene {
                 potion.setFont(ToolKit.loadFont(20));
                 text.getChildren().add(potion);
             }
-
             actionBox.getChildren().add(text);
             actionBox.setOnMouseClicked(mouseEvent -> {
                 stage.setScene(GameScene.getInstance(stage));
             });
             isEnd = true;
         } else {
-            VBox text = new VBox();
-            text.setBackground(Background.fill(Color.WHITESMOKE));
-            text.setSpacing(5);
-            Text monTurn = new Text("Monster Turn");
+            monsterTurnEnd = new VBox();
+            monsterTurnEnd.setBackground(Background.fill(Color.WHITESMOKE));
+            monsterTurnEnd.setSpacing(5);
+            monTurn = new Text("Monster Turn");
             monTurn.setFont(ToolKit.loadFont(30));
-            text.getChildren().addAll(monTurn);
-            root.add(text,1,2);
-            text.setOnMouseClicked( mouseEvent -> {
-                root.getChildren().remove(root.getChildren().size() - 1);
-            });
+            monsterTurnEnd.getChildren().addAll(monTurn);
+            root.add(monsterTurnEnd,1,2);
         }
     }
 
@@ -564,7 +575,6 @@ public class BattleScene extends Scene {
             monsterTurn();
         });
     }
-
 
     private static void initializeInventoryList(){
         inventoryBox = new VBox();
