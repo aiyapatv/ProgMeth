@@ -487,7 +487,7 @@ public class BattleScene extends Scene {
             root.getChildren().remove(root.getChildren().size()-1);
         });
 
-        powerBtn.setOnMouseClicked(event -> {
+        magicPowerBtn.setOnMouseClicked(event -> {
             isMagicAtk = true;
             root.getChildren().remove(root.getChildren().size()-1);
         });
