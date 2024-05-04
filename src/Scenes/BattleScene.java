@@ -15,11 +15,11 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.character.BaseCharacter;
@@ -46,39 +46,23 @@ import java.util.concurrent.Executors;
 public class BattleScene extends Scene {
     private static GridPane root;
     private static boolean isEnd;
-    private static boolean isHit;
     private static Rectangle blockPlayer;
     private static GridPane fightPane;
-    private static Button attackButton;
-    private static Button inventoryButton;
-    private static HBox potionButton;
-    private static Button escapeButton;
-    private static HBox actionBox;
+    private static StackPane actionBox;
     private static VBox inventoryBox;
     private static VBox monsterBox;
-    private static HBox monsterButton;
-    private static Button backtoactionButton;
-    private static Rectangle monsterBlock;
-    private static Rectangle effectBlock;
     private static Rectangle heal;
-    private static int totalMonster;
     private static double hpPlayer;
     private static ArrayList<Monster> allMonster;
     private static ArrayList<Rectangle> allMonPic;
     private static ArrayList<Rectangle> allEffect;
     private static Text Hp;
-    private static ImageView hpBar;
-    private static VBox monsterTurnEnd;
-    private static Text monTurn;
     private static Text missAtk;
     private static Boolean isMagicAtk;
     private static ImageView newHpBar;
-    private static HBox boxStatus;
     private static Integer Turn;
-    private static StackPane stack;
-    private static Monster randomMonster;
+    private static VBox description;
     private static Stage stage;
-
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public BattleScene(Stage stage) {
@@ -87,7 +71,6 @@ public class BattleScene extends Scene {
     }
     private static GridPane createBattleScene(Stage stage){
         isEnd = false;
-        isHit = false;
         isMagicAtk = false;
         Turn = GameController.getInstance().getTurn();
         root = new GridPane(2,2);
@@ -97,10 +80,8 @@ public class BattleScene extends Scene {
             root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         }
         root.setPadding(new Insets(10));
-        root.setGridLinesVisible(true);
 
         setConstraint();
-
         initializeStatusBar();
         initializeFightPane();
         initializeActionBar(stage);
@@ -110,19 +91,20 @@ public class BattleScene extends Scene {
     }
 
     private static void initializeStatusBar(){
-        boxStatus = new HBox();
-        stack = new StackPane();
+        HBox boxStatus = new HBox();
+        StackPane stack = new StackPane();
         Rectangle block = new Rectangle(100,100, null);
-        VBox description = new VBox();
+
+        description = new VBox();
+        Font font = ToolKit.loadFont(20);
         Text name = new Text(GameController.getInstance().getCharacter().toString());
+        name.setFont(font);
         Hp = new Text("Hp " + GameController.getInstance().getCharacter().getHp() +"/"+ GameController.getInstance().getCharacter().getMaxHp());
-        Hp.setFont(ToolKit.loadFont(20));
-        description.getChildren().addAll(name , Hp);
+        Hp.setFont(font);
 
         ImageView character = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +".png"), 50, 50);
         ImageView imageView1 = Images.setImageViewSize(ToolKit.loadImage("element/ui1.png"), 60, 60);
-//        ImageView imageView3 = Images.setImageViewSize(ToolKit.loadImage("element/ui2.png"), 30, 100);
-        hpBar = new ImageView();
+        ImageView hpBar = new ImageView();
         hpPlayer = ((double)GameController.getInstance().getCharacter().getHp()) / (GameController.getInstance().getCharacter().getMaxHp())* 100 ;
 
         if ( hpPlayer == 0 ) {
@@ -139,11 +121,11 @@ public class BattleScene extends Scene {
             hpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health100%.png"), 30, 100);
         }
 
-        stack.getChildren().addAll(block, imageView1, character,hpBar);
-        boxStatus.getChildren().addAll(stack
-//                ,imageView3
-                , description);
-        root.add(boxStatus,0,2);
+        description.getChildren().addAll(name , Hp,hpBar);
+        description.setAlignment(Pos.CENTER);
+        stack.getChildren().addAll(block, imageView1, character);
+        boxStatus.getChildren().addAll(stack, description);
+        root.add(boxStatus,0,0);
     }
 
     private static void updateStatusBar(){
@@ -165,8 +147,8 @@ public class BattleScene extends Scene {
         } else if ( hpPlayer > 80 && hpPlayer <= 100) {
             newHpBar = Images.setImageViewSize(ToolKit.loadImage("asset/health100%.png"), 30, 100);
         }
-        stack.getChildren().remove(stack.getChildren().size()-1);
-        stack.getChildren().add(newHpBar);
+        description.getChildren().remove(description.getChildren().size()-1);
+        description.getChildren().add(newHpBar);
     }
 
     private static void initializePlayerSide(){
@@ -186,13 +168,14 @@ public class BattleScene extends Scene {
 
     private static void initializeMonsterSide(){
         GridPane monster = new GridPane();
-        monster.setGridLinesVisible(true);
+        monster.setGridLinesVisible(false);
 
         for (int i = 0; i < 3; i++) {
             monster.getColumnConstraints().add(new ColumnConstraints(60));
             monster.getRowConstraints().add(new RowConstraints(60));
         }
-
+        int totalMonster = 0;
+        Monster randomMonster;
         if ( Turn == 20 ){
             totalMonster = 1;
 
@@ -200,8 +183,8 @@ public class BattleScene extends Scene {
             allMonPic = new ArrayList<>(totalMonster);
             allEffect = new ArrayList<>(totalMonster);
 
-            monsterBlock = new Rectangle(60,60);
-            effectBlock = new Rectangle(50,50);
+            Rectangle monsterBlock = new Rectangle(60,60);
+            Rectangle effectBlock = new Rectangle(50,50);
             effectBlock.setFill(null);
 
             randomMonster = Random.randomBossMonsterImage();
@@ -225,8 +208,8 @@ public class BattleScene extends Scene {
             allMonPic = new ArrayList<>(totalMonster);
             allEffect = new ArrayList<>(totalMonster);
             for (int i = 1;i <= totalMonster; i++){
-                monsterBlock = new Rectangle(60,60);
-                effectBlock = new Rectangle(50,50);
+                Rectangle monsterBlock = new Rectangle(60,60);
+                Rectangle effectBlock = new Rectangle(50,50);
                 effectBlock.setFill(null);
 
                 if ( totalMonster == 1){
@@ -262,7 +245,7 @@ public class BattleScene extends Scene {
 
     private static void initializeFightPane(){
         fightPane = new GridPane();
-        fightPane.setGridLinesVisible(true);
+        fightPane.setGridLinesVisible(false);
         initializePlayerSide();
         initializeMonsterSide();
 
@@ -447,10 +430,10 @@ public class BattleScene extends Scene {
         if ( allMonster.isEmpty()){
             if ( Turn == 20 ){
                 actionBox.getChildren().clear();
-                VBox text = new VBox();
-                text.setSpacing(5);
+                StackPane text = new StackPane();
                 Text win = new Text("You are already kill Boss !!!(Click to Exit)");
                 win.setFont(ToolKit.loadFont(30));
+                win.setTextAlignment(TextAlignment.CENTER);
                 text.getChildren().addAll(win);
                 actionBox.getChildren().add(text);
                 actionBox.setOnMouseClicked(mouseEvent -> {
@@ -461,6 +444,7 @@ public class BattleScene extends Scene {
             } else {
                 actionBox.getChildren().clear();
                 VBox text = new VBox();
+                text.setAlignment(Pos.CENTER);
                 text.setSpacing(5);
                 Text win = new Text("You Win !!!(Click to Continue)");
                 win.setFont(ToolKit.loadFont(30));
@@ -479,11 +463,11 @@ public class BattleScene extends Scene {
             }
 
         } else {
-            monsterTurnEnd = new VBox();
-            monsterTurnEnd.setBackground(Background.fill(Color.WHITESMOKE));
-            monsterTurnEnd.setSpacing(5);
-            monTurn = new Text("Monster Turn");
+            StackPane monsterTurnEnd = new StackPane();
+            initializeActionImageBox(monsterTurnEnd);
+            Text monTurn = new Text("Monster Turn");
             monTurn.setFont(ToolKit.loadFont(30));
+            monTurn.setTextAlignment(TextAlignment.CENTER);
             monsterTurnEnd.getChildren().addAll(monTurn);
             root.add(monsterTurnEnd,1,2);
         }
@@ -540,7 +524,7 @@ public class BattleScene extends Scene {
     }
 
     private static Button initializeAttackButton(){
-        attackButton = new Button();
+        Button attackButton = new Button();
         attackButton = ToolKit.createButton("Attack", "button/blue1.png","button/blue2.png",20);
         setButtonPref(attackButton , 90 , 30);
         attackButton.setOnMouseClicked(event -> {
@@ -550,8 +534,10 @@ public class BattleScene extends Scene {
     }
 
     private static void chooseAttackType(){
-        HBox chooseBox =  new HBox();
-        chooseBox.setBackground(Background.fill(Color.WHITESMOKE));
+        StackPane chooseBox =  new StackPane();
+        initializeActionImageBox(chooseBox);
+
+
 
         Button powerBtn = ToolKit.createButton("Power", "button/red1.png","button/red2.png",20);
         Button magicPowerBtn = ToolKit.createButton("MagicPower", "button/red1.png","button/red2.png",20);
@@ -567,25 +553,34 @@ public class BattleScene extends Scene {
             isMagicAtk = true;
             root.getChildren().remove(root.getChildren().size()-1);
         });
+        HBox chooseBtn = new HBox();
+        Insets margin = new Insets(30);
+        StackPane.setMargin(chooseBtn, margin);
 
-        chooseBox.getChildren().addAll(powerBtn,magicPowerBtn);
+        chooseBtn.getChildren().addAll(powerBtn,magicPowerBtn);
+        chooseBox.getChildren().add(chooseBtn);
         root.add(chooseBox,1,2);
     }
 
     private static void initializeMonsterList(){
+        StackPane bar = new StackPane();
+        HBox keepBox = new HBox();
+        keepBox.setAlignment(Pos.CENTER);
+
+        initializeActionImageBox(bar);
+
         monsterBox = new VBox();
-        monsterBox.setBackground(Background.fill(Color.WHITESMOKE));
+
         int round = 0;
         for ( int i = 0; i < allMonster.size(); i++){
 
             if ( allMonster.size() == 3 && i == 0 && round == 0){
-                i++;
-                i++;
+                i+=2;
             }
             if ( i == 2 && round >= 1) break;
 
             Monster monster = allMonster.get(i);
-            monsterButton = new HBox();
+            HBox monsterButton = new HBox();
             Button btn = ToolKit.createButton("Mon Lv."+ monster.getLevel(), "button/red1.png","button/red2.png",20);
             setButtonPref(btn, 90 , 30);
 
@@ -612,7 +607,6 @@ public class BattleScene extends Scene {
             btn.setOnMouseClicked( event -> {
 
                 showAttackEffect(allEffect.get(count) , allMonPic.get(count),"a1" , "a2" , "a3");
-                isHit = false;
                 root.getChildren().remove(root.getChildren().size() - 1);
 
                 if (isMagicAtk){
@@ -631,14 +625,24 @@ public class BattleScene extends Scene {
                 pauseTransition.play();
             });
             if ( allMonster.size() == 3 && i == 2) {
-                i--;
-                i--;
-                i--;
+                i-=3;
                 round++;
             }
         }
-        root.add(monsterBox,1,2);
-        initializeBackToActionButton(monsterBox);
+        Insets margin;
+        if ( allMonster.size() == 3 ){
+            margin = new Insets(12);
+        } else {
+            margin = new Insets(20);
+        }
+        StackPane.setMargin(keepBox, margin);
+
+        VBox backBox = new VBox();
+        initializeBackToActionButton(backBox);
+        keepBox.getChildren().addAll(monsterBox,backBox);
+        bar.getChildren().add(keepBox);
+        root.add(bar,1,2);
+
     }
 
     private static void showAttackEffect(Rectangle effectBlock ,Rectangle monsterBlock, String string ,String string2 , String string3){
@@ -656,7 +660,6 @@ public class BattleScene extends Scene {
                 else if(i == 3) currentImage = image4;
                 else {
                     currentImage = null;
-                    isHit = true;
                 }
                 Platform.runLater(() -> {
                     effectBlock.setFill(currentImage);
@@ -673,7 +676,7 @@ public class BattleScene extends Scene {
     }
 
     private static Button initializeInventoryButton(){
-        inventoryButton = new Button();
+        Button inventoryButton = new Button();
         inventoryButton = ToolKit.createButton("Inventory", "button/blue1.png","button/blue2.png",20);
         setButtonPref(inventoryButton, 90 , 30);
         inventoryButton.setOnMouseClicked(event -> {
@@ -683,7 +686,7 @@ public class BattleScene extends Scene {
     }
 
     private static void initializePotionButton(BasePotion potion, Runnable usePotion){
-        potionButton = new HBox();
+        HBox potionButton = new HBox();
         Button btn1 = ToolKit.createButton(potion.getName(), "button/yellow1.png","button/yellow2.png",20);
         setButtonPref(btn1 , 90 , 30);
         int amount;
@@ -706,7 +709,6 @@ public class BattleScene extends Scene {
         btn1.setOnMouseClicked( event -> {
             showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
             root.getChildren().remove(root.getChildren().size() - 1);
-            isHit = false;
             usePotion.run();
             updateStatusBar();
 
@@ -725,8 +727,13 @@ public class BattleScene extends Scene {
     }
 
     private static void initializeInventoryList(){
+        StackPane bar = new StackPane();
+        initializeActionImageBox(bar);
+
+        HBox keepBox = new HBox();
+        keepBox.setAlignment(Pos.CENTER);
+
         inventoryBox = new VBox();
-        inventoryBox.setBackground(Background.fill(Color.WHITESMOKE));
 
         if ( GameController.getInstance().getPill() > 0 ){
             initializePotionButton(new Pill(), (() -> new Pill().usePotion()));
@@ -740,13 +747,19 @@ public class BattleScene extends Scene {
         if ( GameController.getInstance().getUltimatePotion() > 0 ){
             initializePotionButton(new UltimatePotion(), (() -> new UltimatePotion().usePotion()));
         }
+        Insets margin = new Insets(12);
+        StackPane.setMargin(keepBox, margin);
 
-        root.add(inventoryBox,1,2);
-        initializeBackToActionButton(inventoryBox);
+        VBox backBox = new VBox();
+        initializeBackToActionButton(backBox);
+        keepBox.getChildren().addAll(inventoryBox,backBox);
+        bar.getChildren().add(keepBox);
+        root.add(bar,1,2);
+
     }
 
     private static void initializeBackToActionButton(VBox vBox){
-        backtoactionButton = ToolKit.createButton("Back", "button/blue1.png","button/blue2.png",20);
+        Button backtoactionButton = ToolKit.createButton("Back", "button/blue1.png","button/blue2.png",20);
         setButtonPref(backtoactionButton , 90 , 30);
         vBox.getChildren().add(backtoactionButton);
 
@@ -756,7 +769,7 @@ public class BattleScene extends Scene {
     }
 
     private static Button initializeEscapeButton(Stage stage){
-        escapeButton = ToolKit.createButton("Escape", "button/red1.png","button/red2.png",20);
+        Button escapeButton = ToolKit.createButton("Escape", "button/red1.png","button/red2.png",20);
         setButtonPref(escapeButton, 90 , 30);
         escapeButton.setOnMouseClicked(event -> {
             stage.setScene(GameScene.getInstance(stage));
@@ -766,10 +779,24 @@ public class BattleScene extends Scene {
     }
 
     private static void initializeActionBar(Stage stage){
-        actionBox = new HBox();
-        actionBox.getChildren().addAll(initializeAttackButton(),initializeInventoryButton(), initializeEscapeButton(stage));
+        actionBox = new StackPane();
+        initializeActionImageBox(actionBox);
 
-        root.add(actionBox,1,2);
+        HBox buttonBox = new HBox();
+        buttonBox.getChildren().addAll(initializeAttackButton(),initializeInventoryButton(), initializeEscapeButton(stage));
+
+        Insets margin = new Insets(30);
+        StackPane.setMargin(buttonBox, margin);
+
+        actionBox.getChildren().add(buttonBox);
+        root.add(actionBox, 1, 2);
+    }
+
+    private static void initializeActionImageBox(StackPane stackPane){
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(ToolKit.loadImage("gui/board6.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background background = new Background(backgroundImage);
+        stackPane.setBackground(background);
     }
 
     private static void setConstraint(){
