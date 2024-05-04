@@ -525,8 +525,8 @@ public class BattleScene extends Scene {
 
     private static Button initializeAttackButton(){
         Button attackButton = new Button();
-        attackButton = ToolKit.createButton("Attack", "button/blue1.png","button/blue2.png",20);
-        setButtonPref(attackButton , 90 , 30);
+        attackButton = ToolKit.createButton("Attack", "button/blu1.png","button/blu2.png",20);
+        setButtonPref(attackButton , 150 , 30);
         attackButton.setOnMouseClicked(event -> {
             initializeMonsterList();
         });
@@ -537,12 +537,10 @@ public class BattleScene extends Scene {
         StackPane chooseBox =  new StackPane();
         initializeActionImageBox(chooseBox);
 
-
-
-        Button powerBtn = ToolKit.createButton("Power", "button/red1.png","button/red2.png",20);
-        Button magicPowerBtn = ToolKit.createButton("MagicPower", "button/red1.png","button/red2.png",20);
+        Button powerBtn = ToolKit.createButton("Power", "button/re1.png","button/re2.png",20);
+        Button magicPowerBtn = ToolKit.createButton("MagicPower", "button/re1.png","button/re2.png",20);
         setButtonPref(powerBtn, 90 , 30);
-        setButtonPref(magicPowerBtn, 90 , 30);
+        setButtonPref(magicPowerBtn, 150 , 30);
 
         powerBtn.setOnMouseClicked(event -> {
             isMagicAtk = false;
@@ -581,7 +579,7 @@ public class BattleScene extends Scene {
 
             Monster monster = allMonster.get(i);
             HBox monsterButton = new HBox();
-            Button btn = ToolKit.createButton("Mon Lv."+ monster.getLevel(), "button/red1.png","button/red2.png",20);
+            Button btn = ToolKit.createButton("Mon Lv."+ monster.getLevel(), "button/re1.png","button/re2.png",20);
             setButtonPref(btn, 90 , 30);
 
             double hpMon = (double) monster.getHp() / monster.getMaxHp() * 100;
@@ -677,8 +675,8 @@ public class BattleScene extends Scene {
 
     private static Button initializeInventoryButton(){
         Button inventoryButton = new Button();
-        inventoryButton = ToolKit.createButton("Inventory", "button/blue1.png","button/blue2.png",20);
-        setButtonPref(inventoryButton, 90 , 30);
+        inventoryButton = ToolKit.createButton("Inventory", "button/blu1.png","button/blu2.png",20);
+        setButtonPref(inventoryButton, 170 , 30);
         inventoryButton.setOnMouseClicked(event -> {
             initializeInventoryList();
         });
@@ -687,8 +685,8 @@ public class BattleScene extends Scene {
 
     private static void initializePotionButton(BasePotion potion, Runnable usePotion){
         HBox potionButton = new HBox();
-        Button btn1 = ToolKit.createButton(potion.getName(), "button/yellow1.png","button/yellow2.png",20);
-        setButtonPref(btn1 , 90 , 30);
+        Button btn1 = ToolKit.createButton(potion.getName(), "button/yel1.png","button/yel2.png",20);
+        setButtonPref(btn1, 200 , 30);
         int amount;
         if (Objects.equals(potion.getName(), "Pill")){
             amount = GameController.getInstance().getPill();
@@ -759,8 +757,8 @@ public class BattleScene extends Scene {
     }
 
     private static void initializeBackToActionButton(VBox vBox){
-        Button backtoactionButton = ToolKit.createButton("Back", "button/blue1.png","button/blue2.png",20);
-        setButtonPref(backtoactionButton , 90 , 30);
+        Button backtoactionButton = ToolKit.createButton("Back", "button/blu1.png","button/blu2.png",20);
+        setButtonPref(backtoactionButton , 150 , 30);
         vBox.getChildren().add(backtoactionButton);
 
         backtoactionButton.setOnMouseClicked(event -> {
@@ -769,8 +767,8 @@ public class BattleScene extends Scene {
     }
 
     private static Button initializeEscapeButton(Stage stage){
-        Button escapeButton = ToolKit.createButton("Escape", "button/red1.png","button/red2.png",20);
-        setButtonPref(escapeButton, 90 , 30);
+        Button escapeButton = ToolKit.createButton("Escape", "button/re1.png","button/re2.png",20);
+        setButtonPref(escapeButton, 150 , 30);
         escapeButton.setOnMouseClicked(event -> {
             stage.setScene(GameScene.getInstance(stage));
             isEnd = true;

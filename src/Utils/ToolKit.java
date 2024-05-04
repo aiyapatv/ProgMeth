@@ -27,17 +27,23 @@ public class ToolKit {
         button.setFont(buttonFont);
         button.setOnMouseEntered(event -> {
             button.setCursor(Cursor.HAND);
-            if ( imagePath2 != null ) button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath2 + ");" + "-fx-background-size: contain;");
+            if ( imagePath2 != null ) button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath2 + ");" + "-fx-background-size: contain;"+
+                    "-fx-background-repeat: no-repeat;"+
+                    "-fx-background-position: center;");
         });
         button.setOnMouseExited(event -> {
             button.setCursor(Cursor.DEFAULT);
-            button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: contain;");
+            button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: contain;"+
+                    "-fx-background-repeat: no-repeat;"+
+                    "-fx-background-position: center;");
 
         });
         button.setAlignment(Pos.CENTER);
         button.setPrefWidth(180);
         button.setPrefHeight(35);
-        button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: contain;");
+        button.setStyle("-fx-background-color: transparent;" + "-fx-background-image: url(" + imagePath + ");" + "-fx-background-size: contain;"+
+                "-fx-background-repeat: no-repeat;"+
+                "-fx-background-position: center;");
         return button;
     }
 
