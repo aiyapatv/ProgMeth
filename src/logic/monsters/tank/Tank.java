@@ -16,22 +16,22 @@ public class Tank extends Monster implements Atk, SpAtk {
         setPicture("m23_i_1");
         setPicture2("m23_i_2");
         //tank2
-        if (getTime() == 65)
+        if (getTime() >= 7 && getTime() < 14)
         {
-            setMaxHp(this.getMaxHp() + 5);
+            setMaxHp(this.getMaxHp() + 10);
             setHp(this.getMaxHp());
-            setAtk(this.getAtk() + 2);
-            setDef(this.getMagicDef()+2);
+            setAtk(this.getAtk() + 5);
+            setDef(this.getMagicDef()+4);
             setLevel(2);
 
             setPicture("m13_i_1");
             setPicture2("m13_i_2");
             //tank3
-        } else if (getTime() == 98) {
-            setMaxHp(this.getMaxHp() + 8);
+        } else if (getTime() >=14) {
+            setMaxHp(this.getMaxHp() + 20);
             setHp(this.getMaxHp());
-            setAtk(this.getAtk() + 4);
-            setDef(this.getMagicDef()+4);
+            setAtk(this.getAtk() + 9);
+            setDef(this.getMagicDef()+6);
             setLevel(3);
             setPicture("m4_i_1");
             setPicture2("m4_i_2");

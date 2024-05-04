@@ -14,10 +14,10 @@ public class Basic extends Monster implements Atk, SpAtk {
         setPicture("m7_i_1");
         setPicture2("m7_i_2");
         //basic2
-        if (getTime() == 21){
-            setMaxHp(this.getMaxHp() + 6);
+        if (getTime() >= 7){
+            setMaxHp(this.getMaxHp() + 10);
             setHp(this.getMaxHp());
-            setAtk(this.getAtk() + 2);
+            setAtk(this.getAtk() + 5);
             setLevel(2);
             setPicture("m15_i_1");
             setPicture2("m15_i_2");
