@@ -4,10 +4,10 @@ import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
-public class magicTank extends Monster implements atk  , spAtk{
+public class MagicTank extends Monster implements Atk, SpAtk {
 
 
-    public magicTank() {
+    public MagicTank() {
         //Magictank1
         super(Config.MAGICTANKMONSTERMAXHP, Config.ATKTYPE1 ,
                 Config.MAGICTANKMONSTERDEF , Config.MAGICTYPE1 ,Config.MAGICTANKMONSTERMAGICDEF);

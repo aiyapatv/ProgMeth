@@ -2,16 +2,16 @@ package Utils;
 
 import logic.game.GameController;
 import logic.monsters.Monster;
-import logic.monsters.basic.basic;
-import logic.monsters.basic.buff;
-import logic.monsters.basic.fullBasic;
-import logic.monsters.basic.magicBasic;
-import logic.monsters.magictank.fullAtkMagicTank;
-import logic.monsters.magictank.magicAtkMagicTank;
-import logic.monsters.magictank.magicTank;
-import logic.monsters.tank.fullAtkTank;
-import logic.monsters.tank.magicAtkTank;
-import logic.monsters.tank.tank;
+import logic.monsters.basic.Basic;
+import logic.monsters.basic.Buff;
+import logic.monsters.basic.FullBasic;
+import logic.monsters.basic.MagicBasic;
+import logic.monsters.magictank.FullAtkMagicTank;
+import logic.monsters.magictank.MagicAtkMagicTank;
+import logic.monsters.magictank.MagicTank;
+import logic.monsters.tank.FullAtkTank;
+import logic.monsters.tank.MagicAtkTank;
+import logic.monsters.tank.Tank;
 import logic.potion.*;
 
 public class Random {
@@ -22,25 +22,25 @@ public class Random {
         MAX_NUMBER  = 10;
         int randomNum = rng.nextInt(MAX_NUMBER) + 1;
         if ( randomNum == 1 ){
-            return new basic();
+            return new Basic();
         } else if ( randomNum == 2 ) {
-            return new buff();
+            return new Buff();
         } else if ( randomNum == 3 ) {
-            return new fullBasic();
+            return new FullBasic();
         } else if ( randomNum == 4 ) {
-            return new magicBasic();
+            return new MagicBasic();
         } else if ( randomNum == 5 ) {
-            return new fullAtkMagicTank();
+            return new FullAtkMagicTank();
         } else if ( randomNum == 6 ) {
-            return new magicAtkMagicTank();
+            return new MagicAtkMagicTank();
         } else if ( randomNum == 7 ) {
-            return new magicTank();
+            return new MagicTank();
         } else if ( randomNum == 8 ) {
-            return new fullAtkTank();
+            return new FullAtkTank();
         } else if ( randomNum == 9 ) {
-            return new magicAtkTank();
+            return new MagicAtkTank();
         } else {
-            return new tank();
+            return new Tank();
         }
     }
 

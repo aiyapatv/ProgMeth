@@ -4,9 +4,9 @@ import Utils.Config;
 import logic.monsters.Monster;
 import logic.able.* ;
 import logic.character.* ;
-public class basic extends Monster implements atk , spAtk{
+public class Basic extends Monster implements Atk, SpAtk {
 
-    public basic() {
+    public Basic() {
         //basic1
         super(Config.BASEMONSTERMAXHP, Config.ATKTYPE1 ,
                 Config.BASEMONSTERDEF , Config.MAGICTYPE1 ,Config.BASEMONSTERMAGICDEF);

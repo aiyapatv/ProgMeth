@@ -5,8 +5,8 @@ import logic.character.BaseCharacter;
 import logic.monsters.Monster;
 import logic.able.* ;
 
-public class fullAtkMagicTank extends Monster implements atk, magicAtk ,spAtk{
-    public fullAtkMagicTank() {
+public class FullAtkMagicTank extends Monster implements Atk, MagicAtk, SpAtk {
+    public FullAtkMagicTank() {
         super(Config.MAGICTANKMONSTERMAXHP, Config.ATKTYPE3 ,
                 Config.MAGICTANKMONSTERDEF , Config.MAGICTYPE3 ,Config.MAGICTANKMONSTERMAGICDEF);
         setPicture("m1_i_1");
