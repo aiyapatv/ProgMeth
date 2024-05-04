@@ -1,5 +1,6 @@
 package Scenes;
 
+import Main.Main;
 import Utils.ToolKit;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,13 +8,20 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
 import logic.game.GameController;
+
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
+import javafx.scene.media.AudioClip ;
 //import main.MusicController;
 
-public class StartScene extends Scene {
+public class StartScene extends Scene  {
     private static Scene instance;
     private static GridPane root;
     private static ImageView logoImageView;
@@ -36,6 +44,8 @@ public class StartScene extends Scene {
         root.setHgap(50);
         initializeCenterBox(stage);
         root.setAlignment(Pos.BASELINE_LEFT);
+
+        backgroundSound("StartScene.mp3");
 
         return root;
     }
@@ -93,4 +103,10 @@ public class StartScene extends Scene {
         return new Background((BackgroundFill) null);
     }
 
+    public static void backgroundSound(String path){
+        URL gameMusic = StartScene.class.getResource(path) ;
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(gameMusic.toString()));
+        mediaPlayer.play();
+    }
 }
+
