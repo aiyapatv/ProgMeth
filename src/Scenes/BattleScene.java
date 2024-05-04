@@ -69,6 +69,7 @@ public class BattleScene extends Scene {
     private static VBox monsterTurnEnd;
     private static Text monTurn;
     private static Text missAtk;
+    private static Boolean isMagicAtk;
     private static ImageView newHpBar;
     private static HBox boxStatus;
     private static StackPane stack;
@@ -84,6 +85,7 @@ public class BattleScene extends Scene {
     private static GridPane createBattleScene(Stage stage){
         isEnd = false;
         isHit = false;
+        isMagicAtk = false;
         root = new GridPane(2,2);
         root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         root.setPadding(new Insets(10));
@@ -94,6 +96,7 @@ public class BattleScene extends Scene {
         initializeStatusBar();
         initializeFightPane();
         initializeActionBar(stage);
+        chooseAttackType();
 
         return root;
     }
@@ -470,6 +473,29 @@ public class BattleScene extends Scene {
         return attackButton;
     }
 
+    private static void chooseAttackType(){
+        HBox chooseBox =  new HBox();
+        chooseBox.setBackground(Background.fill(Color.WHITESMOKE));
+
+        Button powerBtn = ToolKit.createButton("Power", "button/red1.png","button/red2.png",20);
+        Button magicPowerBtn = ToolKit.createButton("MagicPower", "button/red1.png","button/red2.png",20);
+        setButtonPref(powerBtn, 90 , 30);
+        setButtonPref(magicPowerBtn, 90 , 30);
+
+        powerBtn.setOnMouseClicked(event -> {
+            isMagicAtk = false;
+            root.getChildren().remove(root.getChildren().size()-1);
+        });
+
+        powerBtn.setOnMouseClicked(event -> {
+            isMagicAtk = true;
+            root.getChildren().remove(root.getChildren().size()-1);
+        });
+
+        chooseBox.getChildren().addAll(powerBtn,magicPowerBtn);
+        root.add(chooseBox,1,2);
+    }
+
     private static void initializeMonsterList(){
         monsterBox = new VBox();
         monsterBox.setBackground(Background.fill(Color.WHITESMOKE));
@@ -501,10 +527,18 @@ public class BattleScene extends Scene {
             PauseTransition pauseTransition = new PauseTransition();
             int count = i;
             btn.setOnMouseClicked( event -> {
+
+
                 showAttackEffect(allEffect.get(count) , allMonPic.get(count),"a1" , "a2" , "a3");
                 isHit = false;
                 root.getChildren().remove(root.getChildren().size() - 1);
-                GameController.getInstance().getCharacter().attack(monster);
+
+                if (isMagicAtk){
+                    GameController.getInstance().getCharacter().magicAttack(monster);
+                } else {
+                    GameController.getInstance().getCharacter().attack(monster);
+                }
+
                 monsterDie();
                 monsterBox.getChildren().remove(count);
                 endBattle();
