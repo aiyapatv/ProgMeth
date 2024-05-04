@@ -1,5 +1,6 @@
 package logic.character;
 
+import Utils.Sound;
 import logic.monsters.Monster;
 
 public abstract class BaseCharacter {

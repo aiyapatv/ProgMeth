@@ -1,6 +1,7 @@
 package Scenes;
 
 import Board.HexagonBoard;
+import Utils.Sound;
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
@@ -168,6 +169,8 @@ public class ChooseScene extends Scene {
                 isSelected = false;
                 selectBlock = null;
                 stage.setScene(new LoadingScene(stage));
+
+                Sound.backgroundSound("/sound/ClickButton.mp3");
             }
         });
     }
@@ -178,6 +181,8 @@ public class ChooseScene extends Scene {
         backButton.setOnMouseClicked( event -> {
             isSelected = false;
             stage.setScene(new StartScene(stage));
+
+            Sound.backgroundSound("/sound/ClickButton.mp3");
         });
     }
     private static void initializeAttributeBox(){

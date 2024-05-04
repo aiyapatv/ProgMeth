@@ -1,5 +1,6 @@
 package Scenes;
 
+import Utils.Sound;
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
@@ -20,6 +21,7 @@ public class LoadingScene extends Scene {
         root = (VBox) getRoot();
         createLoadingScene();
         prepareGameScene(stage);
+
     }
 
     public void createLoadingScene() {
