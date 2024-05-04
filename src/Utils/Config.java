@@ -8,8 +8,8 @@ public class Config {
     public final static int DETECIVEPOWER = 15;
     public final static int GIRLPOWER = 20;
     public final static int PUNKPOWER = 22;
-    public final static int KNIGHTPOWER = 10;
-    public final static int VIKINGPOWER = 15;
+    public final static int KNIGHTPOWER = 15;
+    public final static int VIKINGPOWER = 20;
     public final static int WIZARDPOWER = 5;
 
     //Hp
@@ -32,7 +32,7 @@ public class Config {
     public final static int PUNKDEFENSE = 8;
 
     public final static int KNIGHTDEFENSE = 14;
-    public final static int VIKINGDEFENSE = 5;
+    public final static int VIKINGDEFENSE = 7;
     public final static int WIZARDDEFENSE = 10;
 
     //Magic Power stat.
@@ -55,18 +55,18 @@ public class Config {
     public final static int GIRLMAGICDEFENSE = 10;
     public final static int PUNKMAGICDEFENSE = 8;
     public final static int KNIGHTMAGICDEFENSE = 14;
-    public final static int VIKINGMAGICDEFENSE = 5;
+    public final static int VIKINGMAGICDEFENSE = 7;
     public final static int WIZARDMAGICDEFENSE = 10;
 
     //MaxHpMonster
     public final static int BASEMONSTERMAXHP = 35 ;
-    public final static int TANKMONSTERMAXHP = 40  ;
-    public static final int MAGICTANKMONSTERMAXHP = 40 ;
+    public final static int TANKMONSTERMAXHP = 35  ;
+    public static final int MAGICTANKMONSTERMAXHP = 35 ;
 
 
     //DefMonster
     public final static int BASEMONSTERDEF = 0 ;
-    public final static int TANKMONSTERDEF = 5  ;
+    public final static int TANKMONSTERDEF = 3 ;
     public final static int MAGICTANKMONSTERDEF = 0;
 
     //MagicDefMonster
@@ -75,15 +75,15 @@ public class Config {
     public final static int MAGICTANKMONSTERMAGICDEF = 3 ;
 
     //atkype 1 basic atk
-    public final static int ATKTYPE1 = 17 ;
+    public final static int ATKTYPE1 = 7 ;
     public final static int MAGICTYPE1 = 0;
 
     //atktype 2 magic atk
     public final static int ATKTYPE2 = 0 ;
-    public final static int MAGICTYPE2 = 17 ;
+    public final static int MAGICTYPE2 = 7 ;
 
     ///atk type 3
-    public final static int ATKTYPE3 = 12 ;
-    public final static int MAGICTYPE3 = 12 ;
+    public final static int ATKTYPE3 = 7 ;
+    public final static int MAGICTYPE3 = 7 ;
 
 }
