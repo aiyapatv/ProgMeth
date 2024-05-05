@@ -48,6 +48,8 @@ public class BattleScene extends Scene {
     private static StackPane actionBox;
     private static VBox inventoryBox;
     private static VBox monsterBox;
+    private static ImageView newHpBar;
+    private static VBox description;
     private static Rectangle heal;
     private static double hpPlayer;
     private static ArrayList<Monster> allMonster;
@@ -55,12 +57,10 @@ public class BattleScene extends Scene {
     private static ArrayList<Rectangle> allEffect;
     private static Text Hp;
     private static Text missAtk;
-    private static Boolean isMagicAtk;
-    private static ImageView newHpBar;
     private static Integer Turn;
-    private static VBox description;
+    private static Boolean isMagicAtk;
     private static Stage stage;
-    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
@@ -72,9 +72,9 @@ public class BattleScene extends Scene {
         Turn = GameController.getInstance().getTurn();
         root = new GridPane(2,2);
         if ( Turn == 20 ){
-            root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg21.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+            root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bgBossFight.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         } else {
-            root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bg12.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+            root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bgBattleScene.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         }
         root.setPadding(new Insets(10));
 
@@ -91,8 +91,13 @@ public class BattleScene extends Scene {
 
     private static void initializeStatusBar(){
         HBox boxStatus = new HBox();
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+        boxStatus.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("gui/board9.png"),null,null,null,backgroundSize)));
+        boxStatus.setAlignment(Pos.CENTER_LEFT);
+
         StackPane stack = new StackPane();
         Rectangle block = new Rectangle(100,100, null);
+        HBox.setMargin(stack, new Insets(0, 0, 0, 30));
 
         description = new VBox();
         Font font = ToolKit.loadFont(20);
@@ -254,15 +259,164 @@ public class BattleScene extends Scene {
         root.add(fightPane,1,1);
     }
 
-    private static void delayAndContinue(Runnable task, long delayInMillis) {
-        executor.execute(() -> {
-            try {
-                Thread.sleep(delayInMillis);
-                task.run();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    private static void showModelPlayer(){
+        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 4 +".png"));
+        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 3 +".png"));
+
+        Thread playerMoving = new Thread(() -> {
+            FrameRate frameRate = new FrameRate(500,2);
+            while (!isEnd) {
+                ImagePattern currentImage;
+                if(frameRate.getFrame() == 1) currentImage = image2;
+                else currentImage = image3;
+                Platform.runLater(() ->
+                        blockPlayer.setFill(currentImage)
+                );
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
             }
         });
+        playerMoving.start();
+    }
+
+    private static void showModelMonster(Rectangle rectangle,Monster randomMonster){
+        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture() + ".png"));
+        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture2() + ".png"));
+
+        Thread monsterMoving = new Thread(() -> {
+            FrameRate frameRate = new FrameRate(500,2);
+            while (!isEnd && !randomMonster.isDie()) {
+                ImagePattern currentImage;
+                if(frameRate.getFrame() == 1) currentImage = image2;
+                else currentImage = image3;
+                Platform.runLater(() ->
+                        rectangle.setFill(currentImage)
+                );
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            Platform.runLater(() -> {
+                rectangle.setFill(null);
+            });
+        });
+        monsterMoving.start();
+    }
+
+    private static void chooseAttackType(){
+        StackPane chooseBox =  new StackPane();
+        initializeActionImageBox(chooseBox);
+
+        Button powerBtn = ToolKit.createButton("Power", "button/redResize1.png", "button/redResize2.png",20);
+        Button magicPowerBtn = ToolKit.createButton("MagicPower", "button/blueResize1.png", "button/blueResize2.png",20);
+        setButtonPref(powerBtn, 90);
+        setButtonPref(magicPowerBtn, 150);
+
+        powerBtn.setOnMouseClicked(event -> {
+            isMagicAtk = false;
+            root.getChildren().remove(root.getChildren().size()-1);
+        });
+
+        magicPowerBtn.setOnMouseClicked(event -> {
+            isMagicAtk = true;
+            root.getChildren().remove(root.getChildren().size()-1);
+        });
+        HBox chooseBtn = new HBox();
+        Insets margin = new Insets(30);
+        StackPane.setMargin(chooseBtn, margin);
+
+        chooseBtn.getChildren().addAll(powerBtn,magicPowerBtn);
+        chooseBox.getChildren().add(chooseBtn);
+        root.add(chooseBox,1,2);
+    }
+
+    private static void initializeMonsterList(){
+        StackPane bar = new StackPane();
+        HBox keepBox = new HBox();
+        keepBox.setAlignment(Pos.CENTER);
+
+        initializeActionImageBox(bar);
+
+        monsterBox = new VBox();
+
+        int round = 0;
+        for ( int i = 0; i < allMonster.size(); i++){
+
+            if ( allMonster.size() == 3 && i == 0 && round == 0){
+                i+=2;
+            }
+            if ( i == 2 && round >= 1) break;
+
+            Monster monster = allMonster.get(i);
+            HBox monsterButton = new HBox();
+            Button btn = ToolKit.createButton("Mon Lv."+ monster.getLevel(), "button/redResize1.png", "button/redResize2.png",20);
+            setButtonPref(btn, 90);
+
+            double hpMon = (double) monster.getHp() / monster.getMaxHp() * 100;
+            ImageView hpMonBar = new ImageView();
+            if ( hpMon == 0 ) {
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health0%.png"), 30, 100);
+            } else if ( hpMon > 0 && hpMon <= 20 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health20%.png"), 30, 100);
+            } else if ( hpMon> 20 && hpMon <= 40 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health40%.png"), 30, 100);
+            } else if ( hpMon > 40 && hpMon <= 60 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health60%.png"), 30, 100);
+            } else if ( hpMon > 60 && hpMon <= 80 ){
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health80%.png"), 30, 100);
+            } else if ( hpMon > 80 && hpMon <= 100) {
+                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health100%.png"), 30, 100);
+            }
+
+            monsterButton.getChildren().addAll(btn,hpMonBar);
+            monsterBox.getChildren().add(monsterButton);
+            PauseTransition pauseTransition = new PauseTransition();
+            int count = i;
+            btn.setOnMouseClicked( event -> {
+
+                showAttackEffect(allEffect.get(count) , allMonPic.get(count),"a1" , "a2" , "a3");
+                root.getChildren().remove(root.getChildren().size() - 1);
+
+                if (isMagicAtk){
+                    GameController.getInstance().getCharacter().magicAttack(monster);
+                } else {
+                    GameController.getInstance().getCharacter().attack(monster);
+                }
+
+                monsterDie();
+                monsterBox.getChildren().remove(count);
+                endBattle();
+                pauseTransition.setDuration(new Duration(500));
+                pauseTransition.setOnFinished(e -> {
+                    monsterTurn();
+                });
+                pauseTransition.play();
+            });
+            if ( allMonster.size() == 3 && i == 2) {
+                i-=3;
+                round++;
+            }
+        }
+        Insets margin;
+        if ( allMonster.size() == 3 ){
+            margin = new Insets(12);
+        } else {
+            margin = new Insets(20);
+        }
+        StackPane.setMargin(keepBox, margin);
+
+        VBox backBox = new VBox();
+        initializeBackToActionButton(backBox);
+        keepBox.getChildren().addAll(monsterBox,backBox);
+        bar.getChildren().add(keepBox);
+        root.add(bar,1,2);
+
     }
 
     private static void monsterTurn(){
@@ -399,14 +553,14 @@ public class BattleScene extends Scene {
     }
 
     private static void monsterDie(){
-         for ( int i = 0 ; i<allMonster.size(); i++){
-             if (  allMonster.get(i).getHp() <= 0 ){
-                 allMonster.remove(i);
-                 allMonPic.remove(i);
-                 allEffect.remove(i);
-                 i--;
-             }
-         }
+        for ( int i = 0 ; i<allMonster.size(); i++){
+            if (  allMonster.get(i).getHp() <= 0 ){
+                allMonster.remove(i);
+                allMonPic.remove(i);
+                allEffect.remove(i);
+                i--;
+            }
+        }
     }
 
     private static void playerDie(){
@@ -472,176 +626,6 @@ public class BattleScene extends Scene {
         }
     }
 
-    private static void showModelPlayer(){
-        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 4 +".png"));
-        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 3 +".png"));
-
-        Thread playerMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500,2);
-            while (!isEnd) {
-                ImagePattern currentImage;
-                if(frameRate.getFrame() == 1) currentImage = image2;
-                else currentImage = image3;
-                Platform.runLater(() ->
-                        blockPlayer.setFill(currentImage)
-                );
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
-            }
-        });
-        playerMoving.start();
-    }
-
-    private static void showModelMonster(Rectangle rectangle,Monster randomMonster){
-        ImagePattern image2 = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture() + ".png"));
-        ImagePattern image3 = new ImagePattern(ToolKit.loadImage("monster/" + randomMonster.getPicture2() + ".png"));
-
-        Thread monsterMoving = new Thread(() -> {
-            FrameRate frameRate = new FrameRate(500,2);
-            while (!isEnd && !randomMonster.isDie()) {
-                ImagePattern currentImage;
-                if(frameRate.getFrame() == 1) currentImage = image2;
-                else currentImage = image3;
-                Platform.runLater(() ->
-                        rectangle.setFill(currentImage)
-                );
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            Platform.runLater(() -> {
-                rectangle.setFill(null);
-            });
-        });
-        monsterMoving.start();
-    }
-
-    private static Button initializeAttackButton(){
-        Button attackButton = new Button();
-        attackButton = ToolKit.createButton("Attack", "button/blu1.png","button/blu2.png",20);
-        setButtonPref(attackButton , 150 , 30);
-        attackButton.setOnMouseClicked(event -> {
-            initializeMonsterList();
-        });
-        return attackButton;
-    }
-
-    private static void chooseAttackType(){
-        StackPane chooseBox =  new StackPane();
-        initializeActionImageBox(chooseBox);
-
-        Button powerBtn = ToolKit.createButton("Power", "button/re1.png","button/re2.png",20);
-        Button magicPowerBtn = ToolKit.createButton("MagicPower", "button/re1.png","button/re2.png",20);
-        setButtonPref(powerBtn, 90 , 30);
-        setButtonPref(magicPowerBtn, 150 , 30);
-
-        powerBtn.setOnMouseClicked(event -> {
-            isMagicAtk = false;
-            root.getChildren().remove(root.getChildren().size()-1);
-        });
-
-        magicPowerBtn.setOnMouseClicked(event -> {
-            isMagicAtk = true;
-            root.getChildren().remove(root.getChildren().size()-1);
-        });
-        HBox chooseBtn = new HBox();
-        Insets margin = new Insets(30);
-        StackPane.setMargin(chooseBtn, margin);
-
-        chooseBtn.getChildren().addAll(powerBtn,magicPowerBtn);
-        chooseBox.getChildren().add(chooseBtn);
-        root.add(chooseBox,1,2);
-    }
-
-    private static void initializeMonsterList(){
-        StackPane bar = new StackPane();
-        HBox keepBox = new HBox();
-        keepBox.setAlignment(Pos.CENTER);
-
-        initializeActionImageBox(bar);
-
-        monsterBox = new VBox();
-
-        int round = 0;
-        for ( int i = 0; i < allMonster.size(); i++){
-
-            if ( allMonster.size() == 3 && i == 0 && round == 0){
-                i+=2;
-            }
-            if ( i == 2 && round >= 1) break;
-
-            Monster monster = allMonster.get(i);
-            HBox monsterButton = new HBox();
-            Button btn = ToolKit.createButton("Mon Lv."+ monster.getLevel(), "button/re1.png","button/re2.png",20);
-            setButtonPref(btn, 90 , 30);
-
-            double hpMon = (double) monster.getHp() / monster.getMaxHp() * 100;
-            ImageView hpMonBar = new ImageView();
-            if ( hpMon == 0 ) {
-                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health0%.png"), 30, 100);
-            } else if ( hpMon > 0 && hpMon <= 20 ){
-                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health20%.png"), 30, 100);
-            } else if ( hpMon> 20 && hpMon <= 40 ){
-                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health40%.png"), 30, 100);
-            } else if ( hpMon > 40 && hpMon <= 60 ){
-                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health60%.png"), 30, 100);
-            } else if ( hpMon > 60 && hpMon <= 80 ){
-                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health80%.png"), 30, 100);
-            } else if ( hpMon > 80 && hpMon <= 100) {
-                hpMonBar = Images.setImageViewSize(ToolKit.loadImage("asset/health100%.png"), 30, 100);
-            }
-
-            monsterButton.getChildren().addAll(btn,hpMonBar);
-            monsterBox.getChildren().add(monsterButton);
-            PauseTransition pauseTransition = new PauseTransition();
-            int count = i;
-            btn.setOnMouseClicked( event -> {
-
-                showAttackEffect(allEffect.get(count) , allMonPic.get(count),"a1" , "a2" , "a3");
-                root.getChildren().remove(root.getChildren().size() - 1);
-
-                if (isMagicAtk){
-                    GameController.getInstance().getCharacter().magicAttack(monster);
-                } else {
-                    GameController.getInstance().getCharacter().attack(monster);
-                }
-
-                monsterDie();
-                monsterBox.getChildren().remove(count);
-                endBattle();
-                pauseTransition.setDuration(new Duration(500));
-                pauseTransition.setOnFinished(e -> {
-                    monsterTurn();
-                });
-                pauseTransition.play();
-            });
-            if ( allMonster.size() == 3 && i == 2) {
-                i-=3;
-                round++;
-            }
-        }
-        Insets margin;
-        if ( allMonster.size() == 3 ){
-            margin = new Insets(12);
-        } else {
-            margin = new Insets(20);
-        }
-        StackPane.setMargin(keepBox, margin);
-
-        VBox backBox = new VBox();
-        initializeBackToActionButton(backBox);
-        keepBox.getChildren().addAll(monsterBox,backBox);
-        bar.getChildren().add(keepBox);
-        root.add(bar,1,2);
-
-    }
-
     private static void showAttackEffect(Rectangle effectBlock ,Rectangle monsterBlock, String string ,String string2 , String string3){
         ImagePattern image2 = new ImagePattern(ToolKit.loadImage("effect/" + string + ".png"));
         ImagePattern image3 = new ImagePattern(ToolKit.loadImage("effect/" + string2 + ".png"));
@@ -672,10 +656,20 @@ public class BattleScene extends Scene {
         monsterMoving.start();
     }
 
+    private static Button initializeAttackButton(){
+        Button attackButton = new Button();
+        attackButton = ToolKit.createButton("Attack", "button/blueResize1.png", "button/blueResize2.png",20);
+        setButtonPref(attackButton , 150);
+        attackButton.setOnMouseClicked(event -> {
+            initializeMonsterList();
+        });
+        return attackButton;
+    }
+
     private static Button initializeInventoryButton(){
         Button inventoryButton = new Button();
-        inventoryButton = ToolKit.createButton("Inventory", "button/blu1.png","button/blu2.png",20);
-        setButtonPref(inventoryButton, 170 , 30);
+        inventoryButton = ToolKit.createButton("Inventory", "button/blueResize1.png", "button/blueResize2.png",20);
+        setButtonPref(inventoryButton, 170);
         inventoryButton.setOnMouseClicked(event -> {
             initializeInventoryList();
         });
@@ -684,24 +678,32 @@ public class BattleScene extends Scene {
 
     private static void initializePotionButton(BasePotion potion, Runnable usePotion){
         HBox potionButton = new HBox();
-        Button btn1 = ToolKit.createButton(potion.getName(), "button/yel1.png","button/yel2.png",20);
-        setButtonPref(btn1, 200 , 30);
         int amount;
+        String flaskImage;
         if (Objects.equals(potion.getName(), "Pill")){
             amount = GameController.getInstance().getPill();
+            flaskImage = "asset/flask1.png";
         } else if(Objects.equals(potion.getName(), "StrengthPotion")){
             amount = GameController.getInstance().getStrengthPotion();
+            flaskImage = "asset/flask4.png";
         } else if(Objects.equals(potion.getName(), "UltimatePotion")){
             amount = GameController.getInstance().getUltimatePotion();
+            flaskImage = "asset/flask3.png";
         }else {
             amount = GameController.getInstance().getHealingPotion();
+            flaskImage = "asset/flask2.png";
         }
-        Text amountPotion = new Text("x" + amount);
-        amountPotion.setFont(ToolKit.loadFont(20));
-        potionButton.getChildren().addAll(btn1 , amountPotion);
+
+//        Text amountPotion = new Text("x" + amount);
+//        amountPotion.setFont(ToolKit.loadFont(20));
+        Button btn1 = ToolKit.createButton(potion.getName()+"x" + amount, "button/yellowResize1.png", "button/yellowResize2.png",20);
+        setButtonPref(btn1, 230);
+        potionButton.getChildren().addAll(btn1);
         inventoryBox.getChildren().addAll(potionButton);
 
         PauseTransition pauseTransition = new PauseTransition();
+
+        ToolKit.addIcon(btn1,flaskImage);
 
         btn1.setOnMouseClicked( event -> {
             showAttackEffect(heal ,blockPlayer ,"h1" , "h2" , "h3");
@@ -756,8 +758,8 @@ public class BattleScene extends Scene {
     }
 
     private static void initializeBackToActionButton(VBox vBox){
-        Button backtoactionButton = ToolKit.createButton("Back", "button/blu1.png","button/blu2.png",20);
-        setButtonPref(backtoactionButton , 150 , 30);
+        Button backtoactionButton = ToolKit.createButton("Back", "button/blueResize1.png", "button/blueResize2.png",20);
+        setButtonPref(backtoactionButton , 150);
         vBox.getChildren().add(backtoactionButton);
 
         backtoactionButton.setOnMouseClicked(event -> {
@@ -766,8 +768,8 @@ public class BattleScene extends Scene {
     }
 
     private static Button initializeEscapeButton(Stage stage){
-        Button escapeButton = ToolKit.createButton("Escape", "button/re1.png","button/re2.png",20);
-        setButtonPref(escapeButton, 150 , 30);
+        Button escapeButton = ToolKit.createButton("Escape", "button/redResize1.png", "button/redResize2.png",20);
+        setButtonPref(escapeButton, 150);
         escapeButton.setOnMouseClicked(event -> {
             stage.setScene(GameScene.getInstance(stage));
             isEnd = true;
@@ -805,9 +807,19 @@ public class BattleScene extends Scene {
                 ToolKit.setRowCon(60,VPos.CENTER),ToolKit.setRowCon(20,VPos.BOTTOM));
     }
 
-    private static void setButtonPref(Button button ,int width , int height){
+    private static void setButtonPref(Button button ,int width){
         button.setPrefWidth(width);
-        button.setPrefHeight(height);
+        button.setPrefHeight(30);
     }
 
+    private static void delayAndContinue(Runnable task, long delayInMillis) {
+        EXECUTOR.execute(() -> {
+            try {
+                Thread.sleep(delayInMillis);
+                task.run();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }

@@ -6,15 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import javax.tools.Tool;
 
 public class PauseScene extends Scene {
     private VBox root;
@@ -31,7 +25,7 @@ public class PauseScene extends Scene {
     public void createPauseScene(Stage stage) {
         root.setAlignment(Pos.CENTER);
         root.setSpacing(20);
-        root.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
+        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bgPauseScene.png"), BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,null)));
 
         Text pauseText = new Text("Game Paused");
         pauseText.setFont(ToolKit.loadFont(50));
@@ -39,12 +33,12 @@ public class PauseScene extends Scene {
         Label back = new Label("Press ESC to Continue");
         back.setFont(ToolKit.loadFont(25));
 
-        Button resumeButton = ToolKit.createButton("MAIN MENU", "element/shortBox.png",null, 25);
+        Button resumeButton = ToolKit.createButton("MAIN MENU", "button/yellowResize1.png", "button/yellowResize2.png", 25);
         resumeButton.setOnAction(event -> {
             stage.setScene(StartScene.getInstance(stage));
         });
 
-        Button quitButton = ToolKit.createButton("Quit", "element/shortBox.png",null, 25);
+        Button quitButton = ToolKit.createButton("Quit", "button/yellowResize1.png", "button/yellowResize2.png", 25);
         quitButton.setOnAction(event -> {
             stage.close();
         });

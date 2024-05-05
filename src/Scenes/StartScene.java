@@ -17,7 +17,6 @@ public class StartScene extends Scene{
     private static GridPane root;
     private static ImageView logoImageView;
     private static Button btnNewGame;
-    private static Button btnLoadGame;
     private static Button btnSetting;
     private static Button btnHowToPlay;
     private static Button btnExit;
@@ -29,7 +28,7 @@ public class StartScene extends Scene{
     }
     private static GridPane createIntroScene(Stage stage){
         root = new GridPane();
-        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/backg5.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800, 600,false,false, false,false))));
+        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bgStartScene.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800, 600,false,false, false,false))));
         root.setPadding(new Insets(100, 20, 20, 70));
         root.setVgap(10);
         root.setHgap(50);
@@ -49,7 +48,7 @@ public class StartScene extends Scene{
     }
 
     private static Button initializeNewGameButton(Stage stage){
-        btnNewGame = ToolKit.createButton("New Game", "element/shortBox.png",null,25);
+        btnNewGame = ToolKit.createButton("New Game", "button/yellowResize1.png", "button/yellowResize2.png",25);
         btnNewGame.setOnMouseClicked(event -> {
             GameController.setInstance(new GameController());
             stage.setScene(new ChooseScene(stage));
@@ -60,7 +59,7 @@ public class StartScene extends Scene{
     }
 
     private static Button initializeSettingButton(Stage stage){
-        btnSetting = ToolKit.createButton("Setting", "element/shortBox.png",null, 25);
+        btnSetting = ToolKit.createButton("Setting", "button/yellowResize1.png", "button/yellowResize2.png", 25);
         btnSetting.setOnMouseClicked(event -> {
             stage.setScene(new SettingScene(stage));
 
@@ -70,7 +69,8 @@ public class StartScene extends Scene{
     }
 
     private static Button initializeHowToPlayButton(Stage stage){
-         btnHowToPlay = ToolKit.createButton("How To Play", "element/shortBox.png",null, 25);
+
+         btnHowToPlay = ToolKit.createButton("How To Play", "button/yellowResize1.png", "button/yellowResize2.png", 25);
          btnSetting.setOnMouseClicked(event -> {
 
             Sound.backgroundSound("/sound/ClickButton.mp3");
@@ -79,7 +79,7 @@ public class StartScene extends Scene{
     }
 
     private static Button initializeExitButton(Stage stage){
-        btnExit = ToolKit.createButton("Exit", "element/shortBox.png",null, 25);
+        btnExit = ToolKit.createButton("Exit", "button/yellowResize1.png", "button/yellowResize2.png", 25);
         btnExit.setOnMouseClicked(event -> {
             stage.close();
 
