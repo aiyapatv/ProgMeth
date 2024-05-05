@@ -7,9 +7,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.*;
 import logic.game.GameController;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 //import main.MusicController;
 
 public class StartScene extends Scene{
@@ -73,6 +81,26 @@ public class StartScene extends Scene{
 
          btnHowToPlay = ToolKit.createButton("How To Play", "button/yellowResize1.png", "button/yellowResize2.png", 25);
          btnHowToPlay.setOnMouseClicked(event -> {
+             try {
+                 // Get the resource path of the PDF file
+                 String resourcePath = "/howtoplay.pdf";
+                 // Copy the resource file to a temporary directory
+                 Path tempFile = Files.createTempFile("howtoplay", ".pdf");
+                 Files.copy(StartScene.class.getResourceAsStream(resourcePath), tempFile, StandardCopyOption.REPLACE_EXISTING);
+                 // Open the temporary file with the default application
+                 if (Desktop.isDesktopSupported()) {
+                     Desktop desktop = Desktop.getDesktop();
+                     if (desktop.isSupported(Desktop.Action.OPEN)) {
+                         desktop.open(tempFile.toFile());
+                     } else {
+                         System.out.println("Open action is not supported on this platform.");
+                     }
+                 } else {
+                     System.out.println("Desktop is not supported on this platform.");
+                 }
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
 
             Sound.effectSound("/sound/ClickButton.mp3");
          });
