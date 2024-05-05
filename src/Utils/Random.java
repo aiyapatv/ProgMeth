@@ -17,12 +17,12 @@ import logic.monsters.tank.Tank;
 import logic.potion.*;
 
 public class Random {
-    private static final java.util.Random rng = new java.util.Random();
+    private static final java.util.Random RNG = new java.util.Random();
     private static int MAX_NUMBER;
 
     public static Monster randomMonsterImage(){
         MAX_NUMBER  = 10;
-        int randomNum = rng.nextInt(MAX_NUMBER) + 1;
+        int randomNum = RNG.nextInt(MAX_NUMBER) + 1;
         if ( randomNum == 1 ){
             return new Basic();
         } else if ( randomNum == 2 ) {
@@ -48,7 +48,7 @@ public class Random {
 
     public static Monster randomBossMonsterImage() {
         MAX_NUMBER = 2;
-        int randomNum = rng.nextInt(MAX_NUMBER) + 1;
+        int randomNum = RNG.nextInt(MAX_NUMBER) + 1;
         if (randomNum == 1) {
             return new Boss1();
         } else {
@@ -58,21 +58,21 @@ public class Random {
 
     public static int randomMonsterAmount(){
         MAX_NUMBER  = 3;
-        return rng.nextInt(MAX_NUMBER) + 1;
+        return RNG.nextInt(MAX_NUMBER) + 1;
     }
 
     public static int randomMonsterAtk(int number){
-        return rng.nextInt(number) + 1;
+        return RNG.nextInt(number) + 1;
     }
 
     public static int randomPotionAmount(){
         MAX_NUMBER = 3;
-        return rng.nextInt(MAX_NUMBER);
+        return RNG.nextInt(MAX_NUMBER);
     }
 
     public static BasePotion randomDropPotion(){
         MAX_NUMBER = 4;
-        int randomNum = rng.nextInt(MAX_NUMBER);
+        int randomNum = RNG.nextInt(MAX_NUMBER);
         if ( randomNum == 1 ){
             GameController.getInstance().setHealingPotion(GameController.getInstance().getHealingPotion()+1);
             return new HealingPotion();

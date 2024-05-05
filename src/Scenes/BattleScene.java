@@ -585,6 +585,7 @@ public class BattleScene extends Scene {
             text.setSpacing(5);
             Text win = new Text("You Die !!!(Click to Continue)");
             win.setFont(ToolKit.loadFont(30));
+            win.setTextAlignment(TextAlignment.CENTER);
             text.getChildren().addAll(win);
             actionBox.getChildren().add(text);
             actionBox.setOnMouseClicked(mouseEvent -> {
@@ -720,8 +721,6 @@ public class BattleScene extends Scene {
             flaskImage = "asset/flask2.png";
         }
 
-//        Text amountPotion = new Text("x" + amount);
-//        amountPotion.setFont(ToolKit.loadFont(20));
         Button btn1 = ToolKit.createButton(potion.getName()+"x" + amount, "button/yellowResize1.png", "button/yellowResize2.png",20);
         setButtonPref(btn1, 230);
         potionButton.getChildren().addAll(btn1);

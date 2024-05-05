@@ -5,7 +5,7 @@ public class Config {
     public final static int BOYPOWER = 20;
     public final static int BLONDPOWER = 10;
     public final static int GLASSESPOWER = 25;
-    public final static int DETECIVEPOWER = 15;
+    public final static int DETECTIVEPOWER = 15;
     public final static int GIRLPOWER = 20;
     public final static int PUNKPOWER = 22;
     public final static int KNIGHTPOWER = 15;
