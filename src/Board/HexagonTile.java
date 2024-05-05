@@ -17,10 +17,9 @@ import logic.monsters.Monster;
 
 public class HexagonTile extends StackPane {
     private boolean isWalked;
-    private final ImageView charImage;
 
     public HexagonTile(String image, int size, Stage stage, boolean isWalked){
-        charImage = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +"_1.png"), 50, 50);
+        ImageView charImage = Images.setImageViewSize(ToolKit.loadImage("character/c"+ ChooseScene.getNumber() +"_1.png"), 50, 50);
         setIsWalked(isWalked);
         createHexagon(image, size, stage);
     }
@@ -49,10 +48,6 @@ public class HexagonTile extends StackPane {
         }else{
             hexagonImage.setEffect(new InnerShadow(100,Color.GRAY));
         }
-    }
-
-    public boolean isWalked() {
-        return isWalked;
     }
 
     public void setIsWalked(boolean walked) {

@@ -6,7 +6,7 @@ import logic.monsters.Monster;
 
 public class Detective extends BaseCharacter{
     public Detective() {
-        super(Config.DETECTIVEMAXHP, Config.DETECIVEPOWER, Config.DETECTIVEDEFENSE,Config.DETECTIVEMAGICPOWER,Config.DETECTIVEMAGICDEFENSE);
+        super(Config.DETECTIVEMAXHP, Config.DETECTIVEPOWER, Config.DETECTIVEDEFENSE,Config.DETECTIVEMAGICPOWER,Config.DETECTIVEMAGICDEFENSE);
     }
 
     @Override
