@@ -3,6 +3,7 @@ package Board;
 import Scenes.BattleScene;
 import Scenes.ChooseScene;
 import Scenes.GameScene;
+import Utils.Sound;
 import Utils.ToolKit;
 import Utils.Images;
 import javafx.scene.control.Label;
@@ -40,6 +41,7 @@ public class HexagonTile extends StackPane {
                 GameScene.updateTurn();
                 Monster.setTime(GameController.getInstance().getTurn());
                 stage.setScene(new BattleScene(stage));
+
             });
             setOnMouseExited(mouseEvent -> {
                 hexagonImage.setEffect(new InnerShadow(5, Color.GRAY));
