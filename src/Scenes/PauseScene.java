@@ -40,13 +40,13 @@ public class PauseScene extends Scene {
             Sound.getMediaPlayer().stop();
             Sound.backgroundSound("/sound/StartScene.mp3");
             stage.setScene(StartScene.getInstance(stage));
-            Sound.backgroundSound("/sound/ClickButton.mp3");
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
 
         Button quitButton = ToolKit.createButton("Quit", "button/yellowResize1.png", "button/yellowResize2.png", 25);
         quitButton.setOnAction(event -> {
             stage.close();
-            Sound.backgroundSound("/sound/ClickButton.mp3");
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
 
         root.getChildren().addAll(pauseText, back, resumeButton, quitButton);
@@ -61,7 +61,7 @@ public class PauseScene extends Scene {
         this.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 stage.setScene(GameScene.getInstance(stage));
-                Sound.backgroundSound("/sound/ClickButton.mp3");
+                Sound.effectSound(  "/sound/ClickButton.mp3");
             }
         });
     }

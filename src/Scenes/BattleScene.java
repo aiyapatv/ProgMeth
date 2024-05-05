@@ -590,6 +590,7 @@ public class BattleScene extends Scene {
             actionBox.getChildren().add(text);
             actionBox.setOnMouseClicked(mouseEvent -> {
                 stage.setScene(new StartScene(stage));
+
             });
             isEnd = true;
 
@@ -611,7 +612,7 @@ public class BattleScene extends Scene {
                 actionBox.getChildren().add(text);
                 actionBox.setOnMouseClicked(mouseEvent -> {
                     stage.setScene(new StartScene(stage));
-
+                    Sound.backgroundSound("/sound/ChoseBattle.mp3");
                 });
                 isEnd = true;
 
@@ -635,6 +636,7 @@ public class BattleScene extends Scene {
                 actionBox.getChildren().add(text);
                 actionBox.setOnMouseClicked(mouseEvent -> {
                     stage.setScene(GameScene.getInstance(stage));
+                    Sound.backgroundSound("/sound/ChoseBattle.mp3");
 
                 });
                 isEnd = true;
@@ -801,7 +803,9 @@ public class BattleScene extends Scene {
         escapeButton.setOnMouseClicked(event -> {
             stage.setScene(GameScene.getInstance(stage));
             isEnd = true;
+            Sound.getMediaPlayer().stop();
             Sound.effectSound("/sound/ClickButton.mp3");
+            Sound.backgroundSound("/sound/ChoseBattle.mp3");
         });
         return escapeButton;
     }
