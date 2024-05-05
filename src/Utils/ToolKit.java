@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -45,6 +46,13 @@ public class ToolKit {
                 "-fx-background-repeat: no-repeat;"+
                 "-fx-background-position: center;");
         return button;
+    }
+
+    public static void addIcon(Button button , String imagePath){
+        ImageView iconView = new ImageView(ToolKit.loadImage(imagePath));
+        iconView.setFitWidth(20);
+        iconView.setFitHeight(20);
+        button.setGraphic(iconView);
     }
 
     public static ColumnConstraints setColumnCon(int num , HPos hPos ){

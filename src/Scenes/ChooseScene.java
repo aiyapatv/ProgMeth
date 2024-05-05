@@ -1,6 +1,5 @@
 package Scenes;
 
-import Board.HexagonBoard;
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
@@ -25,15 +24,11 @@ import logic.game.GameController;
 public class ChooseScene extends Scene {
 
     private static GridPane root;
-    private static GridPane charTable;
     private static StackPane selectBlock;
     private static Rectangle selectedChar;
     private static Text selectedName;
     private static boolean isSelected = false;
-    private static Button backButton;
-    private static Button playButton;
     private static Thread charMoving;
-    private static BaseCharacter character;
     private static Text maxHp;
     private static Text power;
     private static Text magicPower;
@@ -46,7 +41,7 @@ public class ChooseScene extends Scene {
 
     private static GridPane createChooseScene(Stage stage){
         root = new GridPane(10,10);
-        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/oakwood.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+        root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bgChooseScene.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
         root.setPadding(new Insets(10));
         root.setGridLinesVisible(false);
 
@@ -63,7 +58,7 @@ public class ChooseScene extends Scene {
 
     private static void initializeCharTable(){
         selectBlock = null;
-        charTable = new GridPane(2,2);
+        GridPane charTable = new GridPane(2,2);
         charTable.setAlignment(Pos.CENTER);
         for(int i = 0;i < 9; i++){
             final int num = i + 1;
@@ -122,7 +117,7 @@ public class ChooseScene extends Scene {
         selectedName.setText(getName());
     }
     public static String getName(){
-        character = GameController.getInstance().getCharacter();
+        BaseCharacter character = GameController.getInstance().getCharacter();
         String name = "";
         if (character != null){
             name = character.toString();
@@ -161,7 +156,7 @@ public class ChooseScene extends Scene {
     }
 
     private static void initializePlayButton(Stage stage){
-        playButton = ToolKit.createButton("PLAY>>>", "element/shortBox.png", null,25);
+        Button playButton = ToolKit.createButton("PLAY>>>", "button/yellowResize1.png", "button/yellowResize2.png",25);
         root.add(playButton,1,3);
         playButton.setOnMouseClicked( event -> {
             if(selectBlock != null) {
@@ -173,7 +168,7 @@ public class ChooseScene extends Scene {
     }
 
     private static void initializeBackButton(Stage stage){
-        backButton = ToolKit.createButton("<<<BACK", "element/shortBox.png",null,25);
+        Button backButton = ToolKit.createButton("<<<BACK", "button/yellowResize1.png", "button/yellowResize2.png",25);
         root.add(backButton,0,3);
         backButton.setOnMouseClicked( event -> {
             isSelected = false;
