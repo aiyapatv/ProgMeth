@@ -1,6 +1,7 @@
 package Scenes;
 
 import Board.HexagonBoard;
+import Utils.Sound;
 import Utils.ToolKit;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -53,6 +54,8 @@ public class GameScene extends Scene {
         this.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 stage.setScene(PauseScene.getInstance(stage));
+
+                Sound.backgroundSound("/sound/SwordHit.mp3");
             }
         });
     }

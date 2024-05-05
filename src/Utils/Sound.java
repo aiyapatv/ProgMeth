@@ -1,5 +1,6 @@
 package Utils;
 
+import Scenes.GameScene;
 import Scenes.StartScene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
