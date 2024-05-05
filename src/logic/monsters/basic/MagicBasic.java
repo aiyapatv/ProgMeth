@@ -4,7 +4,8 @@ import Utils.Config;
 import logic.able.MagicAtk;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
-import logic.able.* ;
+import logic.able.SpAtk ;
+import logic.able.MagicAtk ;
 
 public class MagicBasic extends Monster implements MagicAtk, SpAtk {
     public MagicBasic() {

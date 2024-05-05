@@ -2,7 +2,8 @@ package logic.monsters.basic;
 
 import Utils.Config;
 import logic.monsters.Monster;
-import logic.able.* ;
+import logic.able.Atk ;
+import logic.able.SpAtk ;
 import logic.character.* ;
 public class Basic extends Monster implements Atk, SpAtk {
 

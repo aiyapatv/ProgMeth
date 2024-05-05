@@ -3,7 +3,8 @@ package logic.monsters.tank;
 import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
-import logic.able.* ;
+import logic.able.Atk ;
+import logic.able.SpAtk ;
 
 //basic at
 //no special

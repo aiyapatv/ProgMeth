@@ -2,7 +2,7 @@ package logic.monsters.basic;
 
 import Utils.Config;
 import logic.monsters.Monster;
-import logic.able.* ;
+import logic.able.BuffFriend ;
 
 public class Buff extends Monster implements BuffFriend {
     public Buff() {

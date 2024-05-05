@@ -2,11 +2,13 @@ package logic.monsters.boss;
 
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
-import logic.able.*;
+import logic.able.Atk ;
+import logic.able.MagicAtk ;
+import logic.able.SpAtk ;
 public class Boss2 extends Monster implements Atk, MagicAtk, SpAtk {
     public Boss2() {
-        super(70, 4 ,
-                5, 3 , 5);
+        super(70, 10,
+                5, 10 , 5);
         setPicture("m6_i_1");
         setPicture2("m6_i_2");
     }

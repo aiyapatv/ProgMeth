@@ -1,0 +1,332 @@
+@startuml
+class logic.character.Detective {
++ <<Create>> Detective()
++ String toString()
+}
+interface logic.usage.Healable {
+~ int getRecoverPoint()
+}
+class logic.character.Wizard {
++ <<Create>> Wizard()
++ String toString()
+}
+class logic.potion.UltimatePotion {
+- int ATT_BUFF
+- int BUFF_TURN
+- int RECOVER_PT
++ <<Create>> UltimatePotion()
++ int getAttBuff()
++ int getBuffTurn()
++ int getRecoverPoint()
++ String toString()
++ void usePotion()
+}
+class logic.monsters.magictank.FullAtkMagicTank {
++ <<Create>> FullAtkMagicTank()
++ void attack(BaseCharacter)
++ void magicAttack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+class logic.monsters.magictank.MagicTank {
++ <<Create>> MagicTank()
++ void attack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+interface logic.able.BuffFriend {
+~ void buff(Monster)
+}
+interface logic.able.SpAtk {
+~ void specialAttack(BaseCharacter)
+}
+class logic.character.Girl {
++ <<Create>> Girl()
++ String toString()
+}
+interface logic.usage.AttBuffable {
+~ int getAttBuff()
+~ int getBuffTurn()
+}
+class logic.monsters.boss.Boss1 {
++ <<Create>> Boss1()
++ void attack(BaseCharacter)
++ void specialAttack(BaseCharacter)
++ void skill1(BaseCharacter)
++ void skill2()
+}
+abstract class logic.monsters.Monster {
+- int maxHp
+- String picture
+- String picture2
+- int Hp
+- int atk
+- int magicAtk
+- int def
+- int magicDef
+- int level
+- {static} int time
++ <<Create>> Monster()
++ <<Create>> Monster(int,int,int,int,int)
+- int checkLess(int)
++ boolean isDie()
++ String getType()
++ String toString()
++ int getMaxHp()
++ void setMaxHp(int)
++ int getHp()
++ void setHp(int)
++ int getAtk()
++ void setAtk(int)
++ int getDef()
++ void setDef(int)
++ int getMagicAtk()
++ void setMagicAtk(int)
++ int getMagicDef()
++ void setMagicDef(int)
++ int getLevel()
++ void setLevel(int)
++ {static} int getTime()
++ {static} void setTime(int)
++ String getPicture()
++ void setPicture(String)
++ String getPicture2()
++ void setPicture2(String)
+}
+class logic.monsters.basic.FullBasic {
++ <<Create>> FullBasic()
++ void attack(BaseCharacter)
++ void magicAttack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+class logic.monsters.basic.Buff {
++ <<Create>> Buff()
++ void buff(Monster)
+}
+interface logic.usage.Upgradable {
+~ int getLevel()
+~ void setLevel(int)
+~ int getMaxLevel()
+}
+class logic.monsters.basic.Basic {
++ <<Create>> Basic()
++ void attack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+class logic.potion.Pill {
+- int RECOVERY_PT
++ <<Create>> Pill()
++ String toString()
++ int getRecoverPoint()
++ void usePotion()
+}
+class logic.monsters.basic.MagicBasic {
++ <<Create>> MagicBasic()
++ void magicAttack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+class logic.character.Viking {
++ <<Create>> Viking()
++ String toString()
+}
+class logic.character.Glasses {
++ <<Create>> Glasses()
++ String toString()
+}
+class logic.monsters.magictank.MagicAtkMagicTank {
++ <<Create>> MagicAtkMagicTank()
++ void magicAttack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+abstract class logic.character.BaseCharacter {
+# int maxHp
+# int hp
+# int power
+# int defense
+# int magicDefense
+- int magicPower
+# int poisonStatus
+# int attackStat
++ <<Create>> BaseCharacter(int,int,int,int,int)
++ int decreaseHpDef(int)
++ int decreaseHpMagicDef(int)
++ void attack(Monster)
++ void magicAttack(Monster)
++ int getMaxHp()
++ void setMaxHp(int)
++ int getPower()
++ void setPower(int)
++ int getHp()
++ void setHp(int)
++ int getDefense()
++ void setDefense(int)
++ int getMagicDefense()
++ void setMagicDefense(int)
++ int getMagicPower()
++ void setMagicPower(int)
++ int getAttackStat()
++ void setAttackStat(int)
+}
+class logic.character.Punk {
++ <<Create>> Punk()
++ String toString()
+}
+class logic.character.Knight {
++ <<Create>> Knight()
++ String toString()
+}
+class logic.monsters.tank.Tank {
++ <<Create>> Tank()
++ void attack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+class logic.potion.HealingPotion {
+- int level
+- int MAX_LEVEL
+- int[] RECOVER_PT
++ <<Create>> HealingPotion()
++ String toString()
++ int getRecoverPoint()
++ int getLevel()
++ void setLevel(int)
++ int getMaxLevel()
++ void usePotion()
+}
+class logic.potion.StrengthPotion {
+- int level
+- int MAX_LEVEL
+- int[] ATT_BUFF
+- int BUFF_TURN
++ <<Create>> StrengthPotion()
++ String toString()
++ int getAttBuff()
++ int getBuffTurn()
++ int getLevel()
++ void setLevel(int)
++ int getMaxLevel()
++ void usePotion()
+}
+class logic.character.Blonde {
++ <<Create>> Blonde()
++ String toString()
+}
+class logic.character.Boy {
++ <<Create>> Boy()
++ String toString()
+}
+abstract class logic.potion.BasePotion {
+- String name
++ <<Create>> BasePotion(String)
++ String getName()
++ void setName(String)
++ {abstract}void usePotion()
+}
+interface logic.able.MagicAtk {
+~ void magicAttack(BaseCharacter)
+}
+class logic.monsters.tank.FullAtkTank {
++ <<Create>> FullAtkTank()
++ void attack(BaseCharacter)
++ void magicAttack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+class logic.monsters.tank.MagicAtkTank {
++ <<Create>> MagicAtkTank()
++ void magicAttack(BaseCharacter)
++ void specialAttack(BaseCharacter)
+}
+class logic.monsters.boss.Boss2 {
++ <<Create>> Boss2()
++ void attack(BaseCharacter)
++ void magicAttack(BaseCharacter)
++ void specialAttack(BaseCharacter)
++ void skill1()
+}
+interface logic.able.Atk {
+~ void attack(BaseCharacter)
+}
+class logic.game.GameController {
+- {static} GameController instance
+- BaseCharacter character
+- int turn
+- int healingPotion
+- int pill
+- int strengthPotion
+- int ultimatePotion
++ <<Create>> GameController()
++ {static} GameController getInstance()
++ {static} void setInstance(GameController)
++ BaseCharacter getCharacter()
++ void setCharacter(BaseCharacter)
++ void defineCharacter(int)
++ int getTurn()
++ void increaseTurn()
++ int getHealingPotion()
++ void setHealingPotion(int)
++ int getPill()
++ void setPill(int)
++ int getStrengthPotion()
++ void setStrengthPotion(int)
++ int getUltimatePotion()
++ void setUltimatePotion(int)
+}
+
+
+logic.character.BaseCharacter <|-- logic.character.Detective
+logic.character.BaseCharacter <|-- logic.character.Wizard
+logic.usage.AttBuffable <|.. logic.potion.UltimatePotion
+logic.usage.Healable <|.. logic.potion.UltimatePotion
+logic.potion.BasePotion <|-- logic.potion.UltimatePotion
+logic.able.Atk <|.. logic.monsters.magictank.FullAtkMagicTank
+logic.able.MagicAtk <|.. logic.monsters.magictank.FullAtkMagicTank
+logic.able.SpAtk <|.. logic.monsters.magictank.FullAtkMagicTank
+logic.monsters.Monster <|-- logic.monsters.magictank.FullAtkMagicTank
+logic.able.Atk <|.. logic.monsters.magictank.MagicTank
+logic.able.SpAtk <|.. logic.monsters.magictank.MagicTank
+logic.monsters.Monster <|-- logic.monsters.magictank.MagicTank
+logic.character.BaseCharacter <|-- logic.character.Girl
+logic.able.Atk <|.. logic.monsters.boss.Boss1
+logic.able.SpAtk <|.. logic.monsters.boss.Boss1
+logic.monsters.Monster <|-- logic.monsters.boss.Boss1
+logic.able.Atk <|.. logic.monsters.basic.FullBasic
+logic.able.MagicAtk <|.. logic.monsters.basic.FullBasic
+logic.able.SpAtk <|.. logic.monsters.basic.FullBasic
+logic.monsters.Monster <|-- logic.monsters.basic.FullBasic
+logic.able.BuffFriend <|.. logic.monsters.basic.Buff
+logic.monsters.Monster <|-- logic.monsters.basic.Buff
+logic.able.Atk <|.. logic.monsters.basic.Basic
+logic.able.SpAtk <|.. logic.monsters.basic.Basic
+logic.monsters.Monster <|-- logic.monsters.basic.Basic
+logic.usage.Healable <|.. logic.potion.Pill
+logic.potion.BasePotion <|-- logic.potion.Pill
+logic.able.MagicAtk <|.. logic.monsters.basic.MagicBasic
+logic.able.SpAtk <|.. logic.monsters.basic.MagicBasic
+logic.monsters.Monster <|-- logic.monsters.basic.MagicBasic
+logic.character.BaseCharacter <|-- logic.character.Viking
+logic.character.BaseCharacter <|-- logic.character.Glasses
+logic.able.MagicAtk <|.. logic.monsters.magictank.MagicAtkMagicTank
+logic.able.SpAtk <|.. logic.monsters.magictank.MagicAtkMagicTank
+logic.monsters.Monster <|-- logic.monsters.magictank.MagicAtkMagicTank
+logic.character.BaseCharacter <|-- logic.character.Punk
+logic.character.BaseCharacter <|-- logic.character.Knight
+logic.able.Atk <|.. logic.monsters.tank.Tank
+logic.able.SpAtk <|.. logic.monsters.tank.Tank
+logic.monsters.Monster <|-- logic.monsters.tank.Tank
+logic.usage.Healable <|.. logic.potion.HealingPotion
+logic.usage.Upgradable <|.. logic.potion.HealingPotion
+logic.potion.BasePotion <|-- logic.potion.HealingPotion
+logic.usage.AttBuffable <|.. logic.potion.StrengthPotion
+logic.usage.Upgradable <|.. logic.potion.StrengthPotion
+logic.potion.BasePotion <|-- logic.potion.StrengthPotion
+logic.character.BaseCharacter <|-- logic.character.Blonde
+logic.character.BaseCharacter <|-- logic.character.Boy
+logic.able.Atk <|.. logic.monsters.tank.FullAtkTank
+logic.able.MagicAtk <|.. logic.monsters.tank.FullAtkTank
+logic.able.SpAtk <|.. logic.monsters.tank.FullAtkTank
+logic.monsters.Monster <|-- logic.monsters.tank.FullAtkTank
+logic.able.MagicAtk <|.. logic.monsters.tank.MagicAtkTank
+logic.able.SpAtk <|.. logic.monsters.tank.MagicAtkTank
+logic.monsters.Monster <|-- logic.monsters.tank.MagicAtkTank
+logic.able.Atk <|.. logic.monsters.boss.Boss2
+logic.able.MagicAtk <|.. logic.monsters.boss.Boss2
+logic.able.SpAtk <|.. logic.monsters.boss.Boss2
+logic.monsters.Monster <|-- logic.monsters.boss.Boss2
+@enduml

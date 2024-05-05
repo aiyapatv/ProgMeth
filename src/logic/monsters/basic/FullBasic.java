@@ -3,7 +3,9 @@ package logic.monsters.basic;
 import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
-import logic.able.* ;
+import logic.able.Atk ;
+import logic.able.MagicAtk ;
+import logic.able.SpAtk ;
 public class FullBasic extends Monster implements Atk, MagicAtk, SpAtk {
 
     public FullBasic() {

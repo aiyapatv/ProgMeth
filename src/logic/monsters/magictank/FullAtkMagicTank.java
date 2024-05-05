@@ -3,7 +3,9 @@ package logic.monsters.magictank;
 import Utils.Config;
 import logic.character.BaseCharacter;
 import logic.monsters.Monster;
-import logic.able.* ;
+import logic.able.Atk ;
+import logic.able.MagicAtk ;
+import logic.able.SpAtk ;
 
 public class FullAtkMagicTank extends Monster implements Atk, MagicAtk, SpAtk {
     public FullAtkMagicTank() {
