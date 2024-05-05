@@ -3,6 +3,7 @@ package Scenes;
 import Utils.Sound;
 import Utils.ToolKit;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -61,6 +62,7 @@ public class PauseScene extends Scene {
         this.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 stage.setScene(GameScene.getInstance(stage));
+                setCursor(new ImageCursor(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 1 +".png"),100,0));
                 Sound.effectSound(  "/sound/ClickButton.mp3");
             }
         });

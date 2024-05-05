@@ -17,11 +17,9 @@ public class GameScene extends Scene {
     private static Text turn;
     public GameScene(Stage stage) {
         super(createGameScene(stage), 800, 600);
-        setCursor(new ImageCursor(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 1 +".png"),100,0));
         addKeyEventHandler(stage);
-
+        setCursors();
         Sound.backgroundSound("/sound/ChoseBattle.mp3");
-
     }
     public static AnchorPane createGameScene(Stage stage){
         AnchorPane root = new HexagonBoard(stage);
@@ -31,16 +29,18 @@ public class GameScene extends Scene {
         AnchorPane.setLeftAnchor(turn, 10.0);
         turn.setText("Turn: " + GameController.getInstance().getTurn());
         root.getChildren().addAll(turn);
-
-
-
         return root;
     }
     public static GameScene getInstance(Stage stage){
         if(instance == null){
             instance = new GameScene(stage);
         }
+        instance.setCursors();
         return instance;
+    }
+
+    public void setCursors() {
+        setCursor(new ImageCursor(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 1 +".png"),100,0));
     }
 
     public static void setInstance (GameScene gameScene){

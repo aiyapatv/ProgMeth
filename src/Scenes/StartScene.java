@@ -55,7 +55,6 @@ public class StartScene extends Scene{
             stage.setScene(new ChooseScene(stage));
 
             Sound.effectSound("/sound/ClickButton.mp3");
-            Sound.getMediaPlayer().stop();
         });
         return btnNewGame;
     }
@@ -63,10 +62,9 @@ public class StartScene extends Scene{
     private static Button initializeSettingButton(Stage stage){
         btnSetting = ToolKit.createButton("Setting", "button/yellowResize1.png", "button/yellowResize2.png", 25);
         btnSetting.setOnMouseClicked(event -> {
-            stage.setScene(new SettingScene(stage));
+            stage.setScene(SettingScene.getInstance(stage));
 
             Sound.effectSound("/sound/ClickButton.mp3");
-            Sound.getMediaPlayer().stop();
         });
         return btnSetting;
     }
@@ -77,7 +75,6 @@ public class StartScene extends Scene{
          btnHowToPlay.setOnMouseClicked(event -> {
 
             Sound.effectSound("/sound/ClickButton.mp3");
-            Sound.getMediaPlayer().stop();
          });
          return btnHowToPlay;
     }
@@ -88,7 +85,6 @@ public class StartScene extends Scene{
             stage.close();
 
             Sound.effectSound("/sound/ClickButton.mp3");
-            Sound.getMediaPlayer().stop();
         });
         return btnExit;
     }
