@@ -1,10 +1,6 @@
 package Scenes;
 
-<<<<<<< HEAD
-=======
-import Board.HexagonBoard;
 import Utils.Sound;
->>>>>>> 908f75156af72a368acd31dcea84e244ce9b3ff5
 import Utils.ToolKit;
 import Utils.FrameRate;
 import Utils.Images;
