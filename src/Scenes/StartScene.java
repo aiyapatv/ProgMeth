@@ -37,6 +37,7 @@ public class StartScene extends Scene{
 
         Sound.backgroundSound("/sound/StartScene.mp3");
 
+
         return root;
     }
     private static ImageView initializeLogo(){
@@ -54,6 +55,7 @@ public class StartScene extends Scene{
             stage.setScene(new ChooseScene(stage));
 
             Sound.effectSound("/sound/ClickButton.mp3");
+            Sound.getMediaPlayer().stop();
         });
         return btnNewGame;
     }
@@ -64,6 +66,7 @@ public class StartScene extends Scene{
             stage.setScene(new SettingScene(stage));
 
             Sound.effectSound("/sound/ClickButton.mp3");
+            Sound.getMediaPlayer().stop();
         });
         return btnSetting;
     }
@@ -74,6 +77,7 @@ public class StartScene extends Scene{
          btnHowToPlay.setOnMouseClicked(event -> {
 
             Sound.effectSound("/sound/ClickButton.mp3");
+            Sound.getMediaPlayer().stop();
          });
          return btnHowToPlay;
     }
@@ -84,6 +88,7 @@ public class StartScene extends Scene{
             stage.close();
 
             Sound.effectSound("/sound/ClickButton.mp3");
+            Sound.getMediaPlayer().stop();
         });
         return btnExit;
     }
