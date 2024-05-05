@@ -103,9 +103,6 @@ public class StartScene extends Scene{
         }
         return instance;
     }
-    private static Background createBackground(){
-        return new Background((BackgroundFill) null);
-    }
 
 }
 
