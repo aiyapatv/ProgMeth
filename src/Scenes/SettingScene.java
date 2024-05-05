@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 public class SettingScene extends Scene {
 
+    private static Scene instance;
     private static int volume = 100;
     public SettingScene(Stage stage) {
         super(createSettingScene(stage), 800, 600);
@@ -76,5 +77,12 @@ public class SettingScene extends Scene {
                 stage.setScene(StartScene.getInstance(stage));
             }
         });
+    }
+
+    public static Scene getInstance(Stage stage) {
+        if(instance == null) {
+            instance = new SettingScene(stage);
+        }
+        return instance;
     }
 }
