@@ -12,6 +12,13 @@ public class Sound {
     public static void backgroundSound(String path){
         URL gameMusic = StartScene.class.getResource(path) ;
         mediaPlayer = new MediaPlayer(new Media(gameMusic.toString()));
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
+    }
+
+    public static void effectSound(String path){
+        URL gameMusic = StartScene.class.getResource(path) ;
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(gameMusic.toString()));
         mediaPlayer.play();
     }
 

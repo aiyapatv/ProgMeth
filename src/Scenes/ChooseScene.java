@@ -165,7 +165,7 @@ public class ChooseScene extends Scene {
                 selectBlock = null;
                 stage.setScene(new LoadingScene(stage));
 
-                Sound.backgroundSound("/sound/ClickButton.mp3");
+                Sound.effectSound("/sound/ClickButton.mp3");
             }
         });
     }
@@ -176,8 +176,8 @@ public class ChooseScene extends Scene {
         backButton.setOnMouseClicked( event -> {
             isSelected = false;
             stage.setScene(new StartScene(stage));
-
-            Sound.backgroundSound("/sound/ClickButton.mp3");
+            Sound.getMediaPlayer().stop();
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
     }
     private static void initializeAttributeBox(){

@@ -39,7 +39,7 @@ public class SettingScene extends Scene {
         // Slider for volume adjustment
         Slider volumeSlider = new Slider(0, 100, 100); // min, max, default
         volumeSlider.setMaxWidth(300);
-        volumeSlider.setStyle("-fx-background: #000000; -fx-control-inner-background: #D6CFC7; -fx-thumb-color: #D6CFC7; -fx-focus-color: transparent;");
+        volumeSlider.setStyle("-fx-background: #000000; -fx-control-inner-background: #D6CFC7;");
 
         // Add listener to the slider to update volume value
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {

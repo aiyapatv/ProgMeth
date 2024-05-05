@@ -1,5 +1,6 @@
 package Scenes;
 
+import Utils.Sound;
 import Utils.ToolKit;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -35,6 +37,8 @@ public class PauseScene extends Scene {
 
         Button resumeButton = ToolKit.createButton("MAIN MENU", "button/yellowResize1.png", "button/yellowResize2.png", 25);
         resumeButton.setOnAction(event -> {
+            Sound.getMediaPlayer().stop();
+            Sound.backgroundSound("/sound/StartScene.mp3");
             stage.setScene(StartScene.getInstance(stage));
         });
 
