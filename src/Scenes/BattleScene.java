@@ -73,8 +73,12 @@ public class BattleScene extends Scene {
         root = new GridPane(2,2);
         if ( Turn == 20 ){
             root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bgBossFight.png"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+            Sound.getMediaPlayer().stop();
+            Sound.backgroundSound("/sound/BossBattleScene.mp3");
         } else {
             root.setBackground(new Background(new BackgroundImage(ToolKit.loadImage("background/bgBattleScene.jpg"), null, null,null,new BackgroundSize(800,600,false,false,false,false))));
+            Sound.getMediaPlayer().stop();
+            Sound.backgroundSound("/sound/NormalBattleScene.mp3");
         }
         root.setPadding(new Insets(10));
 
@@ -574,6 +578,7 @@ public class BattleScene extends Scene {
 
     private static void playerDie(){
         if (GameController.getInstance().getCharacter().getHp() <= 0){
+            Sound.getMediaPlayer().stop();
             Sound.effectSound("/sound/Die.mp3");
             actionBox.getChildren().clear();
             VBox text = new VBox();
@@ -584,7 +589,6 @@ public class BattleScene extends Scene {
             actionBox.getChildren().add(text);
             actionBox.setOnMouseClicked(mouseEvent -> {
                 stage.setScene(new StartScene(stage));
-                Sound.effectSound("/sound/Die.mp3");
             });
             isEnd = true;
 
@@ -594,9 +598,11 @@ public class BattleScene extends Scene {
     private static void endBattle(){
         if ( allMonster.isEmpty()){
             if ( Turn == 20 ){
+
                 actionBox.getChildren().clear();
                 StackPane text = new StackPane();
                 Text win = new Text("You are already kill Boss !!!(Click to Exit)");
+                Sound.getMediaPlayer().stop();
                 Sound.effectSound("/sound/FinalWin.mp3");
                 win.setFont(ToolKit.loadFont(30));
                 win.setTextAlignment(TextAlignment.CENTER);
@@ -609,11 +615,13 @@ public class BattleScene extends Scene {
                 isEnd = true;
 
             } else {
+
                 actionBox.getChildren().clear();
                 VBox text = new VBox();
                 text.setAlignment(Pos.CENTER);
                 text.setSpacing(5);
                 Text win = new Text("You Win !!!(Click to Continue)");
+                Sound.getMediaPlayer().stop();
                 Sound.effectSound("/sound/Win.mp3");
                 win.setFont(ToolKit.loadFont(30));
                 text.getChildren().addAll(win);

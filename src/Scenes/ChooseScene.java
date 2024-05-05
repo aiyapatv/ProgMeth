@@ -74,7 +74,7 @@ public class ChooseScene extends Scene {
                     selectChar(stack, block);
                     showCharModel();
                     GameController.getInstance().defineCharacter(num);
-                    Sound.backgroundSound("/sound/SelectChar.mp3");
+                    Sound.  effectSound("/sound/SelectChar.mp3");
                 }
             });
             charTable.add(stack, i % 3, i / 3);
