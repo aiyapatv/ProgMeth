@@ -168,6 +168,7 @@ public class BattleScene extends Scene {
         fightPane.add(blockPlayer , 0,1);
         fightPane.add(heal , 0 ,1 );
         fightPane.add(missAtk , 0 ,1 );
+        Sound.effectSound("/sound/ClickButton.mp3");
     }
 
     private static void initializeMonsterSide(){
@@ -321,13 +322,13 @@ public class BattleScene extends Scene {
         powerBtn.setOnMouseClicked(event -> {
             isMagicAtk = false;
             root.getChildren().remove(root.getChildren().size()-1);
-            Sound.backgroundSound("/sound/ClickButton.mp3");
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
 
         magicPowerBtn.setOnMouseClicked(event -> {
             isMagicAtk = true;
             root.getChildren().remove(root.getChildren().size()-1);
-            Sound.backgroundSound("/sound/ClickButton.mp3");
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
         HBox chooseBtn = new HBox();
         Insets margin = new Insets(30);
@@ -381,7 +382,7 @@ public class BattleScene extends Scene {
             PauseTransition pauseTransition = new PauseTransition();
             int count = i;
             btn.setOnMouseClicked( event -> {
-                Sound.backgroundSound("/sound/SwordHit.mp3");
+                Sound.effectSound("/sound/CharHitMon.mp3");
                 showAttackEffect(allEffect.get(count) , allMonPic.get(count),"a1" , "a2" , "a3");
                 root.getChildren().remove(root.getChildren().size() - 1);
 
@@ -529,8 +530,12 @@ public class BattleScene extends Scene {
 
                 delayAndContinue(() -> {
                     showAttackEffect(heal ,blockPlayer ,"a1" , "a2" , "a3");
+
                     if (player.getAttackStat() == 0 ){
                         missAtk.setText("Miss");
+                        Sound.effectSound("/sound/MonMiss.mp3");
+                    }else{
+                        Sound.effectSound("/sound/Hurt.mp3");
                     }
                 }, 500);
 
@@ -543,12 +548,14 @@ public class BattleScene extends Scene {
                 Platform.runLater(() -> {
                     BattleScene.updateStatusBar();
                     playerDie();
+                    Sound.effectSound("/sound/NextAtk.mp3");
                 });
             }, 700);
 
             delayAndContinue(() -> {
                 Platform.runLater(() -> {
                     root.getChildren().remove(root.getChildren().size() - 1);
+
                 });
             }, 1000);
         }
@@ -567,6 +574,7 @@ public class BattleScene extends Scene {
 
     private static void playerDie(){
         if (GameController.getInstance().getCharacter().getHp() <= 0){
+            Sound.effectSound("/sound/Die.mp3");
             actionBox.getChildren().clear();
             VBox text = new VBox();
             text.setSpacing(5);
@@ -576,8 +584,10 @@ public class BattleScene extends Scene {
             actionBox.getChildren().add(text);
             actionBox.setOnMouseClicked(mouseEvent -> {
                 stage.setScene(new StartScene(stage));
+                Sound.effectSound("/sound/Die.mp3");
             });
             isEnd = true;
+
         }
     }
 
@@ -587,12 +597,14 @@ public class BattleScene extends Scene {
                 actionBox.getChildren().clear();
                 StackPane text = new StackPane();
                 Text win = new Text("You are already kill Boss !!!(Click to Exit)");
+                Sound.effectSound("/sound/FinalWin.mp3");
                 win.setFont(ToolKit.loadFont(30));
                 win.setTextAlignment(TextAlignment.CENTER);
                 text.getChildren().addAll(win);
                 actionBox.getChildren().add(text);
                 actionBox.setOnMouseClicked(mouseEvent -> {
                     stage.setScene(new StartScene(stage));
+
                 });
                 isEnd = true;
 
@@ -602,6 +614,7 @@ public class BattleScene extends Scene {
                 text.setAlignment(Pos.CENTER);
                 text.setSpacing(5);
                 Text win = new Text("You Win !!!(Click to Continue)");
+                Sound.effectSound("/sound/Win.mp3");
                 win.setFont(ToolKit.loadFont(30));
                 text.getChildren().addAll(win);
 
@@ -613,6 +626,7 @@ public class BattleScene extends Scene {
                 actionBox.getChildren().add(text);
                 actionBox.setOnMouseClicked(mouseEvent -> {
                     stage.setScene(GameScene.getInstance(stage));
+
                 });
                 isEnd = true;
             }
@@ -664,6 +678,7 @@ public class BattleScene extends Scene {
         setButtonPref(attackButton , 150);
         attackButton.setOnMouseClicked(event -> {
             initializeMonsterList();
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
         return attackButton;
     }
@@ -674,6 +689,7 @@ public class BattleScene extends Scene {
         setButtonPref(inventoryButton, 170);
         inventoryButton.setOnMouseClicked(event -> {
             initializeInventoryList();
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
         return inventoryButton;
     }
@@ -724,6 +740,8 @@ public class BattleScene extends Scene {
                 });
             }, 1000);
 
+            Sound.effectSound("/sound/Heal.mp3");
+
         });
     }
 
@@ -766,6 +784,7 @@ public class BattleScene extends Scene {
 
         backtoactionButton.setOnMouseClicked(event -> {
             root.getChildren().remove(root.getChildren().size() - 1);
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
     }
 
@@ -775,7 +794,7 @@ public class BattleScene extends Scene {
         escapeButton.setOnMouseClicked(event -> {
             stage.setScene(GameScene.getInstance(stage));
             isEnd = true;
-
+            Sound.effectSound("/sound/ClickButton.mp3");
         });
         return escapeButton;
     }

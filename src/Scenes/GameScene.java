@@ -53,7 +53,7 @@ public class GameScene extends Scene {
         this.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 stage.setScene(PauseScene.getInstance(stage));
-                Sound.effectSound("/sound/SwordHit.mp3");
+                Sound.effectSound("/sound/MonMiss.mp3");
             }
         });
     }
