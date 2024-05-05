@@ -17,6 +17,7 @@ public class GameScene extends Scene {
     private static Text turn;
     public GameScene(Stage stage) {
         super(createGameScene(stage), 800, 600);
+        Sound.getMediaPlayer().stop();
         setCursor(new ImageCursor(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 1 +".png"),100,0));
         addKeyEventHandler(stage);
         Sound.backgroundSound("/sound/ChoseBattle.mp3");
@@ -52,6 +53,7 @@ public class GameScene extends Scene {
         this.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 stage.setScene(PauseScene.getInstance(stage));
+                Sound.effectSound("/sound/SwordHit.mp3");
             }
         });
     }
