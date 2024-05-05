@@ -19,6 +19,7 @@ public class GameScene extends Scene {
         super(createGameScene(stage), 800, 600);
         setCursor(new ImageCursor(ToolKit.loadImage("character/c" + ChooseScene.getNumber() + "_" + 1 +".png"),100,0));
         addKeyEventHandler(stage);
+        Sound.backgroundSound("/sound/ChoseBattle.mp3");
     }
     public static AnchorPane createGameScene(Stage stage){
         AnchorPane root = new HexagonBoard(stage);
@@ -28,6 +29,7 @@ public class GameScene extends Scene {
         AnchorPane.setLeftAnchor(turn, 10.0);
         turn.setText("Turn: " + GameController.getInstance().getTurn());
         root.getChildren().addAll(turn);
+
 
         return root;
     }

@@ -84,7 +84,7 @@ public class BattleScene extends Scene {
         initializeActionBar(stage);
         chooseAttackType();
 
-        Sound.backgroundSound("/sound/StartScene.mp3");
+
 
         return root;
     }
@@ -321,11 +321,13 @@ public class BattleScene extends Scene {
         powerBtn.setOnMouseClicked(event -> {
             isMagicAtk = false;
             root.getChildren().remove(root.getChildren().size()-1);
+            Sound.backgroundSound("/sound/ClickButton.mp3");
         });
 
         magicPowerBtn.setOnMouseClicked(event -> {
             isMagicAtk = true;
             root.getChildren().remove(root.getChildren().size()-1);
+            Sound.backgroundSound("/sound/ClickButton.mp3");
         });
         HBox chooseBtn = new HBox();
         Insets margin = new Insets(30);
@@ -379,7 +381,7 @@ public class BattleScene extends Scene {
             PauseTransition pauseTransition = new PauseTransition();
             int count = i;
             btn.setOnMouseClicked( event -> {
-
+                Sound.backgroundSound("/sound/SwordHit.mp3");
                 showAttackEffect(allEffect.get(count) , allMonPic.get(count),"a1" , "a2" , "a3");
                 root.getChildren().remove(root.getChildren().size() - 1);
 
