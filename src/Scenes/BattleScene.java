@@ -63,7 +63,7 @@ public class BattleScene extends Scene {
     private static Integer Turn;
     private static Boolean isMagicAtk;
     private static Stage stage;
-    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
     public BattleScene(Stage stage) {
         super(createBattleScene(stage), 800, 600);
@@ -813,7 +813,7 @@ public class BattleScene extends Scene {
     }
 
     private static void delayAndContinue(Runnable task, long delayInMillis) {
-        executor.execute(() -> {
+        EXECUTOR.execute(() -> {
             try {
                 Thread.sleep(delayInMillis);
                 task.run();
