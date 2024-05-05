@@ -5,13 +5,8 @@ import Utils.Sound;
 import Utils.ToolKit;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.game.GameController;
@@ -33,6 +28,7 @@ public class GameScene extends Scene {
         AnchorPane.setLeftAnchor(turn, 10.0);
         turn.setText("Turn: " + GameController.getInstance().getTurn());
         root.getChildren().addAll(turn);
+
         return root;
     }
     public static GameScene getInstance(Stage stage){
@@ -54,8 +50,6 @@ public class GameScene extends Scene {
         this.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 stage.setScene(PauseScene.getInstance(stage));
-
-                Sound.backgroundSound("/sound/SwordHit.mp3");
             }
         });
     }

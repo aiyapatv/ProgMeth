@@ -1,9 +1,6 @@
 package Scenes;
 
-import Utils.FrameRate;
-import Utils.Images;
-import Utils.Random;
-import Utils.ToolKit;
+import Utils.*;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
@@ -86,6 +83,8 @@ public class BattleScene extends Scene {
         initializeFightPane();
         initializeActionBar(stage);
         chooseAttackType();
+
+        Sound.backgroundSound("/sound/StartScene.mp3");
 
         return root;
     }
@@ -772,6 +771,7 @@ public class BattleScene extends Scene {
         escapeButton.setOnMouseClicked(event -> {
             stage.setScene(GameScene.getInstance(stage));
             isEnd = true;
+
         });
         return escapeButton;
     }

@@ -1,6 +1,5 @@
 package Scenes;
 
-import Board.HexagonBoard;
 import Utils.Sound;
 import Utils.ToolKit;
 import Utils.FrameRate;
@@ -59,6 +58,7 @@ public class ChooseScene extends Scene {
         initializeBackButton(stage);
         initializeAttributeBox();
 
+
         return root;
     }
 
@@ -78,6 +78,7 @@ public class ChooseScene extends Scene {
                     selectChar(stack, block);
                     showCharModel();
                     GameController.getInstance().defineCharacter(num);
+                    Sound.backgroundSound("/sound/SelectChar.mp3");
                 }
             });
             charTable.add(stack, i % 3, i / 3);
@@ -95,11 +96,16 @@ public class ChooseScene extends Scene {
                 throw new RuntimeException(e);
             }
         }
+
         isSelected = true;
         block.setStrokeType(StrokeType.INSIDE);
         block.setStroke(Color.RED);
         block.setStrokeWidth(5);
         selectBlock = stack;
+
+
+
+
     }
 
     private static void initializeHeader(){
@@ -116,6 +122,8 @@ public class ChooseScene extends Scene {
         selectBlock.setAlignment(Pos.CENTER);
         selectBlock.getChildren().addAll(selectedChar,selectedName);
         root.add(selectBlock, 0, 1);
+
+
     }
     public static void initializeName(){
         selectedName = new Text();
